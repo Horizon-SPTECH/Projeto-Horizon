@@ -41,7 +41,7 @@ header {
 
     width: 495px;
     height: 60%;
-    background: rgb(43,132,214);
+    background: #2b84d6;
     background: linear-gradient(238deg, rgba(43,132,214,1) 0%, rgba(16,55,90,1) 95%);
 
     border-radius: 37px;
