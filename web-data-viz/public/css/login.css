@@ -8,20 +8,35 @@ header {
     display: flex;
 }
 
+/* ::selection {
+    background-color: #aeaeae;
+    color: #474747;
+} */
+
 .container{
     display: flex;
     justify-content: center;
     align-items: center;
 
 
-    width: 1400px;
-    height: 760px;
+    width: 100vw;
+    height: 100vh;
  
-    background-image: url(fundoLoginCadastro.png);
+    background-image: url(../assets/cidadeCinza.jpg);
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
 
+}
+
+.container img{
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    width: 50px;
+    height: 50px;
+    transform: rotate(180deg);
+    cursor: pointer;
 }
 
 .login{
@@ -30,7 +45,7 @@ header {
     flex-direction: column;
 
     width: 495px;
-    height: 570px;
+    height: 70%;
     background: rgb(43,132,214);
     background: linear-gradient(238deg, rgba(43,132,214,1) 0%, rgba(16,55,90,1) 95%);
 
@@ -61,7 +76,7 @@ header {
 .label{
     font-size: 15px;
     /* text-transform: uppercase; */
-    font-weight: 800px;
+    font-weight: bold;
     color: #bebebe;
     padding-left: 44px;
     padding-bottom: 1px;
@@ -97,9 +112,14 @@ header {
     margin-top: 37px; 
     border-radius: 37px;
 }
+
+.button:active {
+    transform: scale(0.9);
+}
 .button:hover{
-    background-color: #c9c9c9;
+    background-color: #9f9f9f;
     transition: all .8s;
+    color: rgb(64, 64, 64);
 }
 #esqueciSenha, a{
     color: #949494;

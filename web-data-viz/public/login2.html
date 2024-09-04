@@ -3,15 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="login.css">
+    <title>Login - Horizon</title>
+    <link rel="stylesheet" href="css/login.css">
+    <link rel="icon" href="assets/Logos/logo_semnome.png" />
+    <script src="./js/login.js"></script>
+
 </head>
 <body>
 
     <header>
         <div class="container">
+            <a href="index.html">
+            <img src="assets/seta_aDireita.png" alt="">
+        </a>
             <div class="login">
-                <span class="title">Sing Up </span>
+                <span class="title">Sign Up </span>
                 <p class="subtitle"> Crie sua conta e faça parte da Horizon</p>
                 <label for="nome" class="label">Nome</label>
                 <input type="text" id="nome" class="input" placeholder="Digite seu nome">
@@ -22,7 +28,10 @@
                 <label for="senha" class="label">Senha</label>
                 <input type="password" id="senha" class="input" placeholder="Digite sua senha">
 
-                 <input type="button" onclick="" class="button" value="Sing Up">
+                <label for="senha" class="label">Redigite a sua senha</label>
+                <input type="password" id="confSenha" class="input" placeholder="Redigite a sua senha">
+
+                 <input type="button" onclick="" class="button" value="Sign Up">
                 
 
                  <span id="esqueciSenha"><a href="">Esqueci minha senha</a></span>
