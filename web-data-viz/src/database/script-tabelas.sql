@@ -41,18 +41,18 @@ CREATE TABLE cliente (
 
 CREATE TABLE ocorrencia(
 	id INT PRIMARY KEY AUTO_INCREMENT,
-	dataOcorrencia DATE CHECK(ifnull('SEM IDENTIFICAÇÃO')),
-	horaOcorrencia TIME CHECK(ifnull('SEM IDENTIFICAÇÃO')),
-    objetoFurtado VARCHAR(50) CHECK(ifnull('SEM IDENTIFICAÇÃO')),
-    tipoIncidente VARCHAR(50) CHECK(ifnull('SEM IDENTIFICAÇÃO')),
-    municipio VARCHAR(50) CHECK(ifnull('SEM IDENTIFICAÇÃO')),
-    bairro VARCHAR(50) CHECK(ifnull('SEM IDENTIFICAÇÃO')),
-    logradouro VARCHAR(50) CHECK(ifnull('SEM IDENTIFICAÇÃO')),
-    tipoLocal VARCHAR(50) CHECK(ifnull('SEM IDENTIFICAÇÃO')),
-    tipoObjeto VARCHAR(50) CHECK(ifnull('SEM IDENTIFICAÇÃO')),
-    marcaObjeto VARCHAR(50) CHECK(ifnull('SEM IDENTIFICAÇÃO')),
-	modeloObjeto VARCHAR(50) CHECK(ifnull('SEM IDENTIFICAÇÃO')),
-    corVeiculo VARCHAR(50) CHECK(ifnull('SEM IDENTIFICAÇÃO'))
+	dataOcorrencia DATE DEFAULT 'SEM IDENTIFICAÇÃO',
+	horaOcorrencia TIME DEFAULT 'SEM IDENTIFICAÇÃO',
+    objetoFurtado VARCHAR(50)DEFAULT 'SEM IDENTIFICAÇÃO',
+    tipoIncidente VARCHAR(50) DEFAULT 'SEM IDENTIFICAÇÃO',
+    municipio VARCHAR(50) DEFAULT 'SEM IDENTIFICAÇÃO',
+    bairro VARCHAR(50) DEFAULT 'SEM IDENTIFICAÇÃO',
+    logradouro VARCHAR(50) DEFAULT 'SEM IDENTIFICAÇÃO',
+    tipoLocal VARCHAR(50) DEFAULT 'SEM IDENTIFICAÇÃO',
+    tipoObjeto VARCHAR(50) DEFAULT 'SEM IDENTIFICAÇÃO',
+    marcaObjeto VARCHAR(50) DEFAULT 'SEM IDENTIFICAÇÃO',
+	modeloObjeto VARCHAR(50) DEFAULT 'SEM IDENTIFICAÇÃO',
+    corVeiculo VARCHAR(50) DEFAULT 'SEM IDENTIFICAÇÃO'
 );
 
 -- exemplos (não inserir por favor)
