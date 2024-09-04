@@ -45,7 +45,7 @@ header {
     flex-direction: column;
 
     width: 495px;
-    height: 70%;
+    height: 60%;
     background: rgb(43,132,214);
     background: linear-gradient(238deg, rgba(43,132,214,1) 0%, rgba(16,55,90,1) 95%);
 
