@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Horizon</title>
+    <link rel="stylesheet" href="css/login.css">
+    <link rel="icon" href="assets/Logos/logo_semnome.png" />
+    <script src="./js/login.js"></script>
+
+</head>
+
+<body>
+
+    <header>
+        <div class="container">
+            <a href="index.html">
+                <img src="assets/seta_aDireita.png" alt="">
+            </a>
+            <div class="recuperar-senha">
+                <span class="title">Recuperar senha</span>
+                <p class="subtitle"> Entre na sua conta e faça parte da Horizon</p>
+
+                <label for="senha" class="label">Senha</label>
+                <input onclick="verSenha()" id="viewSenha" class="icon-olho" type="image" src="assets/olho.png">
+                <input type="password" id="senha" class="input" placeholder="Digite sua senha">
+
+                <label for="nome" class="label">Confimar Senha</label>
+                <input onclick="verSenh2()" id="viewSenha-confirmar" class="icon-olho-recuperar" type="image" src="assets/olho.png">
+                <input type="password" id="confirmacao_senha" class="input" placeholder="Digite novamente sua senha">
+
+                <input type="button" onclick="" class="button" value="Salvar">
+
+            </div>
+
+        </div>
+    </header>
+
+</body>
+<script>
+    
+
+    function verSenha() {
+        const senhaInput = document.getElementById('senha'); 
+        const olho = document.getElementById('viewSenha');
+
+        if (senhaInput.type === 'password') {
+             senhaInput.type = 'text'; 
+             olho.src = 'assets/olho-fechado.png';
+            } else {
+                senhaInput.type = 'password';
+                
+                olho.src = 'assets/olho.png';
+                }
+            }
+
+        function verSenh2() {
+        const senhaInput = document.getElementById('confirmacao_senha'); 
+        const olho = document.getElementById('viewSenha-confirmar');
+
+        if (senhaInput.type === 'password') {
+             senhaInput.type = 'text'; 
+             olho.src = 'assets/olho-fechado.png';
+            } else {
+                senhaInput.type = 'password';
+                
+                olho.src = 'assets/olho.png';
+                }
+            }
+</script>
+
+</html>

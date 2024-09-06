@@ -34,7 +34,7 @@ header {
     cursor: pointer;
 }
 
-.login, .cadastro{
+.login, .cadastro, .recuperar-senha{
     z-index: 1;
     display: flex;
     flex-direction: column;
@@ -48,6 +48,22 @@ header {
     box-shadow: 1px 1px 2px 2px #00000040;
 
 
+}
+
+.recuperar-senha{
+    height: 50%;
+}
+.icon-olho,.icon-olho-recuperar{
+    width: 1.5%;
+    height: 36px;
+    position: absolute;
+    left: 58.4%;
+    top: 42.6%;
+    background-image: url(../assets/olho.png);
+}
+
+.icon-olho-recuperar{
+    top: 49.6%;
 }
 
 .cadastro{
