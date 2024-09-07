@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Horizon</title>
+    <title>Recuperar senha - Horizon</title>
     <link rel="stylesheet" href="css/login.css">
-    <link rel="icon" href="assets/Logos/logo_semnome.png" />
+    <link rel="icon" href="assets/Logos/logo_horizon.png" />
     <script src="./js/login.js"></script>
 
 </head>
@@ -23,12 +23,18 @@
                 <p class="subtitle"> Entre na sua conta e faça parte da Horizon</p>
 
                 <label for="senha" class="label">Senha</label>
-                <input onclick="verSenha()" id="viewSenha" class="icon-olho" type="image" src="assets/olho.png">
-                <input type="password" id="senha" class="input" placeholder="Digite sua senha">
+                <div class="senha-container">
+                    <input type="password" id="senha" class="input" placeholder="Digite sua senha">
+                    <input onclick="verSenha()" id="viewSenha" class="icon-olho" type="image" src="assets/olho.png">
+
+                </div>
 
                 <label for="nome" class="label">Confimar Senha</label>
-                <input onclick="verSenh2()" id="viewSenha-confirmar" class="icon-olho-recuperar" type="image" src="assets/olho.png">
-                <input type="password" id="confirmacao_senha" class="input" placeholder="Digite novamente sua senha">
+                <div class="senha-container">
+                    <input type="password" id="confirmacao_senha" class="input" placeholder="Digite novamente sua senha">
+                    <input onclick="verSenh2()" id="viewSenha-confirmar" class="icon-olho-recuperar" type="image" src="assets/olho.png">
+
+                </div>
 
                 <input type="button" onclick="" class="button" value="Salvar">
 
