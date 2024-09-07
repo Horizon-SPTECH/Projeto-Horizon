@@ -6,6 +6,25 @@ body {
     color: white;
 }
 
+a {
+    text-decoration: none;
+    color: inherit; 
+    font: inherit; 
+    background: none; 
+    border: none; 
+    padding: 0; 
+    margin: 0;
+    outline: none; 
+}
+
+html {
+    scroll-behavior: smooth;
+  }
+
+  img {
+    -webkit-user-drag: none;
+  }
+
 .container_inicial {
     height: 100vh;
     width: 97vw;
@@ -28,7 +47,14 @@ body {
 }
 
 .inicial_navbar_li li {
-    font-size: 15px;
+    font-size: 17px;
+}
+
+.inicial_navbar_li li:hover{
+    color: rgb(166, 166, 166);
+    cursor: pointer;
+    transition: 0.5s;
+    font-weight: 500;
 }
 
 .container_quadrado {
