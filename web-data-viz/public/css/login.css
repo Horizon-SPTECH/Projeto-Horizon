@@ -78,7 +78,7 @@ header {
 
 .subtitle{
     font-size: 17px;
-    color: #bebebe;
+    color: #fdfafa;
     letter-spacing: 2px;
     font-weight: 100;
     padding-left: 35px;
@@ -98,7 +98,7 @@ header {
 
 .input{
     background-color: #D9D9D9;
-    color: #838383;
+    color: #383838;
     border: none;
     height: 45px;
     width: 400px;
@@ -148,7 +148,7 @@ a:hover{
 
 .senha-container{
     position: relative;
-    padding-left: 37px;
+    padding-left: 40px;
 
 }
 
@@ -210,4 +210,11 @@ a:hover{
         left: 76%;
     }
 
+}
+
+
+footer{
+    width: 100vw;
+    height: 20vh;
+    background-color: red;
 }

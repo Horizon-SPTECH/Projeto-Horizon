@@ -76,6 +76,17 @@ body {
     width: 8rem;
 }
 
+.informacoes_botoes button:hover{
+    transform: scale(1.01);
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+.informacoes_botoes button:active{
+    transform: scale(0.9550);
+    transition: 0.5s;
+}
+
 .container_imagem_inicial {
     padding-top: 12.5%;
 }
@@ -188,3 +199,13 @@ body {
     height: 3rem;
     color: white;
 } 
+
+.footer{
+    width: 100%;
+    height: 20vh;
+    background: rgb(255,255,255);
+background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(148,189,244,1) 0%, rgba(48,79,121,1) 29%);
+
+
+}
+

@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Horizon</title>
     <link rel="stylesheet" href="css/login.css">
-    <link rel="icon" href="assets/Logos/logo_semnome.png" />
-    <!-- <script src="./js/login.js"></script> -->
+    <link rel="icon" href="assets/Logos/logo_horizon.png" />
+    <script src="./js/login.js"></script>
 
 </head>
 
@@ -33,7 +33,11 @@
                 <span id="mensagemErroEmail"></span>
 
                 <label for="senha" class="label">Senha</label>
-                <input type="password" id="senha" class="input" placeholder="Digite sua senha">
+                <div class="senha-container">
+                    <input type="password" id="senha" class="input" placeholder="Digite sua senha">
+                    <input onclick="verSenha()" id="viewSenha" class="icon-olho" type="image" src="assets/olho.png">
+
+                </div>
 
                 <span id="mensagemErroSenha"></span>
 

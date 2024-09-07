@@ -8,12 +8,12 @@
 
   <title>Cadastro - Horizon</title>
 
-  <script src="./js/sessao.js"></script>
+  <script src="js/login.js"></script>
 
   <link rel="stylesheet" href="./css/login.css" />
   <!-- <link rel="icon" href="./assets/icon/favicon2.ico" /> -->
   <link rel="preconnect" href="https://fonts.gstatic.com" />
-  <link rel="icon" href="assets/Logos/logo_semnome.png" />
+  <link rel="icon" href="assets/Logos/logo_horizon.png" />
 </head>
 
 <body onload="listar()">
@@ -46,7 +46,11 @@
         <span id="mensagemErroEmail"></span>
 
         <label for="senha" class="label">Senha</label>
-        <input type="password" id="senha" class="input" placeholder="Digite sua senha">
+                <div class="senha-container">
+                    <input type="password" id="senha" class="input" placeholder="Digite sua senha">
+                    <input onclick="verSenha()" id="viewSenha" class="icon-olho" type="image" src="assets/olho.png">
+
+                </div>
 
         <span id="mensagemErroSenha"></span>
 
