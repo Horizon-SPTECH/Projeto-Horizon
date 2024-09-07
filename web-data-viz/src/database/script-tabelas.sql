@@ -32,7 +32,7 @@ CREATE TABLE cliente (
 	nome VARCHAR(50),
 	email VARCHAR(50),
 	senha VARCHAR(50),
-    CPF CHAR(11),
+    cpf CHAR(11),
 	fk_empresa INT,
     fk_delegacia INT, -- quando não identificar com uma das 2 ia ser legal usar ifnull
 	FOREIGN KEY (fk_empresa) REFERENCES empresa(id),

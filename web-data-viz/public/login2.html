@@ -1,48 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Horizon</title>
     <link rel="stylesheet" href="css/login.css">
     <link rel="icon" href="assets/Logos/logo_semnome.png" />
-    <script src="./js/login.js"></script>
+    <!-- <script src="./js/login.js"></script> -->
 
 </head>
-<body>
+
+<body onload="listar()">
 
     <header>
         <div class="container">
             <a href="index.html">
-            <img src="assets/seta_aDireita.png" alt="">
-        </a>
+                <img src="assets/seta_aDireita.png" alt="">
+            </a>
             <div class="login">
-                <span class="title">Logar </span>
+                <span class="title">Login </span>
                 <p class="subtitle"> Entre na sua conta e faça parte da Horizon</p>
+
                 <label for="nome" class="label">Nome</label>
                 <input type="text" id="nome" class="input" placeholder="Digite seu nome">
-                
+
+                <span id="mensagemErroNome"></span>
+
                 <label for="email" class="label">E-mail</label>
                 <input type="email" id="email" class="input" placeholder="Digite seu e-mail">
+
+                <span id="mensagemErroEmail"></span>
 
                 <label for="senha" class="label">Senha</label>
                 <input type="password" id="senha" class="input" placeholder="Digite sua senha">
 
-                
+                <span id="mensagemErroSenha"></span>
 
-                 <input type="button" onclick="" class="button" value="Logar">
-                
+                <input type="button" onclick="" class="button" value="Logar">
 
-                 <span id="esqueciSenha"><a href="">Esqueci minha senha</a></span>
+
+                <span id="esqueciSenha"><a href="">Esqueci minha senha</a></span>
             </div>
 
 
 
         </div>
     </header>
-    
+
 </body>
+
 </html>
+
+<script>
+
+    const nome = document.getElementById("nome");
+    const email = document.getElementById("email");
+    const senha = document.getElementById("senha");
+
+    let nomeValido = false;
+    let emailValido = false;
+    let senhaValida = false;
+
+    nome.addEventListener('keyup', () => {
+        if (nome.value.trim().length < 5) {
+            mensagemErroNome.setAttribute('style', 'color: red');
+            mensagemErroNome.innerHTML = 'É preciso ter mais do que 5 caracteres para o nome ser válido.';
+        }
+        else {
+            mensagemErroNome.removeAttribute('style')
+            mensagemErroNome.innerHTML = '';
+            nomeValido = true;
+        }
+    });
+
+    email.addEventListener('keyup', () => {
+        if (email.value.indexOf('@') == -1 || !email.value.endsWith('.com') || email.value.trim().length < 10) {
+            mensagemErroEmail.setAttribute('style', 'color: red');
+            mensagemErroEmail.innerHTML = 'Digite um e-mail válido! Use @ e .com';
+        }
+        else {
+            mensagemErroEmail.removeAttribute('style');
+            mensagemErroEmail.innerHTML = '';
+            emailValido = true;
+        }
+    });
+
+    senha.addEventListener('keyup', () => {
+        const senhaValor = senha.value;
+
+        const verificacaoSenha = senhaValor.length >= 8
+            && /[!@#$%^&*(),.?":{}|<>]/.test(senhaValor) &&
+            /[0-9]/.test(senhaValor);
+
+        if (!verificacaoSenha) {
+            mensagemErroSenha.setAttribute('style', 'color: red');
+            mensagemErroSenha.innerHTML = 'Digite uma senha com 8 caracteres, 1 número e 1 caracter especial.';
+        }
+        else {
+            mensagemErroSenha.removeAttribute('style');
+            mensagemErroSenha.innerHTML = '';
+            senhaValida = true;
+        }
+    });
+
+</script>
 
 <!-- 
 <script>

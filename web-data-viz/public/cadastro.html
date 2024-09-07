@@ -6,56 +6,120 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>AquaTech | Cadastro</title>
+  <title>Cadastro - Horizon</title>
 
   <script src="./js/sessao.js"></script>
 
   <link rel="stylesheet" href="./css/login.css" />
-  <link rel="icon" href="./assets/icon/favicon2.ico" />
+  <!-- <link rel="icon" href="./assets/icon/favicon2.ico" /> -->
   <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link rel="icon" href="assets/Logos/logo_semnome.png" />
 </head>
 
 <body onload="listar()">
- 
+
 
   <header>
     <div class="container">
-        <a href="index.html">
+      <a href="index.html">
         <img src="assets/seta_aDireita.png" alt="">
-    </a>
-        <div class="cadastro">
-            <span class="title">Cadastrar </span>
-            <p class="subtitle"> Crie sua conta e faça parte da Horizon</p>
+      </a>
+      <div class="cadastro">
+        <span class="title">Cadastrar </span>
+        <p class="subtitle"> Crie sua conta e faça parte da Horizon</p>
 
-            
-            <label for="email" class="label">Instituição</label>
-            <select class="input" name="" id="">
-              <option value="">DP - São Paulo</option>
-            </select>
 
-            <label for="nome" class="label">Nome</label>
-            <input type="text" id="nome" class="input" placeholder="Digite seu nome">
-            
-            <label for="email" class="label">E-mail</label>
-            <input type="email" id="email" class="input" placeholder="Digite seu e-mail">
+        <label for="email" class="label">Instituição</label>
+        <select class="input" name="" id="instituicao">
+          <option value="#" selected></option>
+          <option value="">DP - São Paulo</option>
+        </select>
 
-            <label for="senha" class="label">Senha</label>
-            <input type="password" id="senha" class="input" placeholder="Digite sua senha">
+        <label for="nome" class="label">Nome</label>
+        <input type="text" id="nome" class="input" placeholder="Digite seu nome">
 
-             <input type="button" onclick="" class="button" value="Cadastrar">
-            
+        <span id="mensagemErroNome"></span>
 
-             <span id="esqueciSenha"><a href="">Esqueci minha senha</a></span>
-             <span id="esqueciSenha"><a href="">Já possuo conta+</a></span>
-        </div>
+        <label for="email" class="label">E-mail</label>
+        <input type="email" id="email" class="input" placeholder="Digite seu e-mail">
+
+        <span id="mensagemErroEmail"></span>
+
+        <label for="senha" class="label">Senha</label>
+        <input type="password" id="senha" class="input" placeholder="Digite sua senha">
+
+        <span id="mensagemErroSenha"></span>
+
+        <input type="button" onclick="" class="button" value="Cadastrar">
+
+
+        <span id="esqueciSenha"><a href="">Esqueci minha senha</a></span>
+        <span id="esqueciSenha"><a href="">Já possuo conta+</a></span>
+      </div>
 
 
 
     </div>
-</header>
+  </header>
 </body>
 
 </html>
+
+<script>
+
+  const nome = document.getElementById('nome');
+  const email = document.getElementById('email');
+  const senha = document.getElementById('senha');
+
+  let nomeValido = false;
+  let emailValido = false;
+  let senhaValida = false;
+
+  nome.addEventListener('keyup', () => {
+    if (nome.value.trim().length < 5) {
+      mensagemErroNome.setAttribute('style', 'color: red');
+      mensagemErroNome.innerHTML = 'É preciso ter mais do que 5 caracteres para o nome ser válido.';
+    }
+    else {
+      mensagemErroNome.removeAttribute('style')
+      mensagemErroNome.innerHTML = ''
+      nomeValido = true;
+    }
+  });
+
+  email.addEventListener('keyup', () => {
+    if (email.value.indexOf('@') == -1 || !email.value.endsWith('.com') || email.value.trim().length < 10) {
+      mensagemErroEmail.setAttribute('style', 'color: red');
+      mensagemErroEmail.innerHTML = 'Digite um e-mail válido! Use @ e .com';
+    }
+    else {
+      mensagemErroEmail.removeAttribute('style');
+      mensagemErroEmail.innerHTML = '';
+      emailValido = true;
+    }
+  });
+  
+  senha.addEventListener('keyup', () => {
+    const senhaValor = senha.value;
+
+    const verificacaoSenha = senhaValor.length >= 8
+      && /[!@#$%^&*(),.?":{}|<>]/.test(senhaValor) &&
+      /[0-9]/.test(senhaValor);
+
+
+    if (!verificacaoSenha) {
+      mensagemErroSenha.setAttribute('style', 'color: red');
+      mensagemErroSenha.innerHTML = 'Digite uma senha com 8 caracteres, 1 número e 1 caracter especial.';
+    }
+    else {
+      mensagemErroSenha.removeAttribute('style');
+      mensagemErroSenha.innerHTML = '';
+      senhaValida = true;
+    }
+  });
+
+</script>
+
 <!-- 
 
 <script>
