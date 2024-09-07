@@ -30,19 +30,23 @@
 
 
         <label for="email" class="label">Instituição</label>
-        <select class="input" name="" id="instituicao">
-          <option value="#" selected></option>
-          <option value="">DP - São Paulo</option>
-        </select>
+        <div class="senha-container">
+          <select class="input" name="" id="instituicao">
+            <option value="#" selected></option>
+            <option value="">DP - São Paulo</option>
+          </select>
+        </div>
 
         <label for="nome" class="label">Nome</label>
-        <input type="text" id="nome" class="input" placeholder="Digite seu nome">
-
+        <div class="senha-container">
+          <input type="text" id="nome" class="input" placeholder="Digite seu nome">
+        </div>  
         <span id="mensagemErroNome"></span>
 
         <label for="email" class="label">E-mail</label>
-        <input type="email" id="email" class="input" placeholder="Digite seu e-mail">
-
+        <div class="senha-container">
+          <input type="email" id="email" class="input" placeholder="Digite seu e-mail">
+        </div>
         <span id="mensagemErroEmail"></span>
 
         <label for="senha" class="label">Senha</label>
@@ -56,9 +60,7 @@
 
         <input type="button" onclick="" class="button" value="Cadastrar">
 
-
-        <span id="esqueciSenha"><a href="">Esqueci minha senha</a></span>
-        <span id="esqueciSenha"><a href="">Já possuo conta+</a></span>
+        <span id="esqueciSenha"><a href="">Já possuo conta</a></span>
       </div>
 
 
