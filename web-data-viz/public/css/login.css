@@ -152,7 +152,7 @@ a:hover{
 
 }
 
-/* @media (max-width: 1366px) {
+@media (max-width: 1366px) {
 
     .recuperar-senha {
         width: 30%;
@@ -160,41 +160,54 @@ a:hover{
     }
 
     .input {
-        width: 80%;
+        width: 85%;
     }
 
     .icon-olho, .icon-olho-recuperar {
-        width: 2.5%;
+        width: 7%;
         height: 40px;
+        left: 77%;
     }
 
-    .icon-olho{
-        top: 45%;
-    }
-    .icon-olho-recuperar{
-        top: 55%;
-    }
 
     .title {
         font-size: 30px;
     }
-} */
+}
 
-/* @media (max-width: 768px) {
+@media (max-width: 992px) {
     .recuperar-senha {
-        width: 100%;
-        height: auto;
+        width: 40%;
+        height: 450px;
     }
 
-    .input {
-        width: 80%;
+}
+
+@media (max-width: 768px) {
+    .recuperar-senha {
+        width: 45%;
+        height: 450px;
     }
 
     .icon-olho, .icon-olho-recuperar {
-        right: 10%;
+        width: 7.5%;
+        height: 35px;
+        left: 76%;
     }
 
-    .button {
-        width: 80%;
+}
+
+@media (max-width:620px){
+
+    .recuperar-senha {
+        width: 52%;
+        height: 450px;
     }
-} */
+
+    .icon-olho, .icon-olho-recuperar {
+        width: 7.5%;
+        height: 35px;
+        left: 76%;
+    }
+
+}
