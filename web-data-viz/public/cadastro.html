@@ -106,23 +106,27 @@
   });
   
   senha.addEventListener('keyup', () => {
-    const senhaValor = senha.value;
+  const senhaValor = senha.value;
 
-    const verificacaoSenha = senhaValor.length >= 8
-      && /[!@#$%^&*(),.?":{}|<>]/.test(senhaValor) &&
-      /[0-9]/.test(senhaValor);
+  const verificacaoSenha = senhaValor.length >= 8
+    && /[!@#$%^&*(),.?":{}|<>]/.test(senhaValor)
+    && /[0-9]/.test(senhaValor);
 
+  if (senhaValor === "") {
+    mensagemErroSenha.removeAttribute('style');
+    mensagemErroSenha.innerHTML = '';
+  }
+  else if (!verificacaoSenha) {
+    mensagemErroSenha.setAttribute('style', 'color: #ff0000', 'font-weight: bold');
+    mensagemErroSenha.innerHTML = 'Digite uma senha com 8 caracteres, 1 número e 1 caracter especial.';
+  }
+  else {
+    mensagemErroSenha.removeAttribute('style');
+    mensagemErroSenha.innerHTML = '';
+    senhaValida = true;
+  }
+});
 
-    if (!verificacaoSenha) {
-      mensagemErroSenha.setAttribute('style', 'color: red');
-      mensagemErroSenha.innerHTML = 'Digite uma senha com 8 caracteres, 1 número e 1 caracter especial.';
-    }
-    else {
-      mensagemErroSenha.removeAttribute('style');
-      mensagemErroSenha.innerHTML = '';
-      senhaValida = true;
-    }
-  });
 
 </script>
 
