@@ -10,30 +10,40 @@
 </head>
 
 <body>
+    <div class="inicial_navbar">
+        <div class="container2">
+            <div class="menu_navegacao">
+                <ul>
+                    <a href="#quem_somos">
+                        <li>Quem somos</li>
+                    </a>
+                    <a href="#sobre_servico">
+                        <li>Serviços</li>
+                    </a>
+                    <a href="#container_dashboard">
+                        <li>Dashboard</li>
+                    </a>
+                    <a href="#quem_somos">
+                        <li>Nosso projeto</li>
+                    </a>
+                    <div class="btns">
+                        <button onclick="window.location.href='login2.html'">Entrar</button>
+                        <button onclick="window.location.href='cadastro.html'">Cadastrar</button>
+                    </div>
+                </ul>
+            </div>
+        </div>
+    </div>
 
     <div class="container_inicial">
         <div class="container_quadrado">
-            <div class="inicial_navbar">
-                <ul class="inicial_navbar_li">
-                    <li><a href="#quem_somos">Quem somos</a></li>
-                    <li><a href="#sobre_servico">Serviços</a></li>
-                    <li><a href="#container_dashboard">Dashboard</a></li>
-                    <li><a href="#quem_somos">Nosso projeto</a></li>
-                </ul>
-                <div class="botoes_acesso">
-                    <button onclick="window.location.href='login2.html'">Entrar</button>
-                    <button onclick="window.location.href='cadastro.html'">Cadastrar</button>
-                    
-                </div>
-            </div>
-            
             <div class="card_tela_inicial">
                 <div class="informacoes_titulo">
                     <div class="titulo">
                         <span>Horizon</span>
                         <br>
                         <div class="slogan">
-                            <span >Uma plataforma de análise de segurança inteligente, insights infinitos.</span>
+                            <span>Uma plataforma de análise de segurança inteligente, insights infinitos.</span>
 
                         </div>
                     </div>
@@ -130,6 +140,7 @@
             <div class="container">
                 <div class="alinhaFooter">
                     <h3>@copyright 2024 - Horizon</h3>
+                    <img class="imagensLogo" src="assets/Logos/logo_semnome.png" alt="">
                 </div>
                 <div class="alinhaFooterRede">
                     <h4>Informações</h4>
@@ -143,26 +154,38 @@
                         </ul>
                     </div>
                 </div>
-    
+
                 <div class="alinhaFooterRede">
                     <h4>Contato:</h4>
                     <div class="redesSociais">
-                        <a href="https://github.com/Horizon-SPTECH"><img class="imagensRedesSociais" src="assets/git.png"></a>
+                        <a href="https://github.com/Horizon-SPTECH"><img class="imagensRedesSociais"
+                                src="assets/git.png"></a>
                     </div>
                 </div>
             </div>
         </div>
-        
+
         <div vw class="enabled">
             <div vw-access-button class="active"></div>
             <div vw-plugin-wrapper>
-              <div class="vw-plugin-top-wrapper"></div>
+                <div class="vw-plugin-top-wrapper"></div>
             </div>
-          </div>
-        
+        </div>
+
 </body>
-        <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
-        <script>
-        new window.VLibras.Widget('https://vlibras.gov.br/app');
-        </script>
+<script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+<script>
+    new window.VLibras.Widget('https://vlibras.gov.br/app');
+</script>
+<script>
+
+    const navbar = document.querySelector(".inicial_navbar");
+    const ativarScroll = () => {
+        navbar.classList.toggle("alternada", scrollY > 0);
+    }
+
+    window.addEventListener('scroll', ativarScroll);
+
+</script>
+
 </html>

@@ -32,11 +32,48 @@ html {
 }
 
 .inicial_navbar {
-    height: 7%;
-    width: 100%;
-    background-color: none;
+    /* align-items: center; */
+
     display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 10vh;
+    background-color: transparent;
+    position: fixed;
+    transition: 0.5s;
+    z-index: 1;
+    color: black;
+}
+
+.container {
+    width: 85%;
+    height: 100%;
+}
+
+.container2 {
+    width: 100%;
+
+}
+.menu_navegacao{
+    /* height: 100%;
+    display: flex;
+    flex-direction: row;
     align-items: center;
+    justify-content: space-between; */
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    color: #000000;
+    font-weight: bold;
+}
+
+.alternada {
+    background-color: rgba(255, 255, 255, 0.527);
+    backdrop-filter: blur(6px);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    border: 1px solid rgb(0, 0, 0, 0.2);
 }
 
 .botoes_acesso{
@@ -48,7 +85,7 @@ html {
 
 }
 
-.inicial_navbar_li {
+/* .inicial_navbar_li {
     padding-top: 20px;
     margin: 0;
     list-style: none;
@@ -57,17 +94,34 @@ html {
     align-items: center;
     flex-direction: row;
     gap: 5.5rem;
+} */
+
+.menu_navegacao ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    padding: 0;
 }
 
-.inicial_navbar_li li {
+/* .inicial_navbar_li li {
     font-size: 20px;
+} */
+
+.menu_navegacao a li {
+    font-weight: bold;
+    list-style: none;
+    padding: 8px 30px;
+    position: relative;
 }
 
-.inicial_navbar_li li:hover{
-    color: rgb(166, 166, 166);
+
+.menu_navegacao li:hover{
+    color: rgb(107, 107, 107);
     cursor: pointer;
     transition: 0.5s;
-    font-weight: 500;
+    font-weight: 900;
 }
 
 .container_quadrado {
@@ -103,7 +157,7 @@ html {
     display: flex;
     flex-direction: row;
     gap: 10px;
-    margin-top: 5%;
+    margin-top: 05%;
 }
 
 .informacoes_botoes button {
@@ -245,16 +299,15 @@ html {
     justify-content: center;
     background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(148,189,244,1) 0%, rgba(48,79,121,1) 10%);
     width: 100%;
-    height: 28vh;
+    height: 210px;
     padding-top: 2%;
 }
 
 #footer .container {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center;
-    width: 800px;
 }
 
 .alinhaFooter {
@@ -262,13 +315,12 @@ html {
     flex-direction: column;
     height: 75%;
     width: 225px;
-    justify-content: center;
+    justify-content: flex-start;
 }
 
 .alinhaFooterRede {
     display: flex;
     flex-direction: column;
-    height: 225px;
     width: 20%;
 }
 
@@ -301,6 +353,17 @@ html {
     width: 40px;
 }
 
+.imagensLogo{
+    margin-right: 20px;
+    width: 40%;
+}
+
+.btns{
+    display: flex;
+    width: 30%;
+    justify-content: space-evenly;
+    
+}
 
 /* .container_quadrado img{
     display: flex;
@@ -311,7 +374,7 @@ html {
 
 .logo_tela{
     display: flex;
-    z-index: 1;
+    /* z-index: 1; */
 }
 
 .card_tela_inicial{
@@ -325,7 +388,7 @@ html {
 
 .card_tela_inicial img{
     position: static;
-    width: 35vw;
+    width: 100%;
     height: auto;
 }
 
@@ -362,28 +425,29 @@ html {
     font-weight: 500;
     font-size: 18px;
 }
+
 /* Botões de Login e Cadastro */
-.botoes_acesso button{
+.btns button{
     width: 110px;
     height: 40px;
     border-radius: 25px;
     font-size: 20px;
 }
 
-.botoes_acesso button:hover{
+.btns button:hover{
     background-color: #c6c6c6;
     transform: scale(1.05);
     /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); */
 }
 
-.botoes_acesso button:active {
+.btns button:active {
     transform: scale(0.9999);
     /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); */
 }
 
 /* /////////////////////////////////////////////////// */
 
-.botao_inicial button:hover{
+.btns button:hover{
     background-color: #1a81db;
     transform: scale(1.05);
     /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); */
