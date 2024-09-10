@@ -13,6 +13,7 @@
     <div class="inicial_navbar">
         <div class="container2">
             <div class="menu_navegacao">
+                <img src="assets/logos/logo_semnome.png" alt="">
                 <ul>
                     <a href="#quem_somos">
                         <li>Quem somos</li>
@@ -23,43 +24,27 @@
                     <a href="#container_dashboard">
                         <li>Dashboard</li>
                     </a>
-                    <a href="#quem_somos">
-                        <li>Nosso projeto</li>
-                    </a>
-                    <div class="btns">
-                        <button onclick="window.location.href='login2.html'">Entrar</button>
-                        <button onclick="window.location.href='cadastro.html'">Cadastrar</button>
-                    </div>
                 </ul>
+            </div>
+
+            <div class="btns">
+                <button onclick="window.location.href='login2.html'">Entrar</button>
+                <button onclick="window.location.href='cadastro.html'">Cadastrar</button>
             </div>
         </div>
     </div>
 
     <div class="container_inicial">
-        <div class="container_quadrado">
-            <div class="card_tela_inicial">
-                <div class="informacoes_titulo">
-                    <div class="titulo">
-                        <span>Horizon</span>
-                        <br>
-                        <div class="slogan">
-                            <span>Uma plataforma de análise de segurança inteligente, insights infinitos.</span>
-
-                        </div>
-                    </div>
-                    <div class="botao_inicial">
-                        <button onclick="window.location.href='cadastro.html'">Faça parte
-                        </button>
-                    </div>
+        <div class="container_inicial2">
+            <div class="inicial_informacoes">
+                <div class="inicial_informacoes_texto">
+                    <span>Coleta e análise de dados de furtos</span>
+                    <p>Uma plataforma de análise de segurança inteligente</p>
                 </div>
-                <div class="logo_tela">
-                    <img src="assets/Logos/logo_semnome.png" alt="">
-                </div>
+            </div>
 
-                <!-- <div class="container_imagem_inicial">
-                    <img src="assets/logos/logo_horizon.png" alt="">
-                </div> -->
-
+            <div class="inicial_img">
+                <img src="assets/logos/logo.png" alt="">
             </div>
         </div>
 
@@ -72,13 +57,7 @@
             <div class="quemSomos_informacao" id="container_quemSomosID">
                 <div class="quemSomos_informacao_texto">
                     <p>Quem somos?</p>
-                    <span>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Non tenetur magnam nam quo quibusdam
-                        totam cumque, id ab, veniam vel quas nostrum fugiat eius cum rem pariatur, velit deleniti
-                        natus!Lorem Lorem, ipsum dolor sit amet consectetur adipisicing elit. Non tenetur magnam nam quo
-                        quibusdam totam cumque, id ab, veniam vel quas nostrum fugiat eius cum rem pariatur, velit
-                        deleniti natus!LoremLorem, ipsum dolor sit amet consectetur adipisicing elit. Non tenetur magnam
-                        nam quo quibusdam totam cumque, id ab, veniam vel quas nostrum fugiat eius cum rem pariatur,
-                        velit deleniti natus!Lorem</span>
+                    <span>Somos uma plataforma de segurança pública especializada na coleta e análise inteligente de dados de furtos. Nossa solução integra informações de diversas fontes em uma interface intuitiva, permitindo identificar padrões, otimizar recursos policiais e fornecer insights estratégicos para melhorar a segurança de maneira eficaz.</span>
                 </div>
             </div>
         </div>
@@ -136,6 +115,7 @@
                 <img src="assets/logos/99957101559063892f92a5f9b05f66ef.jpg" alt="">
             </div>
         </div>
+
         <div id="footer">
             <div class="container">
                 <div class="alinhaFooter">
@@ -171,12 +151,15 @@
                 <div class="vw-plugin-top-wrapper"></div>
             </div>
         </div>
-
+    </div>
 </body>
+
 <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+
 <script>
     new window.VLibras.Widget('https://vlibras.gov.br/app');
 </script>
+
 <script>
 
     const navbar = document.querySelector(".inicial_navbar");

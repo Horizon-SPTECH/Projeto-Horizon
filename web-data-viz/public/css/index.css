@@ -1,6 +1,6 @@
 body {
     background-color: #D9D9D9;
-    font-family: Arial, sans-serif;
+    font-family: Verdana;
     padding: 0;
     margin: 0;
     color: white;
@@ -21,28 +21,26 @@ html {
     scroll-behavior: smooth;
   }
 
-  img {
-    -webkit-user-drag: none;
-  }
+img {
+   -webkit-user-drag: none;
+}
 
 .container_inicial {
     height: 100vh;
     width: 100%;
-
 }
 
 .inicial_navbar {
     /* align-items: center; */
-
     display: flex;
-    justify-content: center;
     width: 100%;
     height: 10vh;
     background-color: transparent;
     position: fixed;
     transition: 0.5s;
     z-index: 1;
-    color: black;
+    color: white;
+    gap: 50vw;
 }
 
 .container {
@@ -52,21 +50,38 @@ html {
 
 .container2 {
     width: 100%;
-
+    background-color: #272729;
+    display: flex;
+    align-items: center;
 }
-.menu_navegacao{
-    /* height: 100%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between; */
+
+.inicial_informacoes {
+    color: white;
     height: 100%;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.inicial_informacoes_texto {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 75%;
+    flex-direction: column;
+}
+
+.menu_navegacao{
+    height: 100%;
+    width: 100%;
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-between;
-    color: #000000;
-    font-weight: bold;
+    color: white;
+    padding-left: 2rem;
+    gap: 5vw;
 }
 
 .alternada {
@@ -99,9 +114,9 @@ html {
 .menu_navegacao ul {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
     align-items: center;
     width: 100%;
+    gap: 4rem;
     padding: 0;
 }
 
@@ -110,27 +125,33 @@ html {
 } */
 
 .menu_navegacao a li {
-    font-weight: bold;
     list-style: none;
-    padding: 8px 30px;
-    position: relative;
+    font-size: 0.9rem;
 }
 
-
-.menu_navegacao li:hover{
-    color: rgb(107, 107, 107);
-    cursor: pointer;
-    transition: 0.5s;
-    font-weight: 900;
+.menu_navegacao img {
+    width: 5vw;
+    height: auto;
 }
 
-.container_quadrado {
+.container_inicial2 {
     height: 100%;
-  color: white;
-  background-size: cover;
-  background-position: center;
-  justify-content: center;
-  background-image: url(../assets/Design\ sem\ nome.png);
+    color: white;
+    background-size: cover;
+    background-position: center;
+    background-image: url(../assets/henry-chen-ZwRCXGkv30w-unsplash.jpg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.inicial_img {
+    background-color: #D9D9D9;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .container_informacoes_imagem_inicial {
@@ -221,7 +242,11 @@ html {
 
 .quemSomos_informacao_texto p {
     font-weight: bold;
-    font-size: 30px;
+    font-size: 1.5rem;
+}
+
+.quemSomos_informacao_texto span {
+    font-size: 1.3rem;
 }
 
 .container_sobreServico {
@@ -362,7 +387,6 @@ html {
     display: flex;
     width: 30%;
     justify-content: space-evenly;
-    
 }
 
 /* .container_quadrado img{
@@ -400,60 +424,18 @@ html {
 
 }
 
-.slogan{
-    width: 82%;
-    font-size: 30px;
-    font-weight: 300;
-    flex-wrap: initial;
-
-}
-
-.botao_inicial{
-    display: flex   ;
-    justify-content: center;
-    align-items: center;
-    width: 40%;
-    padding-top: 3%;
-}
-
-.botao_inicial button{
-    width: 150px;
-    height: 50px;
-    border-radius: 25px;
-    background-color: #2E8BDD;
-    color: white;
-    font-weight: 500;
-    font-size: 18px;
-}
-
 /* Botões de Login e Cadastro */
 .btns button{
-    width: 110px;
-    height: 40px;
-    border-radius: 25px;
-    font-size: 20px;
+    width: 6vw;
+    height: 5vh;
+    border-radius: 5px;
+    font-size: 13px;
+    border-style: none;
+    background-color: #304f79;
+    color: white;
 }
 
-.btns button:hover{
-    background-color: #c6c6c6;
-    transform: scale(1.05);
-    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); */
-}
-
-.btns button:active {
-    transform: scale(0.9999);
-    /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); */
-}
-
-/* /////////////////////////////////////////////////// */
-
-.btns button:hover{
-    background-color: #1a81db;
-    transform: scale(1.05);
-    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); */
-}
-
-.botao_inicial button:active {
-    transform: scale(0.95);
-    /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); */
+.btns button:hover {
+    background-color: #0092E4;
+    transition: 0.4s;
 }
