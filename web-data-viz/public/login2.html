@@ -43,6 +43,8 @@
 
 
                 <span id="esqueciSenha"><a href="recuperar-senha.html">Esqueci minha senha</a></span>
+                <span id="esqueciSenha"><a style="color: white;" href="cadastro.html">Cadastrar</a></span>
+
             </div>
 
 
@@ -65,9 +67,9 @@
     let senhaValida = false;
 
     nome.addEventListener('keyup', () => {
-        if (nome.value.trim().length < 5) {
+        if (nome.value.trim().length < 2) {
             mensagemErroNome.setAttribute('style', 'color: red');
-            mensagemErroNome.innerHTML = 'É preciso ter mais do que 5 caracteres para o nome ser válido.';
+            mensagemErroNome.innerHTML = 'É preciso ter mais do que 1 caracter para o nome ser válido.';
         }
         else {
             mensagemErroNome.removeAttribute('style')
