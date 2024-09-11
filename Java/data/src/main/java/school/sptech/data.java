@@ -1,9 +1,6 @@
 package school.sptech;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class data {
     String dataDoSistema(){
@@ -12,12 +9,14 @@ public class data {
         return relogio.toString();
     }
 
-//    List<String> registroUsuario(){
-//        List<String> listaCadastro = new ArrayList<>();
-//        Scanner leitor = new Scanner(System.in);
-//
-//        System.out.println("Nome da sua empresa:");
-//        listaCadastro.add(leitor.nextLine());
-//
-//    }
+    String horaCalendario(){
+        Calendar c = Calendar.getInstance();
+
+        Integer hora = c.get(Calendar.HOUR);
+        Integer minuto = c.get(Calendar.MINUTE);
+        Integer segundos = c.get(Calendar.SECOND);
+
+        String horaFormatada = hora.toString() + ":" + minuto.toString() + ":" + segundos.toString();
+        return horaFormatada;
+    }
 }
