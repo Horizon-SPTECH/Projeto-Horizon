@@ -12,11 +12,14 @@ public class data {
     String horaCalendario(){
         Calendar c = Calendar.getInstance();
 
-        Integer hora = c.get(Calendar.HOUR);
+        Integer hora = c.get(Calendar.HOUR_OF_DAY);
         Integer minuto = c.get(Calendar.MINUTE);
         Integer segundos = c.get(Calendar.SECOND);
 
-        String horaFormatada = hora.toString() + ":" + minuto.toString() + ":" + segundos.toString();
+
+        String horaFormatada = String.format("%02d:%02d:%02d", hora, minuto, segundos);
+
+
         return horaFormatada;
     }
 }
