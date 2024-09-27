@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="./css/login.css" />
   <!-- <link rel="icon" href="./assets/icon/favicon2.ico" /> -->
   <link rel="preconnect" href="https://fonts.gstatic.com" />
-  <link rel="icon" href="assets/Logos/logo_horizon.png" />
+  <link rel="icon" href="assets/logos/logo_horizon.png" />
 </head>
 
 <body onload="listar()">
@@ -29,38 +29,41 @@
         <p class="subtitle"> Crie sua conta e faça parte da Horizon</p>
 
 
-        <label for="email" class="label">Instituição</label>
+        <!-- <label for="email" class="label">Instituição</label>
         <div class="senha-container">
           <select class="input" name="" id="instituicao">
             <option value="#" selected></option>
             <option value="">DP - São Paulo</option>
           </select>
-        </div>
+        </div> -->
 
         <label for="nome" class="label">Nome</label>
         <div class="senha-container">
-          <input type="text" id="nome" class="input" placeholder="Digite seu nome">
-        </div>  
+          <input type="text" id="nome_input" class="input" placeholder="Digite seu nome">
+        </div>
         <span id="mensagemErroNome"></span>
 
         <label for="email" class="label">E-mail</label>
         <div class="senha-container">
-          <input type="email" id="email" class="input" placeholder="Digite seu e-mail">
+          <input type="email" id="email_input" class="input" placeholder="Digite seu e-mail">
         </div>
         <span id="mensagemErroEmail"></span>
 
         <label for="senha" class="label">Senha</label>
-                <div class="senha-container">
-                    <input type="password" id="senha" class="input" placeholder="Digite sua senha">
-                    <input onclick="verSenha()" id="viewSenha" class="icon-olho" type="image" src="assets/olho.png">
+        <div class="senha-container">
+          <input type="password" id="senha_input" class="input" placeholder="Digite sua senha">
+          <input onclick="verSenha()" id="viewSenha" class="icon-olho" type="image" src="assets/olho.png">
 
-                </div>
+        </div>
+
+        
+
 
         <span id="mensagemErroSenha"></span>
 
         <input type="button" onclick="" class="button" value="Cadastrar">
 
-        <span id="esqueciSenha"><a href="">Já possuo conta</a></span>
+        <span id="esqueciSenha"><a href="login2.html">Já possuo conta</a></span>
       </div>
 
 
@@ -104,33 +107,34 @@
       emailValido = true;
     }
   });
-  
+
   senha.addEventListener('keyup', () => {
-  const senhaValor = senha.value;
+    const senhaValor = senha.value;
 
-  const verificacaoSenha = senhaValor.length >= 8
-    && /[!@#$%^&*(),.?":{}|<>]/.test(senhaValor)
-    && /[0-9]/.test(senhaValor);
+    const verificacaoSenha = senhaValor.length >= 8
+      && /[!@#$%^&*(),.?":{}|<>]/.test(senhaValor)
+      && /[0-9]/.test(senhaValor);
 
-  if (senhaValor === "") {
-    mensagemErroSenha.removeAttribute('style');
-    mensagemErroSenha.innerHTML = '';
-  }
-  else if (!verificacaoSenha) {
-    mensagemErroSenha.setAttribute('style', 'color: #ff0000', 'font-weight: bold');
-    mensagemErroSenha.innerHTML = 'Digite uma senha com 8 caracteres, 1 número e 1 caracter especial.';
-  }
-  else {
-    mensagemErroSenha.removeAttribute('style');
-    mensagemErroSenha.innerHTML = '';
-    senhaValida = true;
-  }
-});
+    if (senhaValor === "") {
+      mensagemErroSenha.removeAttribute('style');
+      mensagemErroSenha.innerHTML = '';
+    }
+    else if (!verificacaoSenha) {
+      mensagemErroSenha.setAttribute('style', 'color: #ff0000', 'font-weight: bold');
+      mensagemErroSenha.innerHTML = 'Digite uma senha com 8 caracteres, 1 número e 1 caracter especial.';
+    }
+    else {
+      mensagemErroSenha.removeAttribute('style');
+      mensagemErroSenha.innerHTML = '';
+      senhaValida = true;
+      cadastrarUsuario();
+    }
+  });
 
 
 </script>
 
-<!-- 
+
 
 <script>
 
@@ -245,4 +249,4 @@
   function sumirMensagem() {
     cardErro.style.display = "none";
   }
-</script> -->
+</script>

@@ -35,5 +35,6 @@ public class Main {
 
         System.out.println("Na data de " + listaData.get(0) + " foi resgistrado " + "a empresa " + listaCadastro.get(0));
         System.out.println( "Na data de " + listaData.get(1) +  " foi resgistrado a " + listaCadastro.get(1) + "º Delegacia policial");
+
     }
 }
