@@ -1,0 +1,127 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+}
+
+.background {
+    background: radial-gradient(193.69% 189.9% at 54.62% -37.46%, #2C0E6A 0%, rgba(40, 13, 98, 0.95) 0.01%, rgba(7, 3, 18, 0.50) 100%), #565656;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    width: 90%;
+    height: 85%;
+    border-radius: 56px;
+    border: 1px solid rgba(255, 255, 255, 0.54);
+    background: radial-gradient(101.81% 98.73% at 51.96% 40.13%, rgba(96, 103, 242, 0.80) 0.01%, rgba(52, 52, 52, 0.80) 94.06%);
+    box-shadow: 10px 28px 36px 17px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(25.5px);
+    padding: 2.2rem;
+    display: flex;
+    flex-direction: row;
+}
+
+.container-barra-lateral {
+    width: 12.03%;
+    height: 98%;
+    border-radius: 25px;
+    background: linear-gradient(178deg, #5321CA -2.19%, rgba(27, 0, 92, 0.53) 110.15%);
+    box-shadow: 0px 21px 21px 1px rgba(45, 29, 71, 0.53);
+}
+
+.cbl-logo {
+    width: 100%;
+    height: 15%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.cbl-logo img {
+    width: auto;
+    height: 80%;
+}
+
+.cbl-botoes-home {
+    width: 100%;
+    height: 85%;
+}
+
+.container-graficos-kpis {
+    width: 85%;
+    height: 98%;
+    padding-left: 2rem;
+}
+
+.cgk-navbar {
+    width: 82%;
+    height: 15%;
+    display: flex;
+    align-items: center;
+}
+
+.cgk-navbar span {
+    color: white;
+    font-size: 40px;
+}
+
+.cgk-mapa-kpi {
+    width: 100%;
+    height: 45%;
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+}
+
+.cgk-mapa {
+    width: 50vw;
+    height: 100%;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.cgk-kpi {
+    width: 25vw;
+    height: 100%;
+    gap: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+#cgk-kpi-id {
+    width: 100%;
+    height: 18vh;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.cgk-graficos-kpi {
+    margin-top: 1rem;
+    width: 100%;
+    height: 37%;
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+}
+
+#cgk-graficos-id {
+    width: 24vw;
+    height: 100%;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.cgk-grafico-IA {
+    width: 25vw;
+    height: 100%;
+    background-color: white;
+    border-radius: 10px;
+}
