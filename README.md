@@ -1,4 +1,4 @@
-![Logo](https://imgur.com/6MY9TVM.png)
+
 
 # Projeto Pesquisa e Inovação - Grupo 6
 
