@@ -20,6 +20,7 @@ a {
     display: flex;
     justify-content: center;
     flex-direction: column;
+    align-items: center;
 }
 
 .nav-bar {
@@ -79,6 +80,7 @@ button:active {
     font-style: normal;
     font-weight: 700;
     line-height: normal;
+    margin-bottom: 5vh;
 }
 
 .input-container {
