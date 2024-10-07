@@ -21,24 +21,39 @@
 
                     <div class="cbl-botoes-barralateral">
                         <div class="bl-botao">
-                            <img src="assets/usuario.png" alt="">
-                            <span>Perfil</span>
+                            <div class="bl-botao-filho">
+                                <img src="assets/casa.png" alt="">
+                                <span>Inicio</span>
+                            </div>
                         </div>
 
                         <div class="bl-botao">
-                            <img src="assets/cadeado.png" alt="">
-                            <span>Alterar senha</span>
+                            <div class="bl-botao-filho">
+                                <img src="assets/usuario.png" alt="">
+                                <span>Perfil</span>
+                            </div>
                         </div>
 
                         <div class="bl-botao">
-                            <img src="assets/add.png" alt="">
-                            <span>Novo usuario</span>
+                            <div class="bl-botao-filho">
+                                <img src="assets/cadeado.png" alt="">
+                                <span>Alterar senha</span>
+                            </div>
+                        </div>
+
+                        <div class="bl-botao">
+                            <div class="bl-botao-filho">
+                                <img src="assets/add.png" alt="">
+                                <span>Novo usuario</span>
+                            </div>
                         </div>
                     </div>
 
                     <div class="bl-botao">
-                        <img src="assets/porta.png" alt="">
-                        <span>Sair</span>
+                        <div class="bl-botao-filho">
+                            <img src="assets/porta.png" alt="">
+                            <span>Sair</span>
+                        </div>
                     </div>
 
                 </div>
@@ -120,11 +135,23 @@
 
                 <div class="cgk-graficos-kpi">
                     <div class="cgk-grafico-periodo" id="cgk-graficos-id">
+                        <div class="cgk-grafico-texto">
+                            <h1>Periodo com mais furtos</h1>
+                        </div>
 
+                        <div class="cgk-grafico-canvas">
+                            <canvas id="grafico_periodo"></canvas>
+                        </div>
                     </div>
 
                     <div class="cgk-grafico-meses" id="cgk-graficos-id">
+                        <div class="cgk-grafico-texto">
+                            <h1>Meses com mais furto</h1>
+                        </div>
 
+                        <div class="cgk-grafico-canvas">
+                            <canvas id="grafico_meses"></canvas>
+                        </div>
                     </div>
 
                     <div class="cgk-grafico-IA">
@@ -142,3 +169,40 @@
     </div>
 </body>
 </html>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    const grafico_periodo = document.getElementById('grafico_periodo');
+
+    Chart.defaults.color = '#23005B';
+    Chart.defaults.borderColor = 'white';
+
+    new Chart(grafico_periodo, {
+    type: 'bar',
+    data: {
+        labels: ['Manhã', 'Tarde', 'Noite'],
+        datasets: [{
+            label: 'Periodo',
+            data: [12, 19, 3],
+            backgroundColor: '#5321CA',
+            borderRadius: 10
+        }]
+    }
+    });
+
+    const grafico_meses = document.getElementById('grafico_meses');
+
+    new Chart(grafico_meses, {
+    type: 'bar',
+    data: {
+        labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'],
+        datasets: [{
+            label: 'Meses',
+            data: [12, 19, 3, 5, 2, 3],
+            backgroundColor: '#5321CA',
+            borderRadius: 10
+        }]
+    }
+    });
+</script>
