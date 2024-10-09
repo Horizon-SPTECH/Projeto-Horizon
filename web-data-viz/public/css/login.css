@@ -1,4 +1,210 @@
-*{
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #310F67 -0.32%, rgba(119, 96, 157, 0.83) 105.5%), #565656;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    overflow-y: auto;
+}
+
+.container{
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    min-height: 100vh;
+}
+
+
+.fundo-btn{
+    width: 100%;
+    height: 150px;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+}
+
+.fundo-roxo{
+    background-color: #1A0044;
+    width: 14%;
+    height: 75px;
+    border-radius: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+}
+
+.btn-login{
+    width: 70%;
+    border-radius: 50px;
+    color: #fff;
+    background: linear-gradient(90deg, #3E00C2 0%, #08D110 100%);
+    height: 50px;
+    border: none;
+    font-weight: 800;
+    font-size: 26px;
+    cursor: pointer;
+}
+
+.box-login{
+    width: 100%;
+    height: 650px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.login-logo{
+    width: 50%;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.img-horizon{
+    width: 280px;
+}
+
+.p-horizon{
+    color: #fff;
+    font-weight: bold;
+    margin: 0;
+    font-size: 3.7rem;
+}
+.login{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    height: 650px;
+}
+
+.titulos{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    height: 160px;
+    gap: 10px;
+}
+
+.label-input{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    width: 70%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+input{
+    border-radius: 50px;
+    background: #77609D;
+    padding: 20px;
+    border: none;
+    color: #fff;
+    width: 95%;
+    font-size: 1.5rem;
+}
+label{
+    color: #fff;
+    font-size: 1.5rem;
+    padding-left: 4%;
+}
+.contato{
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    gap: 1%;
+}
+.titulo1{
+    color: #D0BEEB;
+    margin: 0;
+}
+
+.titulo2{
+    color: #D0BEEB;
+    font-weight: 500;
+    margin: 0;
+}
+
+.esqueci-senha{
+    width: 95%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.link{
+    color: #D0BEEB;
+    text-decoration: none;
+    font-size: 1.5rem;
+}
+
+.btn-entrar{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-logar{
+    border-radius: 50px;
+    background: #23005B;
+    color: #fff;
+    width: 60%;
+    height: 70px;
+    font-weight: bold;
+    font-size: 2rem;
+    border: none;
+    cursor: pointer;
+}
+
+
+::-webkit-input-placeholder {
+    color: #d0beebc7;
+ }
+ 
+ :-moz-placeholder { /* Firefox 18- */
+    color: #d0beebc7;
+ }
+ 
+ ::-moz-placeholder {  /* Firefox 19+ */
+    color: #d0beebc7;
+ }
+ 
+ :-ms-input-placeholder {  
+    color: #d0beebc7;
+ }
+
+
+/* *{
     margin: 0;
     overflow: hidden;
     font-family: Arial, Helvetica, sans-serif;
@@ -88,7 +294,6 @@ header {
 
 .label{
     font-size: 15px;
-    /* text-transform: uppercase; */
     font-weight: bold;
     color: #bebebe;
     padding-left: 44px;
@@ -210,4 +415,4 @@ a:hover{
         left: 76%;
     }
 
-}
+} */
