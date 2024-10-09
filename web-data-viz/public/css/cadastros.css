@@ -203,3 +203,43 @@ input::placeholder {
     font-size: 18px;
     box-sizing: border-box;
 }
+
+
+.container-metade {
+    width: 50vw;
+    display: flex;
+    justify-content: left;
+}
+
+.background-color {
+    background: radial-gradient(193.69% 189.9% at 54.62% -37.46%, #2C0E6A 0%, rgba(40, 13, 98, 0.95) 0.01%, rgba(7, 3, 18, 0.50) 100%), #565656;
+    width: 100vw;
+    height: 100vh;
+}
+
+.nav-bar-cadastro {
+    margin-top: 0;
+}
+
+.tela-cadastro {
+    width: 100%;
+    height: 45%;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.forms-left,
+.forms-right {
+    display: flex;
+    flex-direction: column;
+    gap: 2vh;
+}
+
+.forms-left {
+    margin-left: 10vw;
+}
+
+.forms-right {
+    margin-right: 10vw;
+}

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro - Funcionário</title>
     <link rel="icon" href="assets/Group 11.png" />
-    <link rel="stylesheet" href="css/cadastro-funcionario.css">
+    <link rel="stylesheet" href="css/cadastros.css">
 </head>
 
 <body>
@@ -15,7 +15,9 @@
             <div class="fundo-botao">
                 <div class="botão-dashboard">
                     <button>
-                        <h1>Início</h1>
+                        <a href="index.html">
+                            <h1>Início</h1>
+                        </a>
                     </button>
                 </div>
             </div>
@@ -23,28 +25,28 @@
         <div class="titulo">Cadastre uma nova empresa</div>
         <div class="container">
             <div class="input-container">
-                <div for="nome" class="msg-input">Nome da empresa</div>
-                <input class="custom-input" type="text" id="nome" name="nome">
+                <div for="nomeEmpresa" class="msg-input">Nome da empresa</div>
+                <input class="custom-input" type="text" id="input_nome_empresa" name="nome">
             </div>
 
             <div class="input-container">
-                <div for="email" class="msg-input">CNPJ</div>
-                <input class="custom-input" type="text" id="email" placeholder="00.000.000/0000-00">
+                <div for="CNPJ" class="msg-input">CNPJ</div>
+                <input class="custom-input" type="text" id="input_cnpj" placeholder="00.000.000/0000-00">
             </div>
 
             <div class="input-container">
-                <div for="senha" class="msg-input">CEP</div>
-                <input class="custom-input" type="password" placeholder="00000-000" id="senha" name="senha">
+                <div for="cep" class="msg-input">CEP</div>
+                <input class="custom-input" type="password" placeholder="00000-000" id="input_cep" name="cep">
             </div>
             <div class="input-container">
                 <div class="input-wrapper">
                     <div for="endereco" class="msg-input">Endereço</div>
-                    <input class="custom-input custom-input-endereço" type="text" id="endereco" name="endereco"
+                    <input class="custom-input custom-input-endereço" type="text" id="input_endereco" name="endereco"
                         placeholder="Digite o endereço">
                 </div>
                 <div class="input-wrapper">
                     <div for="numero" class="msg-input msg-input-numero">Número</div>
-                    <input class="custom-input custom-input-numero" type="text" id="numero" name="numero"
+                    <input class="custom-input custom-input-numero" type="text" id="input_numero" name="numero"
                         placeholder="Digite o número">
                 </div>
             </div>
@@ -57,7 +59,7 @@
 
         </div>
         <div class="buttom-cadastrar">
-            <button class="custom-button">Cadastrar</button>
+            <a href="cadastro-responsavel.html"><button class="custom-button">Próximo</button></a>
         </div>
     </div>
 
