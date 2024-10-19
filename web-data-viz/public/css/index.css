@@ -2,7 +2,7 @@
     margin: 0;
     padding: 0;
     overflow-x: hidden;
-    font-family: Poppins; 
+    font-family: 'Poppins', sans-serif;
 }
 
 .container {
@@ -35,14 +35,14 @@
     color: white;
     font-weight: bold;
     text-decoration: none;
-    font-size: 23px;
+    font-size: 22px;
 }
 
 #navbar-id a:hover {
     color: rgb(199, 199, 199);
-    transition: .6s all;
-   
+    transition: 0.6s;
 }
+
 .navbar-botoes {
     padding-left: 1.7vw;
 }
@@ -68,15 +68,13 @@
     border-radius: 50px;
     border: none;
     color: white;
-    font-size: 23px;
+    font-size: 22px;
 }
 
 .navbar-cadastro button:hover {
-    background:  #32067b;
-    transition: 0.6s ;
- 
+    background: #32067b;
+    transition: 0.6s;
 }
-
 
 .btnContato {
     margin-left: 13px;
@@ -89,8 +87,6 @@
     border: none;
     cursor: pointer;
 }
-
-
 
 .textoInicial {
     width: 780px;
@@ -127,7 +123,7 @@
 
 .btnSolucao:hover {
     background: #2b026b;
-    transition: .6s all;
+    transition: 0.6s;
 }
 
 .horizon {
@@ -139,4 +135,54 @@
     font-weight: 600;
 }
 
+/* Media Queries para responsividade */
+@media (max-width: 768px) {
+    .navbar {
+        width: 90vw; 
+        height: 50px;
+        flex-direction: row;
+    }
 
+    #navbar-id a {
+        font-size: 16px;
+    }
+
+    .navbar-cadastro button {
+       height: 30px;
+        width: 78px;
+        font-size: 16px;
+    }
+
+    .textoInicial {
+        width: 90%;
+        top: 40%; 
+        left: 5%;
+    }
+
+    .texto {
+        font-size: 50px;
+    }
+
+    .btnSolucao {
+        width: 150px;
+        height: 40px;
+        top: 78%;
+        right: 30%;
+        font-size: 20px;
+    }
+
+    .horizon {
+        left: 5%;
+    }
+}
+
+@media (max-width: 480px) {
+    .texto {
+        font-size: 36px;
+    }
+
+    .navbar-cadastro button, .btnContato {
+        width: 80%;
+        font-size: 18px;
+    }
+}
