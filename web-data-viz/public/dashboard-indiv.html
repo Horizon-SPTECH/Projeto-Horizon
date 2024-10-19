@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visão Geral - Horizon</title>
+    <link rel="shortcut icon" href="assets/Group 11.png" type="image/x-icon">
+    <link rel="stylesheet" href="css/dashboard-indiv.css">
+</head>
+<body>
+    <div class="background">
+
+        <div class="container">
+
+            <div class="container-barra-lateral">
+                <div class="cbl-logo">
+                    <img src="assets/Group 11.png" alt="">
+                </div>
+
+                <div class="cbl-botoes">
+
+                    <div class="cbl-botoes-barralateral">
+                        <div class="bl-botao">
+                            <div class="bl-botao-filho">
+                                <img src="assets/casa.png" alt="">
+                                <span>Inicio</span>
+                            </div>
+                        </div>
+
+                        <div class="bl-botao">
+                            <div class="bl-botao-filho">
+                                <img src="assets/usuario.png" alt="">
+                                <span>Perfil</span>
+                            </div>
+                        </div>
+
+                        <div class="bl-botao">
+                            <div class="bl-botao-filho">
+                                <img src="assets/cadeado.png" alt="">
+                                <span>Alterar senha</span>
+                            </div>
+                        </div>
+
+                        <div class="bl-botao">
+                            <div class="bl-botao-filho">
+                                <img src="assets/add.png" alt="">
+                                <span>Novo usuario</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bl-botao">
+                        <div class="bl-botao-filho">
+                            <img src="assets/porta.png" alt="">
+                            <span>Sair</span>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="container-graficos-kpis">
+
+                <div class="cgk-navbar">
+                    <span>Bem vindo Lucas Moura!</span>
+                </div>
+
+                <div class="cgk-mapa-kpi">
+
+                    <div class="cgk-mapa">
+                        <div class="cgk-grafico-titulo">
+                            <span>Horarios de atuação</span>
+                        </div>
+
+                        <div class="cgk-mapa-grafico">
+                            <canvas id="grafico_periodo" style="height: 90%; width: 90%;"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="cgk-kpi">
+                        <div class="cgk-kpi-furtosHab" id="cgk-kpi-id">
+                            <div class="cgk-kpi-furtosHab-img">
+                                <img src="assets/kpi-pessoas.png" alt="">
+                            </div>
+
+                            <div class="cgk-kpi-furtosHab-kpi">
+                                <h1>300</h1>
+                                <span>Furtos no municipio</span>
+                            </div>
+                        </div>
+
+                        <div class="cgk-kpi-obj" id="cgk-kpi-id">
+                            <div class="cgk-kpi-obj-titulo">
+                                <span>Objetos mais furtados</span>
+                            </div>
+                            
+                            <div class="cgk-kpi-obj-imgs">
+                                <div class="cgk-kpi-obj-ordem">
+                                    <img src="assets/moto.png" alt="">
+                                    <h1>1° - 682</h1>
+                                    <span>Moto</span>
+                                </div>
+
+                                <div class="cgk-kpi-obj-ordem">
+                                    <img src="assets/celular.png" alt="">
+                                    <h1>2° - 435</h1>
+                                    <span>Celular</span>
+                                </div>
+
+                                <div class="cgk-kpi-obj-ordem">
+                                    <img src="assets/carro.png" alt="">
+                                    <h1>3° - 123</h1>
+                                    <span>Carro</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="cgk-graficos-kpi">
+                    
+                    <div class="cgk-grafico-meses">
+                        <div class="cgk-grafico-titulo">
+                            <span>Meses com mais furto</span>
+                        </div>
+
+                        <div class="cgk-grafico-meses-chart">
+                            <canvas id="grafico_meses" style="height: 90%; width: 90%;"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="cgk-grafico-IA">
+                        <div class="cgk-grafico-IA-texto">
+                            <div class="cgk-grafico-IA-titulo">
+                                <h1>Percentual de furtos comparado ao mes anterior</h1>
+                            </div>
+
+                            <div class="cgk-grafico-IA-img">
+                                <div class="cgk-grafico-IA-percentual">
+                                    <img src="assets/seta_2.png" alt="">
+                                    <h1>15%</h1>
+                                    <p>Agosto</p>
+                                </div>
+
+                                <div class="cgk-grafico-IA-percentual">
+                                    <img src="assets/seta_2.png" alt="">
+                                    <h1>15%</h1>
+                                    <p>Setembro</p>
+                                </div>
+
+                                <div class="cgk-grafico-IA-percentual">
+                                    <img src="assets/seta_2.png" alt="">
+                                    <h1>15%</h1>
+                                    <p>Outubro</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</body>
+</html>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    const grafico_periodo = document.getElementById('grafico_periodo');
+
+    Chart.defaults.color = '#23005B';
+    //Chart.defaults.borderColor = 'white';
+
+    new Chart(grafico_periodo, {
+    type: 'bar',
+    data: {
+        labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'],
+        datasets: [{
+            label: 'Periodo',
+            data: [12, 19, 3, 5, 2, 3],
+            backgroundColor: '#5321CA',
+            borderRadius: 17
+        }]
+    },
+    options: {
+        responsive: false,
+        maintainAspectRatio: false,
+        scales: {
+        y: {
+          beginAtZero: true,
+          ticks: {
+            color: '#979699'
+          },
+          grid: {
+            display: true,
+            color: 'rgba(128, 128, 128, 0.2)'
+          }
+        },
+        x: {
+            ticks: {
+            color: '#979699'
+          },
+          grid: {
+            display: false
+          }
+        }
+    },
+    plugins: {
+        legend: {
+          display: false
+        }
+      },
+    barPercentage: 0.4
+    }});
+
+    const grafico_meses = document.getElementById('grafico_meses');
+
+    new Chart(grafico_meses, {
+    type: 'bar',
+    data: {
+        labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'],
+        datasets: [{
+            label: 'Meses',
+            data: [12, 19, 3, 5, 2, 3],
+            backgroundColor: '#5321CA',
+            borderRadius: 17
+        }]
+    },
+    options: {
+        responsive: false,
+        maintainAspectRatio: false,
+        scales: {
+        y: {
+          beginAtZero: true,
+          ticks: {
+            color: '#979699'
+          },
+          grid: {
+            display: true,
+            color: 'rgba(128, 128, 128, 0.2)'
+          }
+        },
+        x: {
+            ticks: {
+            color: '#979699'
+          },
+          grid: {
+            display: false
+          }
+        }
+    },
+    plugins: {
+        legend: {
+          display: false
+        }
+      },
+    barPercentage: 0.4
+    }});
+</script>
