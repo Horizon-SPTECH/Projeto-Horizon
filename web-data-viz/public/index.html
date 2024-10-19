@@ -1,117 +1,48 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Horizon</title>
+    <title>Document</title>
     <link rel="stylesheet" href="css/index.css">
-    <link rel="icon" href="assets/logos-empresa/logo_horizon.png" />
 </head>
-
 <body>
-    <div class="inicial_navbar">
-        <div class="container2">
-            <div class="menu_navegacao">
-                <img src="assets/logos-empresa/logo_semnome.png" alt="">
-                <ul>
-                    <a href="#quem_somos">
-                        <li>Quem somos</li>
-                    </a>
-                    <a href="#sobre_servico">
-                        <li>Pilares</li>
-                    </a>
-                </ul>
-            </div>
-
-            <div class="btns">
-                <button onclick="window.location.href='login2.html'">Entrar</button>
-                <button onclick="window.location.href='cadastro.html'">Cadastrar</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="container_inicial">
-        <div class="container_inicial2">
-            <div class="inicial_informacoes">
-                <div class="inicial_informacoes_texto">
-                    <span>Coleta e análise de dados de furtos</span>
-                    <p>Uma plataforma de análise de segurança inteligente</p>
-                </div>
-            </div>
-
-            <div class="inicial_img">
-                <img src="assets/logos-empresa/logo.png" alt="">
-            </div>
-        </div>
-
-
-        <div class="container_quemSomos" id="quem_somos">
-            <div class="quemSomos_img" id="container_quemSomosID">
-                <img src="assets/logos-empresa/cidade_colorida.png" alt="">
-            </div>
-
-            <div class="quemSomos_informacao" id="container_quemSomosID">
-                <div class="quemSomos_informacao_texto">
-                    <p>Quem somos?</p>
-                    <span>Somos uma plataforma de segurança especializada na coleta e análise inteligente de dados de furtos. Nossa solução integra informações de diversas fontes em uma interface intuitiva, permitindo identificar padrões, otimizar recursos policiais e fornecer insights estratégicos para melhorar a segurança de maneira eficaz.</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="container_sobreServico" id="sobre_servico">
-            <div class="sobreServico_produto">
-                <img src="assets/configuracao.png" alt="">
-                <p>Praticidade</p>
-                <span>Acreditamos que a eficiência e a facilidade de uso são cruciais para garantir que nossos usuários possam acessar e interpretar os dados de forma rápida e intuitiva. Projetamos nossa dashboard com praticidade em mente, permitindo que qualquer usuario independentemente de seu nível de habilidade técnica, possa navegar facilmente pelas informações.</span>
-            </div>
-
-            <div class="sobreServico_produto">
-                <img src="assets/precisao.png" alt="">
-                <p>Precisão</p>
-                <span>Nosso compromisso com a precisão começa com a coleta e o processamento rigoroso dos dados para nossa dashboard. Utilizamos metodologias avançadas para garantir que os dados apresentados sejam exatos e representem fielmente a realidade. Isso permite que nossos usuários tomem decisões informadas com base em informações precisas e confiáveis.</span>
-            </div>
-
-            <div class="sobreServico_produto">
-                <img src="assets/analise.png" alt="">
-                <p>Transparencia</p>
-                <span>A transparência é um dos pilares fundamentais do nosso projeto, que utiliza dados de roubo e furto disponibilizados publicamente pelo governo. Acreditamos que a abertura e a clareza são essenciais para construir confiança e promover a responsabilidade. Embora sejamos comprometidos com a transparência, também respeitamos a privacidade e a segurança dos dados.</span>
-            </div>
-        </div>
-
-        <div id="footer">
+    <header>
             <div class="container">
+                <div class="navbar">
+                    <div class="navbar-botoes" id="navbar-id">
+                        <img src="Group 11.png" alt="">
+                        <ul class="navbar-ul">
+                            <a href="">Inicio</a>
+                            <a href="">Sobre</a>
+                            <a href="">Soluções</a>
+                        </ul>
+                    </div>
+    
+                    <div class="navbar-cadastro" id="navbar-id">
+                        <ul>
+                            <a href="">Login</a>
+                        </ul>
+    
+                        <button>
+                            Cadastro
+                        </button>
+                    </div>
+                </div>
+    
+
+                <span class="horizon">HORIZON</span>
+
+                <div class="textoInicial">
+                    <span class="texto">Uma plataforma de <span class="palavra">análise</span> de <span class="palavra"><span class="palavra">segurança</span> </span> inteligente</span>
+                    
+                </div>
+
+                <button class="btnSolucao">Ver soluções</button>
+            </div>
+
             
-                    <img class="imagensLogo" src="assets/logos-empresa/logo_semnome.png" alt="">
-                
+    </header>
 
-            </div>
-        </div>
-
-        <div vw class="enabled">
-            <div vw-access-button class="active"></div>
-            <div vw-plugin-wrapper>
-                <div class="vw-plugin-top-wrapper"></div>
-            </div>
-        </div>
-    </div>
 </body>
-
-<script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
-
-<script>
-    new window.VLibras.Widget('https://vlibras.gov.br/app');
-</script>
-
-<script>
-
-    const navbar = document.querySelector(".inicial_navbar");
-    const ativarScroll = () => {
-        navbar.classList.toggle("alternada", scrollY > 0);
-    }
-
-    window.addEventListener('scroll', ativarScroll);
-
-</script>
-
 </html>
