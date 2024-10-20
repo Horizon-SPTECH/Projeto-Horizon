@@ -23,6 +23,81 @@ body {
     align-items: center;
 }
 
+
+.navbar {
+    width: 55vw;
+    height: 8vh;
+    background-color: #1A0044;
+    border-radius: 50px;
+    margin: 5vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#navbar-id {
+    display: flex;
+    align-items: center;
+    gap: 4vh; 
+}
+
+#navbar-id a {
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 22px;
+}
+
+#navbar-id a:hover {
+    color: rgb(199, 199, 199);
+    transition: 0.6s;
+}
+
+.navbar-botoes {
+    padding-left: 1.7vw;
+}
+
+.navbar-botoes img {
+    width: 2.8vw;
+    height: auto;
+}
+
+.navbar-ul {
+    display: flex;
+    gap: 4vh;
+}
+
+.navbar-cadastro {
+    padding-right: 1.7vw;
+}
+
+.navbar-cadastro button {
+    background: linear-gradient(90deg, #3E00C2 0%, #08D110 100%);
+    width: 12vw;
+    height: 5vh;
+    border-radius: 50px;
+    border: none;
+    color: white;
+    font-size: 22px;
+}
+
+.navbar-cadastro button:hover {
+    background: #32067b;
+    transition: 0.6s;
+}
+
+.btnContato {
+    margin-left: 13px;
+    background: linear-gradient(90deg, #3E00C2 0%, #08D110 100%);
+    border-radius: 50px;
+    height: 31px;
+    width: 110px;
+    font-size: 21px;
+    color: #FFF;
+    border: none;
+    cursor: pointer;
+}
+
 .sobreNos {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -262,6 +337,12 @@ justify-content: center;
 
 
 @media only screen and (max-width : 992px){
+
+    .navbar{
+        width: 65vw;
+        gap:20px;
+    }
+
     .container {
         display: flex;
         flex-wrap: wrap;
@@ -316,6 +397,11 @@ justify-content: center;
 }
 
 @media only screen and (max-width : 768px) {
+
+    .navbar{
+        width: 80vw;
+    }
+
     body{
         width: 76%;
         height: 76%;
@@ -351,6 +437,14 @@ justify-content: center;
 }
 
 @media only screen and (max-width : 600px) {
+
+    .navbar{
+        width: 95vw;
+    }
+
+    .navbar-cadastro button{
+        width: 15vw;
+    }
 
     .container {
         display: flex;
@@ -401,4 +495,5 @@ justify-content: center;
     width: 350px;
    }
 }
+
 
