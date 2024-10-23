@@ -131,7 +131,7 @@ body {
 
 .valores{
     display: grid;
-    margin-top: 505px;
+    margin-top: 200px;
     grid-row-gap: 30px ;
     justify-items: center;
 }
@@ -197,7 +197,7 @@ body {
 .equipe{
     display: grid;
     grid-template-columns: 1fr;
-    margin-top: 505px;
+    margin-top: 150px;
     grid-row-gap: 30px ;
     justify-items: center;
     
@@ -267,6 +267,10 @@ body {
     margin-top: 20px;
     width: 54px;
     height: 54px;
+}
+
+.footer{
+    height:200px;
 }
 
 @media only screen and (max-width : 1366px) {
