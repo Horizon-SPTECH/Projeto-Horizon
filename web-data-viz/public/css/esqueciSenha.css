@@ -45,6 +45,7 @@ a {
 .botão-dashboard button:hover {
     transition: ease-in;
     background: linear-gradient(90deg, #2c0089 0%, #058909 100%);
+    cursor: pointer;
 }
 
 button:active {
