@@ -6,6 +6,7 @@
     <title>Dashboard - Horizon</title>
     <link rel="shortcut icon" href="assets/Group 11.png" type="image/x-icon">
     <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
 </head>
 <body>
     <div class="background">
@@ -17,14 +18,38 @@
                     <img src="assets/Group 11.png" alt="">
                 </div>
 
-                <div class="cbl-botoes-home">
-                    <div>
+                <div class="cbl-botoes">
 
+                    <div class="cbl-botoes-barralateral">
+                        <div class="bl-botao" id="bl-botao-inicio">
+                            <div class="bl-botao-filho">
+                                <img src="assets/casa.png" alt="">
+                                <span>Início</span>
+                            </div>
+                        </div>
+
+                        <a href="alterar-senha.html" class="bl-botao">
+                            <div class="bl-botao-filho">
+                                <img src="assets/cadeado.png" alt="">
+                                <span>Alterar senha</span>
+                            </div>
+                        </a>
+
+                        <a href="cadastro-funcionario.html" class="bl-botao">
+                            <div class="bl-botao-filho">
+                                <img src="assets/add.png" alt="">
+                                <span>Novo usuário</span>
+                            </div>
+                        </a>
                     </div>
 
-                    <div>
-                        
-                    </div>
+                    <a href="index.html" class="bl-botao">
+                        <div class="bl-botao-filho">
+                            <img src="assets/porta.png" alt="">
+                            <span>Sair</span>
+                        </div>
+                    </a>
+
                 </div>
 
             </div>
@@ -32,22 +57,90 @@
             <div class="container-graficos-kpis">
 
                 <div class="cgk-navbar">
-                    <span>Bem vindo Lucas Moura!</span>
+                    <span>Boas vindas Lucas Moura!</span>
                 </div>
 
                 <div class="cgk-mapa-kpi">
 
                     <div class="cgk-mapa">
-                        
+                        <div class="cgk-mapa-titulo">
+                            <span>Regiões com mais furto</span>
+                        </div>
+
+                        <div class="cgk-mapa-infos">
+                            <div class="cgk-mapa-infos-class" id="cgk-mapa-infos-grafico">
+                                <div id="map"></div>
+                                
+                                <div class="cgk-mapa-infos-legenda">
+                                    <div class="cgk-mapa-legenda">
+                                        <img src="assets/razoave.png" alt="">
+                                        <span>Razoável</span>    
+                                    </div> 
+
+                                    <div class="cgk-mapa-legenda">
+                                        <img src="assets/alerta.png" alt="">
+                                        <span>Alerta</span>
+                                    </div>
+
+                                    <div class="cgk-mapa-legenda">
+                                        <img src="assets/critico.png" alt="">
+                                        <span>Crítico</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="cgk-mapa-infos-class" id="cgk-mapa-infos-kpi">
+                                <div class="cgk-kpi-furto">
+                                    <span>Município com mais furto</span>
+                                    <h1>Serra</h1>
+                                    <h1>400 - 24%</h1>
+                                </div>
+                                
+                                <div class="cgk-kpi-furto">
+                                    <span>Município com menos furto</span>
+                                    <h1>Caraiaca</h1>
+                                    <h1>120 - 12%</h1>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="cgk-kpi">
                         <div class="cgk-kpi-furtosHab" id="cgk-kpi-id">
+                            <div class="cgk-kpi-furtosHab-img">
+                                <img src="assets/kpi-pessoas.png" alt="">
+                            </div>
 
+                            <div class="cgk-kpi-furtosHab-kpi">
+                                <h1>300</h1>
+                                <span>Furtos por 1k/habitante</span>
+                            </div>
                         </div>
 
                         <div class="cgk-kpi-obj" id="cgk-kpi-id">
+                            <div class="cgk-kpi-obj-titulo">
+                                <span>Objetos mais furtados</span>
+                            </div>
+                            
+                            <div class="cgk-kpi-obj-imgs">
+                                <div class="cgk-kpi-obj-ordem">
+                                    <img src="assets/moto.png" alt="">
+                                    <h1>1° - 682</h1>
+                                    <span>Moto</span>
+                                </div>
 
+                                <div class="cgk-kpi-obj-ordem">
+                                    <img src="assets/celular.png" alt="">
+                                    <h1>2° - 435</h1>
+                                    <span>Celular</span>
+                                </div>
+
+                                <div class="cgk-kpi-obj-ordem">
+                                    <img src="assets/carro.png" alt="">
+                                    <h1>3° - 123</h1>
+                                    <span>Carro</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -55,15 +148,30 @@
 
                 <div class="cgk-graficos-kpi">
                     <div class="cgk-grafico-periodo" id="cgk-graficos-id">
+                        <div class="cgk-grafico-texto">
+                            <h1>Período com mais furtos</h1>
+                        </div>
 
+                        <div class="cgk-grafico-canvas">
+                            <canvas id="grafico_periodo" style="height: 90%; width: 90%;"></canvas>
+                        </div>
                     </div>
 
                     <div class="cgk-grafico-meses" id="cgk-graficos-id">
+                        <div class="cgk-grafico-texto">
+                            <h1>Meses com mais furto</h1>
+                        </div>
 
+                        <div class="cgk-grafico-canvas">
+                            <canvas id="grafico_meses" style="height: 90%; width: 90%;"></canvas>
+                        </div>
                     </div>
 
                     <div class="cgk-grafico-IA">
-
+                        <div class="cgk-grafico-IA-texto">
+                            <h1>Recomendação</h1>
+                            <span>Lorem ipsum dolor sit amet, consectetur adipa aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in repr</span>
+                        </div>
                     </div>
                 </div>
 
@@ -74,3 +182,217 @@
     </div>
 </body>
 </html>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<script>
+    const grafico_periodo = document.getElementById('grafico_periodo');
+
+    Chart.defaults.color = '#23005B';
+    //Chart.defaults.borderColor = 'white';
+
+    new Chart(grafico_periodo, {
+    type: 'bar',
+    data: {
+        labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'],
+        datasets: [{
+            label: 'Periodo',
+            data: [12, 19, 3, 5, 2, 3],
+            backgroundColor: '#5321CA',
+            borderRadius: 17
+        }]
+    },
+    options: {
+        responsive: false,
+        maintainAspectRatio: false,
+        scales: {
+        y: {
+        beginAtZero: true,
+        ticks: {
+            color: '#979699'
+        },
+        grid: {
+            display: true,
+            color: 'rgba(128, 128, 128, 0.2)'
+        }
+        },
+        x: {
+            ticks: {
+            color: '#979699'
+        },
+        grid: {
+            display: false
+        }
+        }
+    },
+    plugins: {
+        legend: {
+        display: false
+        }
+    },
+    barPercentage: 0.4
+    }});
+
+    const grafico_meses = document.getElementById('grafico_meses');
+
+    new Chart(grafico_meses, {
+    type: 'bar',
+    data: {
+        labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'],
+        datasets: [{
+            label: 'Meses',
+            data: [12, 19, 3, 5, 2, 3],
+            backgroundColor: '#5321CA',
+            borderRadius: 17
+        }]
+    },
+    options: {
+        responsive: false,
+        maintainAspectRatio: false,
+        scales: {
+        y: {
+        beginAtZero: true,
+        ticks: {
+            color: '#979699'
+        },
+        grid: {
+            display: true,
+            color: 'rgba(128, 128, 128, 0.2)'
+        }
+        },
+        x: {
+            ticks: {
+            color: '#979699'
+        },
+        grid: {
+            display: false
+        }
+        }
+    },
+    plugins: {
+        legend: {
+        display: false
+        }
+    },
+    barPercentage: 0.4
+    }});
+
+    // Coordenadas do sudoeste e nordeste do Espírito Santo para definir o foco apenas no estado
+    var bounds = [
+            [-21.469103, -41.684086], // Sudoeste do Espírito Santo (limite com o Rio de Janeiro)
+            [-17.826600, -39.978290]  // Nordeste do Espírito Santo (próximo ao limite com a Bahia)
+        ];
+
+        // Criar o mapa Leaflet focado no Espírito Santo, restringindo os limites do estado
+        var map = L.map('map', {
+            maxBounds: bounds, // Limitar a movimentação do mapa dentro do estado
+            minZoom: 4.5, // Zoom mínimo permitido para impedir a visualização do Brasil inteiro
+            maxZoom: 8, // Zoom máximo para visualização detalhada
+            zoomSnap: 0.5 // Permitir zoom intermediário
+        }).fitBounds(bounds); // Ajusta o mapa para os limites definidos
+
+        // Adicionar um fundo branco para as áreas fora do Espírito Santo
+        L.rectangle([[-90, -180], [90, 180]], { color: "#ffffff", weight: 0, fillOpacity: 1 }).addTo(map);
+
+        // Adicionar o mapa base do OpenStreetMap
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        }).addTo(map);
+
+        // Definir a quantidade de furtos por município
+        var furtosPorMunicipio = {
+            "Afonso Claudio": 0,
+            "Água Doce do Norte": 0,
+            "Anchieta": 0,
+            "Apiacá": 0,
+            "Aracruz": 0,
+            "Atilio Vivacqua": 0,
+            "Baixo Guandu": 0,
+            "Barra de São Francisco": 0,
+            "Boa Esperança": 0,
+            "Bom Jesus do Norte": 0,
+            "Brejetuba": 0,
+            "Cachoeiro de Itapemirim": 0,
+            "Cariacica": 0,
+            "Castelo": 0,
+            "Colatina": 0,
+            "Divino de São Lourenço": 0,
+            "Domingos Martins": 0,
+            "Dores do Rio Preto": 0,
+            "Ecoporanga": 0,
+            "Fundão": 0,
+            "Governador Lindenberg": 0,
+            "Guaçuí": 0,
+            "Ibatiba": 0,
+            "Ibiporã": 500,
+            "Iconha": 0,
+            "Itaguaçu": 0,
+            "Itapemirim": 0,
+            "Itarana": 0,
+            "Jaguaré": 1000,
+            "Jerônimo Monteiro": 0,
+            "João Neiva": 0,
+            "Laranja da Terra": 0,
+            "Linhares": 2000,
+            "Mantenópolis": 0,
+            "Marataízes": 0,
+            "Marechal Floriano": 0,
+            "Monjolos": 0,
+            "Nova Venécia": 0,
+            "Pancas": 0,
+            "Pedro Canário": 0,
+            "Pinheiros": 0,
+            "Piúma": 0,
+            "Rio Bananal": 0,
+            "Santa Teresa": 0,
+            "Santa Maria de Jetibá": 0,
+            "São Domingos do Norte": 0,
+            "São Gabriel da Palha": 0,
+            "São José do Calçado": 0,
+            "São Mateus": 0,
+            "São Roque do Canaã": 10,
+            "Serra": 0,
+            "Silva Jardim": 0,
+            "Vargem Alta": 0,
+            "Vila Pavão": 0,
+            "Vila Velha": 0,
+            "Vitória": 0
+            // Adicione os furtos de cada município aqui
+        };
+
+        // Carregar os limites dos municípios do Espírito Santo usando o GeoJSON
+        fetch('../ES_Municipios_2022.json') // Substitua pelo caminho correto do GeoJSON
+            .then(response => response.json()) // Espera a resposta do fetch e converte para JSON
+            .then(data => {
+                // Adiciona o GeoJSON ao mapa
+                L.geoJSON(data, {
+                    style: function (feature) {
+                        var municipio = feature.properties.NM_MUN; // Nome do município no GeoJSON
+                        var furtos = furtosPorMunicipio[municipio] || 0; // Número de furtos do município, ou 0 se não houver
+
+                        // Definir a cor com base no número de furtos
+                        if (furtos >= 2000) {
+                            return { fillColor: 'red', color: 'blue', weight: 1, fillOpacity: 0.7 }; // Alta incidência de furtos
+                        } else if (furtos >= 1000) {
+                            return { fillColor: 'orange', color: 'blue', weight: 1, fillOpacity: 0.7 }; // Média incidência de furtos
+                        } else if (furtos >= 100) {
+                            return { fillColor: 'yellow', color: 'blue', weight: 1, fillOpacity: 0.7 }; // Baixa incidência de furtos
+                        } else {
+                            return { fillColor: 'green', color: 'blue', weight: 1, fillOpacity: 0.7 }; // Poucos furtos
+                        }
+                    },
+                    onEachFeature: function (feature, layer) { // Adiciona um evento para cada recurso (município)
+                        layer.on({
+                            mouseover: function (e) { // Evento de mouse sobre o município
+                                var layer = e.target; // Camada atual do evento
+                                var municipio = feature.properties.NM_MUN; // Nome do município
+                                var furtos = furtosPorMunicipio[municipio] || 0; // Número de furtos
+                                // Cria conteúdo do popup
+                                var popupContent = "<b>" + municipio + "</b><br>Furtos: " + furtos;
+                                layer.bindPopup(popupContent).openPopup(); // Cria e abre o popup
+                            }
+                        });
+                    }
+                }).addTo(map); // Adiciona o GeoJSON ao mapa
+            });
+</script>

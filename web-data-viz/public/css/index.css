@@ -1,324 +1,188 @@
-@import url('https://fonts.googleapis.com/css2?family=Anonymous+Pro:ital,wght@0,400;0,700;1,400;1,700&display=swap');
-
-body {
-    background-color: #D9D9D9;
-    font-family: "Anonymous Pro", monospace;
+* {
+    margin: 0;
     padding: 0;
-    margin: 0;
-    color: white;
-}
-
-a {
-    text-decoration: none;
-    color: inherit; 
-    font: inherit; 
-    background: none; 
-    border: none; 
-    padding: 0; 
-    margin: 0;
-    outline: none; 
-}
-
-html {
-    scroll-behavior: smooth;
-  }
-
-img {
-   -webkit-user-drag: none;
-}
-
-.container_inicial {
-    height: 100vh;
-    width: 100%;
-}
-
-.inicial_navbar {
-    display: flex;
-    width: 100%;
-    height: 10vh;
-    background-color: transparent;
-    position: fixed;
-    transition: 0.5s;
-    z-index: 1;
-    color: white;
-    gap: 50vw;
+    overflow-x: hidden;
+    font-family: 'Poppins', sans-serif;
 }
 
 .container {
-    width: 85%;
-    height: 100%;
+    display: flex;
+    justify-content: center;    
+    background: linear-gradient(135deg, #310F67 -0.32%, rgba(119, 96, 157, 0.83) 105.5%), #565656;  
+    width: 100%;
+    height: 100vh;   
 }
 
-.container2 {
-    width: 100%;
-    background-color: #272729;
+.navbar {
+    position: absolute;
+    width: 55vw;
+    height: 8vh;
+    background-color: #1A0044;
+    border-radius: 50px;
+    margin: 5vh;
     display: flex;
     align-items: center;
+    justify-content: space-between;
 }
 
-.inicial_informacoes {
+#navbar-id {
+    display: flex;
+    align-items: center;
+    gap: 4vh; 
+}
+
+#navbar-id a {
     color: white;
-    height: 100%;
-    width: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 22px;
 }
 
-.inicial_informacoes_texto {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    width: 75%;
-    flex-direction: column;
+#navbar-id a:hover {
+    color: rgb(199, 199, 199);
+    transition: 0.6s;
 }
 
-.inicial_informacoes_texto span {
-    font-size: 28px;
+.navbar-botoes {
+    padding-left: 1.7vw;
 }
 
-.menu_navegacao{
-    height: 100%;
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    color: white;
-    padding-left: 2rem;
-    gap: 3vw;
-}
-
-.alternada {
-    background-color: rgba(255, 255, 255, 0.527);
-    backdrop-filter: blur(6px);
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-    border: 1px solid rgb(0, 0, 0, 0.2);
-}
-
-.botoes_acesso{
-    width: 47%;
-    padding-top: 25px;
-    gap: 4rem;
-    display: flex;
-    justify-content: right;
-
-}
-
-.menu_navegacao ul {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    width: 100%;
-    gap: 4rem;
-    padding: 0;
-}
-
-.menu_navegacao a li {
-    list-style: none;
-    font-size: 1.2rem;
-}
-
-.menu_navegacao img {
-    width: 5vw;
+.navbar-botoes img {
+    width: 2.8vw;
     height: auto;
 }
 
-.container_inicial2 {
-    height: 100%;
-    color: white;
-    background-size: cover;
-    background-position: center;
-    background-image: url(../assets/henry-chen-ZwRCXGkv30w-unsplash.jpg);
+.navbar-ul {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    gap: 4vh;
 }
 
-.inicial_img {
-    background-color: #D9D9D9;
-    width: 50%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.navbar-cadastro {
+    padding-right: 1.7vw;
 }
 
-.container_informacoes_imagem_inicial {
-    display: flex;
-    justify-content: center;
-    padding-left: 25%;
-    padding-top: 10%;
-    align-items: center;
-    width: 20vw;
-    gap: 27rem;
-}
-
-.container_informacoes {
-    padding-top: 10%;
-}
-
-.informacoes_titulo {
-    display: flex;
-    flex-direction: column;
-    font-size: 50px;
-}
-
-.container_imagem_inicial {
-    display: flex;
-    justify-content: right;
-    width: 20vw;
-}
-
-.container_imagem_inicial img {
-    width: 20rem;
-    height: 15.5rem;
-}
-
-.container_quemSomos {
-    width: 99vw;
-    height: 100vh;
-    background-color: white;
-    display: flex;
-    flex-direction: row;
-    color: black;
-}
-
-#container_quemSomosID {
-    height: 100%;
-    width: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-}
-
-.quemSomos_img img {
-    width: 100%;
-    height: 100%;
-}
-
-.quemSomos_informacao_texto {
-    width: 70%;
-    display: flex;
-    flex-direction: column;
-} 
-
-.quemSomos_informacao_texto p {
-    font-weight: bold;
-    font-size: 1.5rem;
-}
-
-.quemSomos_informacao_texto span {
-    font-size: 1.3rem;
-}
-
-.container_sobreServico {
-    width: 99vw;
-    height: 100vh;
-    color: black;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 5vw;
-}
-
-.sobreServico_produto {
-    width: 21%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    gap: 0.4vw;
-}
-
-.sobreServico_produto p {
-    font-weight: bold;
-    font-size: 25px;
-}
-
-.sobreServico_produto span {
-    font-size: 20px;
-}
-
-.sobreServico_produto img {
-    object-fit: contain;
-    height: 6rem;
-}
-
-#footer {
-    display: flex;
-    justify-content: center;
-    background: #01466e;
-    width: 100%;
-    height: 60px;
-    padding-top: 2%;
-}
-
-#footer .container {
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    align-items: center;
-}
-
-
-.imagensRedesSociais {
-    margin-right: 20px;
-    width: 40px;
-}
-
-.imagensLogo{
-    /* margin-right: 80px; */
-    width: 6%;
-    margin-bottom: 20px;
-}
-
-.btns{
-    display: flex;
-    width: 30%;
-    justify-content: space-evenly;
-}
-
-.logo_tela{
-    display: flex;
-}
-
-.card_tela_inicial{
-    display: flex;
-    width: 100%;
-    height: 80%;
-    align-items: center;
-    justify-content: center;
-    gap: 5%;
-}
-
-.card_tela_inicial img{
-    position: static;
-    width: 100%;
-    height: auto;
-}
-
-.titulo{
-
-    font-size: 80px;
-    font-weight: bold;
-    padding-left: 10%;
-
-}
-
-.btns button{
-    width: 6vw;
+.navbar-cadastro button {
+    background: linear-gradient(90deg, #3E00C2 0%, #08D110 100%);
+    width: 12vw;
     height: 5vh;
-    border-radius: 5px;
-    font-size: 15px;
-    border-style: none;
-    background-color: #0092E4;
+    border-radius: 50px;
+    border: none;
     color: white;
-    font-family: "Anonymous Pro", monospace;
+    font-size: 22px;
 }
 
-.btns button:hover {
-    background-color: #304f79;
-    transition: 0.4s;
+.navbar-cadastro button:hover {
+    background: #32067b;
+    transition: 0.6s;
+}
+
+.btnContato {
+    margin-left: 13px;
+    background: linear-gradient(90deg, #3E00C2 0%, #08D110 100%);
+    border-radius: 50px;
+    height: 31px;
+    width: 110px;
+    font-size: 21px;
+    color: #FFF;
+    border: none;
+    cursor: pointer;
+}
+
+.textoInicial {
+    width: 780px;
+    height: 303px;
+    position: absolute;
+    top: 290px;
+    left: 147px;
+}
+
+.texto {
+    color: #FFF;
+    font-size: 73px;
+    font-weight: 500;
+}
+
+.palavra {
+    color: #08D110;
+}
+
+.btnSolucao {
+    position: relative;
+    top: 600px;
+    right: 530px;
+    width: 180px;
+    height: 47px;
+    border-radius: 50px;
+    background: #23005B;
+    border: none;
+    color: #FFF;
+    font-size: 21px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btnSolucao:hover {
+    background: #2b026b;
+    transition: 0.6s;
+}
+
+.horizon {
+    position: absolute;
+    top: 235px;
+    left: 150px;
+    color: #FFF;
+    font-size: 21px;
+    font-weight: 600;
+}
+
+/* Media Queries para responsividade */
+@media (max-width: 768px) {
+    .navbar {
+        width: 90vw; 
+        height: 50px;
+        flex-direction: row;
+    }
+
+    #navbar-id a {
+        font-size: 16px;
+    }
+
+    .navbar-cadastro button {
+       height: 30px;
+        width: 78px;
+        font-size: 16px;
+    }
+
+    .textoInicial {
+        width: 90%;
+        top: 40%; 
+        left: 5%;
+    }
+
+    .texto {
+        font-size: 50px;
+    }
+
+    .btnSolucao {
+        width: 150px;
+        height: 40px;
+        top: 78%;
+        right: 30%;
+        font-size: 20px;
+    }
+
+    .horizon {
+        left: 5%;
+    }
+}
+
+@media (max-width: 480px) {
+    .texto {
+        font-size: 36px;
+    }
+
+    .navbar-cadastro button, .btnContato {
+        width: 80%;
+        font-size: 18px;
+    }
 }
