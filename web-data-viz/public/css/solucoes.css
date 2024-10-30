@@ -178,3 +178,79 @@ header {
     font-weight: bold;
     font-size: 25px;
 }
+
+@media (max-width: 768px) {
+    .container {
+        height: 200vh;
+        gap: 30px;
+    }
+
+    .titulo {
+        height: 60px;
+    }
+
+    .navbar {
+        flex-direction: row;
+        height: auto;
+        padding: 10px;
+        height: 40px;
+        width: 80%;
+    }
+
+    .navbar-botoes,
+    .navbar-cadastro {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .navbar-botoes img {
+        display: none;
+    }
+
+    #navbar-id a {
+        font-size: 10px;
+    }
+
+    .navbar-cadastro button {
+        width: 50px;
+        height: 35px;
+        font-size: 10px;
+    }
+
+    .titulo_info span {
+        font-size: 20px;
+        text-align: center;
+    }
+
+    .content {
+        flex-direction: column;
+        align-items: center;
+        padding: 10px;
+        height: 20%;
+    }
+
+    .content_info,
+    .content_img, .content_info_text {
+        width: 100%;
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .content_info_text h1,
+    .content_info_text span,
+    .content_img_text span {
+        font-size: 18px;
+        text-align: center;
+    }
+
+    .content_img img {
+        height: 150px;
+        width: 150px;
+    }
+
+    .content_info_footer {
+        border-right: none;
+    }
+}
