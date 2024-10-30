@@ -9,7 +9,7 @@
 body {
     overflow-x: hidden;
     width: 100%;
-    height: 350vh;
+    height: 200vh;
     font-family: 'Poppins', sans-serif;
     background: linear-gradient(135deg, #15062F -0.32%, rgba(63, 7, 152, 0.83) 105.5%), #565656;
 }
@@ -260,6 +260,8 @@ body {
     margin-top: 48px;
     width: 176px;
     height: 176px;
+    border-radius: 50%;
+    object-fit: cover;
 }
 
 .linkedin{
@@ -500,4 +502,18 @@ justify-content: center;
    }
 }
 
+.footer {
+    width: 100%;
+    height: 100px; /* Defina a altura que você deseja */
+    color: white; /* Cor do texto */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px; /* Espaçamento acima do footer */
+    text-align: center; /* Centralizar o texto */
+}
+
+.footer p {
+    margin: 0; /* Remover margens do parágrafo */
+}
 

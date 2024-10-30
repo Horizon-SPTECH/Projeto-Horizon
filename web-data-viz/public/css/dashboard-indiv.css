@@ -6,6 +6,10 @@
     font-family: "Poppins", sans-serif;
 }
 
+a{
+    text-decoration: none;
+}
+
 .background {
     background: radial-gradient(193.69% 189.9% at 54.62% -37.46%, #2C0E6A 0%, rgba(40, 13, 98, 0.95) 0.01%, rgba(7, 3, 18, 0.50) 100%), #565656;
     width: 100vw;
@@ -342,4 +346,9 @@
     height: 80%;
     display: flex;
     margin-left: 1rem;
+}
+
+#bl-botao-inicio {
+    background-color: rgba(255, 255, 255, 0.329);
+    color: white;
 }
