@@ -276,6 +276,9 @@ body {
 }
 
 @media only screen and (max-width : 1366px) {
+    body{
+        height:350vh;
+    }
     .cards-valores{
         gap: 30px;
     }
@@ -286,6 +289,9 @@ body {
 }
 
 @media only screen and (max-width : 1200px){
+    body{
+        height:450vh;
+    }
 
     .container {
     padding:10px;
@@ -314,7 +320,6 @@ body {
         grid-template-columns: 1fr 1fr;
     }
 
-
    .cards-equipe{
     display: flex;
     width: 100%;
@@ -328,7 +333,6 @@ justify-content: center;
   align-items: center;
   gap: 20px;
   margin-bottom: 30px;
-  width: 87%;
   word-wrap: break-word;
    }
    
@@ -343,7 +347,10 @@ justify-content: center;
 
 
 @media only screen and (max-width : 992px){
-
+    body{
+        height:600vh;
+    }
+    
     .navbar{
         width: 65vw;
         gap:20px;
@@ -403,14 +410,13 @@ justify-content: center;
 }
 
 @media only screen and (max-width : 768px) {
-
     .navbar{
         width: 80vw;
     }
 
     body{
         width: 76%;
-        height: 76%;
+        height: 685vh;
     }
 
     .imagens{
@@ -443,7 +449,13 @@ justify-content: center;
 }
 
 @media only screen and (max-width : 600px) {
-
+    body{
+        height:800vh;
+    }
+    .navbar img{
+        width: 30px; 
+      height: auto; 
+    }
     .navbar{
         width: 95vw;
     }
@@ -504,16 +516,74 @@ justify-content: center;
 
 .footer {
     width: 100%;
-    height: 100px; /* Defina a altura que você deseja */
-    color: white; /* Cor do texto */
+    height: 100px; 
+    color: white; 
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 20px; /* Espaçamento acima do footer */
-    text-align: center; /* Centralizar o texto */
+    margin-top: 20px; 
+    text-align: center; 
 }
 
 .footer p {
-    margin: 0; /* Remover margens do parágrafo */
+    margin: 0; 
+}
+.texto-equipe{
+    text-align: right;
+}
+.cards-equipe{
+    align-content: center;
+}
+.footer{
+    text-align: right;
 }
 
+
+
+@media only screen and (max-width : 480px) {
+   
+.navbar img{
+    width: 25px; 
+  height: auto; 
+}
+
+.navbar button{
+    width: 13vw;
+    font-size: smaller;
+}
+
+.navbar{
+    width: 90vw;
+}
+
+
+.imagens{
+    height: 70%;
+    width: 70%;
+}
+
+.texto{
+    padding-left: 0px;
+    font-size: 1rem;
+}
+
+.imgLinha1{
+    display: none;
+}
+.imgLinha2{
+    display: none;
+}
+
+.texto-equipe{
+    text-align: right;
+}
+.cards-equipe{
+    align-content: end;
+}
+.footer{
+    text-align: right;
+}
+.card{
+    text-align: end;
+}
+}
