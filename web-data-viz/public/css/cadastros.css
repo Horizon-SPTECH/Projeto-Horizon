@@ -94,6 +94,13 @@ button:active {
     justify-content: space-between;
 }
 
+.p_erro{
+    color: orangered;
+    font-size: small;
+}
+
+
+
 .msg-input {
     width: fit-content;
     position: absolute;

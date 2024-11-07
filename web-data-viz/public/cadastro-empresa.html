@@ -27,16 +27,22 @@
             <div class="input-container">
                 <div for="nomeEmpresa" class="msg-input">Nome da empresa</div>
                 <input class="custom-input" type="text" id="input_nome_empresa" name="nome">
+                
+                <p class="p_erro" id="p_erro"></p>
             </div>
 
             <div class="input-container">
                 <div for="CNPJ" class="msg-input">CNPJ</div>
-                <input class="custom-input" type="text" id="input_cnpj" placeholder="00.000.000/0000-00">
+                <input class="custom-input" type="text" id="input_cnpj" placeholder="00.000.000/0000-00"
+                    oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
+                    <!-- esse oninput server para o usuário não digitar nada além de números-->
             </div>
 
             <div class="input-container">
                 <div for="cep" class="msg-input">CEP</div>
-                <input class="custom-input" type="password" placeholder="00000-000" id="input_cep" name="cep">
+                <input class="custom-input" type="password" placeholder="00000-000" id="input_cep" name="cep"
+                    oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
+                    <!-- esse oninput server para o usuário não digitar nada além de números-->
             </div>
             <div class="input-container">
                 <div class="input-wrapper">
@@ -47,7 +53,9 @@
                 <div class="input-wrapper">
                     <div for="numero" class="msg-input msg-input-numero">Número</div>
                     <input class="custom-input custom-input-numero" type="text" id="input_numero" name="numero"
-                        placeholder="Digite o número">
+                        placeholder="Digite o número"
+                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"> 
+                        <!-- esse oninput server para o usuário não digitar nada além de números-->
                 </div>
             </div>
 
@@ -59,7 +67,7 @@
 
         </div>
         <div class="buttom-cadastrar">
-            <a href="cadastro-responsavel.html"><button class="custom-button">Próximo</button></a>
+            <button class="custom-button" onclick="validar()">Próximo</button>
         </div>
     </div>
 
@@ -69,5 +77,48 @@
     </div>
 
 </body>
+
+<script>
+
+    function validar() {
+
+        const nomeInput = document.getElementById("input_nome_empresa").value;
+        const cnpjInput = document.getElementById("input_cnpj").value;
+        const cepInput = document.getElementById("input_cep").value;
+        const enderecoInput = document.getElementById("input_endereco").value;
+        const numeroInput = document.getElementById("input_numero").value;
+        let p_erro = document.getElementById("p_erro");
+
+        if (nomeInput == "" || cnpjInput == "" || cepInput == ""
+            || enderecoInput == "" || numeroInput == "") {
+            console.log("Erro de campos vázios");
+            p_erro.innerHTML = "Erro de campos vazios";    
+
+            return;
+        }
+
+        if (cnpjInput.length < 14 || cnpjInput.length > 14) {
+            console.log("Erro nos caracteres do CNPJ");
+
+            return;
+        }
+
+        if (cepInput.length < 8 || cepInput.length > 8) {
+            console.log("Erro nos caracteres do CEP");
+
+            return;
+        }
+
+        if(nomeInput.length <= 1 || numeroInput < 3){
+            console.log("Erro na quantidade de caracteres do nome ou numero");
+
+            return;
+        }
+
+        window.location = "cadastro-responsavel.html";
+
+    }
+
+</script>
 
 </html>
