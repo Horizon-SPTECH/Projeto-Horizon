@@ -206,6 +206,205 @@ label{
     color: #d0beebc7;
  }
 
+ @media screen and (max-width: 1200px) {
+    .box-login {
+        height: 550px;
+    }
+
+    .p-horizon {
+        font-size: 3rem;
+    }
+
+    .img-horizon {
+        width: 240px;
+    }
+
+    .login {
+        height: 550px;
+    }
+
+    input {
+        font-size: 1.2rem;
+        padding: 15px;
+    }
+
+    label {
+        font-size: 1.2rem;
+    }
+
+    .link {
+        font-size: 1.2rem;
+    }
+
+    .btn-logar {
+        font-size: 1.8rem;
+        height: 60px;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .fundo-roxo {
+        width: 25%;
+    }
+
+    .box-login {
+        flex-direction: column;
+        height: auto;
+        padding: 20px 0;
+    }
+
+    .login-logo {
+        width: 100%;
+        margin-bottom: 30px;
+    }
+
+    .login {
+        width: 100%;
+        height: auto;
+    }
+
+    .label-input {
+        width: 80%;
+    }
+
+    .btn-logar {
+        width: 70%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .fundo-roxo {
+        width: 35%;
+        height: 60px;
+    }
+
+    .btn-login {
+        height: 40px;
+        font-size: 20px;
+    }
+
+    .p-horizon {
+        font-size: 2.5rem;
+    }
+
+    .img-horizon {
+        width: 200px;
+    }
+
+    .titulos {
+        height: 120px;
+    }
+
+    .titulo1 {
+        font-size: 1.8rem;
+    }
+
+    .titulo2 {
+        font-size: 1.2rem;
+    }
+
+    .label-input {
+        width: 85%;
+    }
+
+    input {
+        font-size: 1rem;
+        padding: 12px;
+    }
+
+    .btn-logar {
+        width: 80%;
+        height: 50px;
+        font-size: 1.5rem;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .fundo-roxo {
+        width: 45%;
+        height: 50px;
+    }
+
+    .btn-login {
+        font-size: 18px;
+    }
+
+    .fundo-btn {
+        height: 100px;
+    }
+
+    .p-horizon {
+        font-size: 2rem;
+    }
+
+    .img-horizon {
+        width: 160px;
+    }
+
+    .titulos {
+        height: 100px;
+    }
+
+    .titulo1 {
+        font-size: 1.5rem;
+    }
+
+    .titulo2 {
+        font-size: 1rem;
+    }
+
+    .label-input {
+        width: 90%;
+    }
+
+    .esqueci-senha {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .link {
+        font-size: 1rem;
+    }
+
+    .contato {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .btn-logar {
+        width: 85%;
+        height: 45px;
+        font-size: 1.3rem;
+    }
+}
+
+
+@media screen and (max-width: 380px) {
+    .fundo-roxo {
+        width: 60%;
+    }
+
+    .img-horizon {
+        width: 140px;
+    }
+
+    .p-horizon {
+        font-size: 1.8rem;
+    }
+
+    .label-input {
+        width: 95%;
+    }
+
+    input {
+        padding: 10px;
+    }
+
+    .btn-logar {
+        width: 90%;
+    }
+}
+
 
 /* *{
     margin: 0;
