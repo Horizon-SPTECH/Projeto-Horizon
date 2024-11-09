@@ -94,11 +94,32 @@ button:active {
     justify-content: space-between;
 }
 
+.input-container-vertical {
+    display: flex;
+    flex-direction: column;
+    width: 36vw;
+    margin-bottom: 20px;
+    gap: 5px;
+    position: relative;
+}
+
 .p_erro{
     color: orangered;
     font-size: small;
+    margin-top: -15px;
+    margin-bottom: 7px;
 }
 
+.p_erro_wrapper {
+    position: absolute;
+    bottom: 0;
+    margin: 0;
+    color: orangered;
+    font-size: 14px;
+    transform: translateY(100%); /* Move o texto para baixo em 100% da sua própria altura */
+    text-align: center;
+    width: 100%;
+}
 
 
 .msg-input {
@@ -250,4 +271,176 @@ input::placeholder {
 
 .forms-right {
     margin-right: 10vw;
+}
+
+@media screen and (max-width: 1024px) {
+    .container {
+        width: 80%;
+    }
+
+    .input-container {
+        width: 100%;
+    }
+
+    .input-container-vertical {
+        width: 100%;
+    }
+
+    .titulo {
+        font-size: 32px;
+        text-align: center;
+        padding: 0 20px;
+    }
+
+    .custom-button {
+        width: 30vw;
+    }
+
+    .fundo-botao {
+        width: 280px;
+    }
+
+    .botão-dashboard button {
+        width: 180px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .container {
+        width: 90%;
+    }
+
+    .titulo {
+        font-size: 28px;
+    }
+
+    .msg-input {
+        font-size: 16px;
+    }
+
+    input::placeholder {
+        font-size: 18px;
+    }
+
+    .custom-button {
+        width: 40vw;
+    }
+
+    .text-bottom {
+        font-size: 16px;
+        text-align: center;
+        padding: 0 20px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .nav-bar {
+        margin-top: 2vh;
+        margin-bottom: 2vh;
+    }
+
+    .fundo-botao {
+        width: 220px;
+        height: 70px;
+    }
+
+    .botão-dashboard button {
+        width: 140px;
+        height: 45px;
+    }
+
+    .botão-dashboard button h1 {
+        font-size: 18px;
+    }
+
+    .titulo {
+        font-size: 24px;
+        margin-bottom: 3vh;
+    }
+
+    .input-container {
+        height: auto;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .input-wrapper {
+        width: 100%;
+    }
+
+    .custom-input-endereço,
+    .custom-input-numero {
+        width: 100%;
+    }
+
+    .msg-input {
+        font-size: 14px;
+        top: -25px;
+    }
+
+    .custom-input {
+        height: 45px;
+        font-size: 16px;
+    }
+
+    input::placeholder {
+        font-size: 16px;
+    }
+
+    .custom-button {
+        width: 60vw;
+        height: 45px;
+        font-size: 18px;
+    }
+
+    .text-bottom {
+        font-size: 14px;
+    }
+
+    .p_erro, .p_erro_wrapper {
+        font-size: 12px;
+    }
+
+    .buttom-cadastrar {
+        margin-top: 3vh;
+        margin-bottom: 4vh;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .titulo {
+        font-size: 20px;
+    }
+
+    .custom-button {
+        width: 80vw;
+    }
+
+    .fundo-botao {
+        width: 180px;
+    }
+
+    .botão-dashboard button {
+        width: 120px;
+    }
+}
+
+@media screen and (max-height: 600px) {
+    .nav-bar {
+        margin-top: 1vh;
+        margin-bottom: 1vh;
+    }
+
+    .container {
+        gap: 2%;
+    }
+
+    .input-container {
+        margin-bottom: 15px;
+    }
+
+    .buttom-cadastrar {
+        margin-top: 2vh;
+        margin-bottom: 2vh;
+    }
 }

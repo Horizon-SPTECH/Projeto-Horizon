@@ -27,19 +27,28 @@
                 <input class="custom-input" type="text" id="input_nome" name="nome">
             </div>
 
+            <p id="p_erro" class="p_erro"></p>
+
             <div class="input-container">
                 <div for="email" class="msg-input">Email</div>
                 <input class="custom-input" type="email" id="input_email" placeholder="usuario@empresa.com">
             </div>
 
+            <p id="p_erro2" class="p_erro"></p>
+
             <div class="input-container">
                 <div for="senha" class="msg-input">Senha</div>
                 <input class="custom-input" type="password" id="input_senha" name="senha">
             </div>
+
+            <p id="p_erro3" class="p_erro"></p>
+
             <div class="input-container">
                 <div for="conf_senha" class="msg-input">Confirmar senha</div>
                 <input class="custom-input" type="password" id="input_conf_senha" name="senha">
             </div>
+
+            <p id="p_erro4" class="p_erro"></p>
         </div>
 
         <div class="text-bottom">
@@ -47,7 +56,7 @@
 
         </div>
         <div class="buttom-cadastrar">
-            <button class="custom-button">Cadastrar</button>
+            <button class="custom-button" onclick="validarFuncionario()">Cadastrar</button>
         </div>
 
 
@@ -56,3 +65,77 @@
 </body>
 
 </html>
+
+<script>
+
+function validarFuncionario() {
+    const nomeInput = document.getElementById("input_nome").value;
+    const emailInput = document.getElementById("input_email").value;
+    const senhaInput = document.getElementById("input_senha").value;
+    const confSenhaInput = document.getElementById("input_conf_senha").value;
+    let p_erro = document.getElementById("p_erro");
+  
+    
+    if (nomeInput == "") {
+        console.log("Erro de campos vazios");
+        p_erro.innerHTML = "Erro de campos vazios";
+        return;
+    }
+    p_erro.innerHTML = "";
+
+    if (emailInput == "") {
+        console.log("Erro de campos vazios");
+        p_erro2.innerHTML = "Erro de campos vazios";
+        return;
+    }
+    p_erro2.innerHTML = "";
+
+    if (senhaInput == "") {
+        console.log("Erro de campos vazios");
+        p_erro3.innerHTML = "Erro de campos vazios";
+        return;
+    }
+    p_erro3.innerHTML = "";
+
+    if (confSenhaInput == "") {
+        console.log("Erro de campos vazios");
+        p_erro4.innerHTML = "Erro de campos vazios";
+        return;
+    }
+    p_erro4.innerHTML = "";
+
+    
+    if (nomeInput.length <= 1) {
+        console.log("Erro na quantidade de caracteres do nome");
+        p_erro.innerHTML = "Erro na quantidade de caracteres do nome";
+        return;
+    }
+    p_erro.innerHTML = "";
+
+    if(/[A-Z]/.test(senhaInput) == false || senhaInput.length < 6){
+        console.log("Erro de senha fraca");
+        p_erro3.innerHTML = "Digite uma senha mais forte com letra maiuscula e com 6  ou mais caracteres";
+        
+        return;
+    }
+
+    p_erro3.innerHTML = "";
+   
+    if (senhaInput !== confSenhaInput) {
+        console.log("As senhas não coincidem");
+        p_erro4.innerHTML = "As senhas não coincidem";
+        return;
+    }
+    p_erro4.innerHTML = "";
+
+    if (emailInput.indexOf("@") == -1 || emailInput.indexOf(".com") == -1) {
+        console.log("Erro de campos vazios");
+        p_erro2.innerHTML = "Digite um e-mail válido";
+        return;
+    }
+    p_erro2.innerHTML = "";
+
+    window.location = "dashboard.html";
+}
+
+</script>

@@ -29,14 +29,24 @@
                     <div for="nome" class="msg-input">Nome</div>
                     <input class="custom-input" type="text" id="input_nome" name="nome">
                 </div>
+
+                <p id="p_erro" class="p_erro"></p>
+
                 <div class="input-container">
                     <div for="cpf" class="msg-input">CPF</div>
-                    <input class="custom-input" type="text" id="input_cpf" name="CPF" placeholder="000.000.000.00">
+                    <input class="custom-input" type="text" id="input_cpf" name="CPF" placeholder="000.000.000.00"
+                    oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
                 </div>
+
+                <p id="p_erro2" class="p_erro"></p>
+
                 <div class="input-container">
                     <div for="telefone" class="msg-input">Telefone</div>
                     <input class="custom-input" type="tel" id="input_telefone" name="telefone">
                 </div>
+
+                <p id="p_erro3" class="p_erro"></p>
+
             </div>
             <div class="forms-right">
                 <div class="input-container">
@@ -44,14 +54,17 @@
                     <input class="custom-input" type="email" id="input_email" name="email"
                         placeholder="usuario@empresa.com">
                 </div>
+                <p id="p_erro4" class="p_erro"></p>
                 <div class="input-container">
                     <div for="senha" class="msg-input">Senha</div>
                     <input class="custom-input" type="password" id="input_senha" name="senha">
                 </div>
+                <p id="p_erro5" class="p_erro"></p>
                 <div class="input-container">
                     <div for="conf_senha" class="msg-input">Confirmar senha</div>
                     <input class="custom-input" type="password" id="input_conf_senha" name="confsenha">
                 </div>
+                <p id="p_erro6" class="p_erro"></p>
             </div>
 
 
@@ -62,7 +75,7 @@
 
         </div>
         <div class="buttom-cadastrar">
-            <a href="index.html"><button class="custom-button">Cadastrar</button></a>
+            <button class="custom-button" onclick="validarResponsavel()">Cadastrar</button>
         </div>
     </div>
 
@@ -74,3 +87,112 @@
 </body>
 
 </html>
+
+<script>
+
+    function validarResponsavel() {
+    const nomeInput = document.getElementById("input_nome").value;
+    const cpfInput = document.getElementById("input_cpf").value;
+    const telefoneInput = document.getElementById("input_telefone").value;
+    const emailInput = document.getElementById("input_email").value;
+    const senhaInput = document.getElementById("input_senha").value;
+    const confSenhaInput = document.getElementById("input_conf_senha").value;
+    let p_erro = document.getElementById("p_erro");
+    
+
+   
+    if (nomeInput == "") {
+        console.log("Erro de campos vazios");
+        p_erro.innerHTML = "Erro de campos vazios";
+        return;
+    }
+    p_erro.innerHTML = "";
+
+    if (cpfInput == "") {
+        console.log("Erro de campos vazios");
+        p_erro2.innerHTML = "Erro de campos vazios";
+        return;
+    }
+    p_erro2.innerHTML = "";
+
+    if (telefoneInput == "") {
+        console.log("Erro de campos vazios");
+        p_erro3.innerHTML = "Erro de campos vazios";
+        return;
+    }
+    p_erro3.innerHTML = "";
+
+    if (emailInput == "") {
+        console.log("Erro de campos vazios");
+        p_erro4.innerHTML = "Erro de campos vazios";
+        return;
+    }
+    p_erro4.innerHTML = "";
+
+    if (senhaInput == "") {
+        console.log("Erro de campos vazios");
+        p_erro5.innerHTML = "Erro de campos vazios";
+        return;
+    }
+    p_erro5.innerHTML = "";
+
+    if (confSenhaInput == "") {
+        console.log("Erro de campos vazios");
+        p_erro6.innerHTML = "Erro de campos vazios";
+        return;
+    }
+    p_erro6.innerHTML = "";
+
+   
+    if (nomeInput.length <= 1) {
+        console.log("Erro na quantidade de caracteres do nome");
+        p_erro.innerHTML = "Erro na quantidade de caracteres do nome";
+        return;
+    }
+    p_erro.innerHTML = "";
+
+    
+    if (cpfInput.length < 11 || cpfInput.length > 11) {
+        console.log("Erro nos caracteres do CPF");
+        p_erro2.innerHTML = "Erro na quantidade de caracteres do CPF";
+        return;
+    }
+    p_erro2.innerHTML = "";
+
+    if(telefoneInput.length < 9 || telefoneInput.length > 16){
+        console.log("Erro na quantidade de caracteres do telefone");
+        p_erro3.innerHTML = "Erro na quantidade de caracteres do telefone"
+        
+        return;
+    }
+
+    p_erro3.innerHTML = "";
+
+    if (emailInput.indexOf("@") == -1 || emailInput.indexOf(".com") == -1) {
+        console.log("Erro de campos vazios");
+        p_erro4.innerHTML = "Digite um e-mail válido";
+        return;
+    }
+
+    p_erro4.innerHTML = "";
+
+    if(/[A-Z]/.test(senhaInput) == false || senhaInput.length < 6){
+        console.log("Erro de senha fraca");
+        p_erro5.innerHTML = "Digite uma senha mais forte com letra maiuscula e com 6  ou mais caracteres";
+        
+        return;
+    }
+
+    p_erro5.innerHTML = "";
+
+    if (senhaInput !== confSenhaInput) {
+        console.log("As senhas não coincidem");
+        p_erro6.innerHTML = "As senhas não coincidem";
+        return;
+    }
+    p_erro6.innerHTML = "";
+
+    window.location = "dashboard.html";
+}
+
+</script>

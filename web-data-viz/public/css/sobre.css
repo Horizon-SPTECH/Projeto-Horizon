@@ -9,7 +9,7 @@
 body {
     overflow-x: hidden;
     width: 100%;
-    height: 200vh;
+    height: 350vh;
     font-family: 'Poppins', sans-serif;
     background: linear-gradient(135deg, #15062F -0.32%, rgba(63, 7, 152, 0.83) 105.5%), #565656;
 }

@@ -24,12 +24,12 @@
         </div>
         <div class="titulo">Cadastre uma nova empresa</div>
         <div class="container">
-            <div class="input-container">
+            <div class="input-container input-container-vertical">
                 <div for="nomeEmpresa" class="msg-input">Nome da empresa</div>
                 <input class="custom-input" type="text" id="input_nome_empresa" name="nome">
                 
-                <p class="p_erro" id="p_erro"></p>
             </div>
+            <p class="p_erro" id="p_erro"></p>
 
             <div class="input-container">
                 <div for="CNPJ" class="msg-input">CNPJ</div>
@@ -37,6 +37,7 @@
                     oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
                     <!-- esse oninput server para o usuário não digitar nada além de números-->
             </div>
+            <p class="p_erro" id="p_erro2"></p>
 
             <div class="input-container">
                 <div for="cep" class="msg-input">CEP</div>
@@ -44,12 +45,16 @@
                     oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
                     <!-- esse oninput server para o usuário não digitar nada além de números-->
             </div>
+            <p class="p_erro" id="p_erro3"></p>
+
             <div class="input-container">
                 <div class="input-wrapper">
                     <div for="endereco" class="msg-input">Endereço</div>
                     <input class="custom-input custom-input-endereço" type="text" id="input_endereco" name="endereco"
                         placeholder="Digite o endereço">
                 </div>
+                <p class="p_erro_wrapper" id="p_erro4"></p>
+
                 <div class="input-wrapper">
                     <div for="numero" class="msg-input msg-input-numero">Número</div>
                     <input class="custom-input custom-input-numero" type="text" id="input_numero" name="numero"
@@ -57,6 +62,7 @@
                         oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"> 
                         <!-- esse oninput server para o usuário não digitar nada além de números-->
                 </div>
+                <p class="p_erro_wrapper" id="p_erro5"></p>
             </div>
 
         </div>
@@ -70,10 +76,6 @@
             <button class="custom-button" onclick="validar()">Próximo</button>
         </div>
     </div>
-
-
-
-
     </div>
 
 </body>
@@ -89,32 +91,79 @@
         const numeroInput = document.getElementById("input_numero").value;
         let p_erro = document.getElementById("p_erro");
 
-        if (nomeInput == "" || cnpjInput == "" || cepInput == ""
-            || enderecoInput == "" || numeroInput == "") {
+        if (nomeInput == "") {
             console.log("Erro de campos vázios");
             p_erro.innerHTML = "Erro de campos vazios";    
+            
+            return;
+        }
+
+        p_erro.innerHTML = "";
+
+        if(cnpjInput == ""){
+            console.log("Erro de campos vázios");
+            p_erro2.innerHTML = "Erro de campos vazios";
 
             return;
         }
+
+        p_erro2.innerHTML = "";
+
+        if(cepInput == ""){
+            console.log("Erro de campos vázios");
+            p_erro3.innerHTML = "Erro de campos vazios";
+
+            return;
+        }
+
+        p_erro3.innerHTML = "";
+
+        if(enderecoInput == "" ){
+            console.log("Erro de campos vázios");
+            p_erro4.innerHTML = "Erro de campos vazios";
+
+            return;
+        }
+
+        p_erro4.innerHTML = "";
+
+        if(numeroInput == ""){
+            console.log("Erro de campos vázios");
+            p_erro5.innerHTML = "Erro de campos vazios";
+
+            return;
+        }
+
+        p_erro5.innerHTML = "";
+
+        if(nomeInput.length <= 1){
+            console.log("Erro na quantidade de caracteres do nome");
+            p_erro.innerHTML = "Erro na quantidade de caracteres do nome";
+
+            return;
+        }
+
+        p_erro.innerHTML = "";
 
         if (cnpjInput.length < 14 || cnpjInput.length > 14) {
             console.log("Erro nos caracteres do CNPJ");
+            p_erro2.innerHTML = "Erro na quantidade de caracteres do CNPJ";
 
             return;
         }
+
+        p_erro2.innerHTML = "";
 
         if (cepInput.length < 8 || cepInput.length > 8) {
             console.log("Erro nos caracteres do CEP");
+            p_erro3.innerHTML = "Erro na quantidade de caracteres do CEP"
 
             return;
         }
 
-        if(nomeInput.length <= 1 || numeroInput < 3){
-            console.log("Erro na quantidade de caracteres do nome ou numero");
+        p_erro3.innerHTML = "";
 
-            return;
-        }
-
+        
         window.location = "cadastro-responsavel.html";
 
     }
