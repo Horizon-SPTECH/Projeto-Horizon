@@ -101,42 +101,42 @@
     
 
    
-    if (nomeInput == "") {
+    if (nomeInput.trim() == "") {
         console.log("Erro de campos vazios");
         p_erro.innerHTML = "Erro de campos vazios";
         return;
     }
     p_erro.innerHTML = "";
 
-    if (cpfInput == "") {
+    if (cpfInput.trim() == "") {
         console.log("Erro de campos vazios");
         p_erro2.innerHTML = "Erro de campos vazios";
         return;
     }
     p_erro2.innerHTML = "";
 
-    if (telefoneInput == "") {
+    if (telefoneInput.trim() == "") {
         console.log("Erro de campos vazios");
         p_erro3.innerHTML = "Erro de campos vazios";
         return;
     }
     p_erro3.innerHTML = "";
 
-    if (emailInput == "") {
+    if (emailInput.trim() == "") {
         console.log("Erro de campos vazios");
         p_erro4.innerHTML = "Erro de campos vazios";
         return;
     }
     p_erro4.innerHTML = "";
 
-    if (senhaInput == "") {
+    if (senhaInput.trim() == "") {
         console.log("Erro de campos vazios");
         p_erro5.innerHTML = "Erro de campos vazios";
         return;
     }
     p_erro5.innerHTML = "";
 
-    if (confSenhaInput == "") {
+    if (confSenhaInput.trim() == "") {
         console.log("Erro de campos vazios");
         p_erro6.innerHTML = "Erro de campos vazios";
         return;
@@ -144,7 +144,7 @@
     p_erro6.innerHTML = "";
 
    
-    if (nomeInput.length <= 1) {
+    if (nomeInput.trim().length <= 1) {
         console.log("Erro na quantidade de caracteres do nome");
         p_erro.innerHTML = "Erro na quantidade de caracteres do nome";
         return;
@@ -152,14 +152,14 @@
     p_erro.innerHTML = "";
 
     
-    if (cpfInput.length < 11 || cpfInput.length > 11) {
+    if (cpfInput.trim().length < 11 || cpfInput.trim().length > 11) {
         console.log("Erro nos caracteres do CPF");
         p_erro2.innerHTML = "Erro na quantidade de caracteres do CPF";
         return;
     }
     p_erro2.innerHTML = "";
 
-    if(telefoneInput.length < 9 || telefoneInput.length > 16){
+    if(telefoneInput.trim().length < 9 || telefoneInput.trim().length > 16){
         console.log("Erro na quantidade de caracteres do telefone");
         p_erro3.innerHTML = "Erro na quantidade de caracteres do telefone"
         
@@ -176,7 +176,7 @@
 
     p_erro4.innerHTML = "";
 
-    if(/[A-Z]/.test(senhaInput) == false || senhaInput.length < 6){
+    if(/[A-Z]/.test(senhaInput) == false || senhaInput.trim().length < 6){
         console.log("Erro de senha fraca");
         p_erro5.innerHTML = "Digite uma senha mais forte com letra maiuscula e com 6  ou mais caracteres";
         
@@ -185,7 +185,7 @@
 
     p_erro5.innerHTML = "";
 
-    if (senhaInput !== confSenhaInput) {
+    if (senhaInput.trim() !== confSenhaInput.trim()) {
         console.log("As senhas não coincidem");
         p_erro6.innerHTML = "As senhas não coincidem";
         return;

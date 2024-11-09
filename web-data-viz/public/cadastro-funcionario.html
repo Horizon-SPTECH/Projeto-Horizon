@@ -76,28 +76,28 @@ function validarFuncionario() {
     let p_erro = document.getElementById("p_erro");
   
     
-    if (nomeInput == "") {
+    if (nomeInput.trim() == "") {
         console.log("Erro de campos vazios");
         p_erro.innerHTML = "Erro de campos vazios";
         return;
     }
     p_erro.innerHTML = "";
 
-    if (emailInput == "") {
+    if (emailInput.trim() == "") {
         console.log("Erro de campos vazios");
         p_erro2.innerHTML = "Erro de campos vazios";
         return;
     }
     p_erro2.innerHTML = "";
 
-    if (senhaInput == "") {
+    if (senhaInput.trim() == "") {
         console.log("Erro de campos vazios");
         p_erro3.innerHTML = "Erro de campos vazios";
         return;
     }
     p_erro3.innerHTML = "";
 
-    if (confSenhaInput == "") {
+    if (confSenhaInput.trim() == "") {
         console.log("Erro de campos vazios");
         p_erro4.innerHTML = "Erro de campos vazios";
         return;
@@ -105,14 +105,14 @@ function validarFuncionario() {
     p_erro4.innerHTML = "";
 
     
-    if (nomeInput.length <= 1) {
+    if (nomeInput.length.trim() <= 1) {
         console.log("Erro na quantidade de caracteres do nome");
         p_erro.innerHTML = "Erro na quantidade de caracteres do nome";
         return;
     }
     p_erro.innerHTML = "";
 
-    if(/[A-Z]/.test(senhaInput) == false || senhaInput.length < 6){
+    if(/[A-Z]/.test(senhaInput) == false || senhaInput.trim().length < 6){
         console.log("Erro de senha fraca");
         p_erro3.innerHTML = "Digite uma senha mais forte com letra maiuscula e com 6  ou mais caracteres";
         
@@ -121,7 +121,7 @@ function validarFuncionario() {
 
     p_erro3.innerHTML = "";
    
-    if (senhaInput !== confSenhaInput) {
+    if (senhaInput.trim() !== confSenhaInput.trim()) {
         console.log("As senhas não coincidem");
         p_erro4.innerHTML = "As senhas não coincidem";
         return;

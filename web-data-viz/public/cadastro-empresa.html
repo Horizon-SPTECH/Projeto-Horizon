@@ -91,7 +91,7 @@
         const numeroInput = document.getElementById("input_numero").value;
         let p_erro = document.getElementById("p_erro");
 
-        if (nomeInput == "") {
+        if (nomeInput.trim() == "") {
             console.log("Erro de campos vázios");
             p_erro.innerHTML = "Erro de campos vazios";    
             
@@ -100,7 +100,7 @@
 
         p_erro.innerHTML = "";
 
-        if(cnpjInput == ""){
+        if(cnpjInput.trim() == ""){
             console.log("Erro de campos vázios");
             p_erro2.innerHTML = "Erro de campos vazios";
 
@@ -109,7 +109,7 @@
 
         p_erro2.innerHTML = "";
 
-        if(cepInput == ""){
+        if(cepInput.trim() == ""){
             console.log("Erro de campos vázios");
             p_erro3.innerHTML = "Erro de campos vazios";
 
@@ -118,7 +118,7 @@
 
         p_erro3.innerHTML = "";
 
-        if(enderecoInput == "" ){
+        if(enderecoInput.trim() == "" ){
             console.log("Erro de campos vázios");
             p_erro4.innerHTML = "Erro de campos vazios";
 
@@ -127,7 +127,7 @@
 
         p_erro4.innerHTML = "";
 
-        if(numeroInput == ""){
+        if(numeroInput.trim() == ""){
             console.log("Erro de campos vázios");
             p_erro5.innerHTML = "Erro de campos vazios";
 
@@ -136,7 +136,7 @@
 
         p_erro5.innerHTML = "";
 
-        if(nomeInput.length <= 1){
+        if(nomeInput.trim().length <= 1){
             console.log("Erro na quantidade de caracteres do nome");
             p_erro.innerHTML = "Erro na quantidade de caracteres do nome";
 
@@ -145,7 +145,7 @@
 
         p_erro.innerHTML = "";
 
-        if (cnpjInput.length < 14 || cnpjInput.length > 14) {
+        if (cnpjInput.trim().length < 14 || cnpjInput.trim().length > 14) {
             console.log("Erro nos caracteres do CNPJ");
             p_erro2.innerHTML = "Erro na quantidade de caracteres do CNPJ";
 
@@ -154,7 +154,7 @@
 
         p_erro2.innerHTML = "";
 
-        if (cepInput.length < 8 || cepInput.length > 8) {
+        if (cepInput.trim().length < 8 || cepInput.trim().length > 8) {
             console.log("Erro nos caracteres do CEP");
             p_erro3.innerHTML = "Erro na quantidade de caracteres do CEP"
 
