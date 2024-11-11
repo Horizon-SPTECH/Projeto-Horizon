@@ -334,6 +334,11 @@
     gap: 2rem;
 }
 
+#kpiFurtosPor1k{
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
 #cgk-graficos-id {
     width: 24vw;
     height: 100%;

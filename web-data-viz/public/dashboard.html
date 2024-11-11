@@ -4,18 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - Horizon</title>
-    <link rel="shortcut icon" href="assets/Group 11.png" type="image/x-icon">
+    <link rel="shortcut icon" href="assets/group11.png" type="image/x-icon">
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
 </head>
-<body>
+<body onload="inicializarPagina()">
     <div class="background">
 
         <div class="container">
 
             <div class="container-barra-lateral">
                 <div class="cbl-logo">
-                    <img src="assets/Group 11.png" alt="">
+                    <img src="assets/group11.png" alt="">
                 </div>
 
                 <div class="cbl-botoes">
@@ -27,7 +27,7 @@
                                 <span>Dashboard</span>
                             </div>
                         </div>
-                        <a href="dashboard-indiv.html" class="bl-botao">
+                        <a href="lista-municipios.html" class="bl-botao">
                             <div class="bl-botao-filho">
                                 <img src="assets/detalhe1.png" alt="">
                                 <span>Detalhes</span>
@@ -99,14 +99,14 @@
                             <div class="cgk-mapa-infos-class" id="cgk-mapa-infos-kpi">
                                 <div class="cgk-kpi-furto">
                                     <span>Município com mais furtos</span>
-                                    <h1>Serra</h1>
-                                    <h1>400 - 24%</h1>
+                                    <h1 id="kpiMunicipioComMaisFurto"></h1>
+                                    <h1 id="kpiMunicipioComMaisFurtoDados"></h1>
                                 </div>
                                 
                                 <div class="cgk-kpi-furto">
                                     <span>Município com menos furtos</span>
-                                    <h1>Caraiaca</h1>
-                                    <h1>120 - 12%</h1>
+                                    <h1 id="kpiMunicipioComMenosFurto"></h1>
+                                    <h1 id="kpiMunicipioComMenosFurtoDados"></h1>
                                 </div>
                             </div>
                         </div>
@@ -120,7 +120,7 @@
 
                             <div class="cgk-kpi-furtosHab-kpi">
                                 <h3 style="font-size: 15px;">Furtos por 1k/habitante</h3>
-                                <span>300</span>
+                                <span id="kpiFurtosPor1k"></span>
                             </div>
                         </div>
 
@@ -130,23 +130,8 @@
                             </div>
                             
                             <div class="cgk-kpi-obj-imgs">
-                                <div class="cgk-kpi-obj-ordem">
-                                    <img src="assets/moto.png" alt="">
-                                    <h1>1° - 682</h1>
-                                    <span>Moto</span>
-                                </div>
+                                <!-- <h1>2° - 435</h1> -->
 
-                                <div class="cgk-kpi-obj-ordem">
-                                    <img src="assets/celular.png" alt="">
-                                    <h1>2° - 435</h1>
-                                    <span>Celular</span>
-                                </div>
-
-                                <div class="cgk-kpi-obj-ordem">
-                                    <img src="assets/carro.png" alt="">
-                                    <h1>3° - 123</h1>
-                                    <span>Carro</span>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -194,7 +179,176 @@
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
 <script>
+
+    function inicializarPagina(){
+        maiorMunicipioFurtos();
+        maiorMunicipioFurtosNumeroPorcentagem();
+        menorMunicipioFurtos();
+        menorMunicipioFurtosNumeroPorcentagem();
+        furtorPor1kilometro(),
+        objetosRoubados(),
+        fetchPeríodoDiaComMaisFurtos()
+    }
+
+    function maiorMunicipioFurtos(){
+        fetch(`/empresas/maisFurto`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    
+                    const municipioElemento = document.getElementById('kpiMunicipioComMaisFurto');
+                    municipioElemento.innerHTML = `${resposta[0].municipio}`
+                    
+                });
+            } else {
+                console.error('Erro no maiorMunicipioFurtos');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ KPI: ${error.message}`);
+            });
+    }
+
+    function maiorMunicipioFurtosNumeroPorcentagem(){
+        fetch(`/empresas/maisFurtoMunicipioPorcentagem`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+                    const municipioMaiorDadosElemento = document.getElementById('kpiMunicipioComMaisFurtoDados');
+                    municipioMaiorDadosElemento.innerHTML += `${resposta[0].numero_furtos} - ${resposta[0].porcentagem_furtos}%`
+                });
+            } else {
+                console.error('Erro no maiorMunicipioFurtosNumeroPorcentagem');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ KPI: ${error.message}`);
+            });
+    }
+
+    function menorMunicipioFurtos(){
+        fetch(`/empresas/menosFurto`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    
+                 const municipioMenorElemento = document.getElementById('kpiMunicipioComMenosFurto');
+                 municipioMenorElemento.innerHTML = `${resposta[0].municipio}`
+                    
+                });
+            } else {
+                console.error('Erro no menorMunicipioFurtos');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ KPI: ${error.message}`);
+            });
+    }
+
+    function menorMunicipioFurtosNumeroPorcentagem(){
+        fetch(`/empresas/menosFurtoMunicipioPorcentagem`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+                    const municipioMenorDadosElemento = document.getElementById('kpiMunicipioComMenosFurtoDados');
+                    municipioMenorDadosElemento.innerHTML += `${resposta[0].numero_furtos} - ${resposta[0].porcentagem_furtos}%`
+
+                });
+            } else {
+                console.error('Erro no menorMunicipioFurtosNumeroPorcentagem');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ KPI: ${error.message}`);
+            });
+    }
+
+    function furtorPor1kilometro(){
+        fetch(`/empresas/furtosPor1kilometro`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+                    const municipioMenorDadosElemento = document.getElementById('kpiFurtosPor1k');
+                    municipioMenorDadosElemento.innerHTML += `${resposta[0].furtos_por_km2}`
+
+                });
+            } else {
+                console.error('Erro no furtorPor1kilometro');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ KPI: ${error.message}`);
+            });
+    }
+
+   function objetosRoubados(){
+    fetch(`/empresas/objetosMaisRoubados`, { cache: 'no-store' }).then(function (response) {
+        if (response.ok) {
+            response.json().then(function (resposta) {
+                console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+                   const container = document.querySelector('.cgk-kpi-obj-imgs');
+                   container.innerHTML = '';
+                   var contador = 1;
+   
+                   resposta.forEach((objeto, index) => {
+
+                       const divOrdem = document.createElement('div');
+                       divOrdem.classList.add('cgk-kpi-obj-ordem');
+                       
+                       const img = document.createElement('img');
+                       img.src = `assets/${objeto.tipo_objeto.toLowerCase()}.png`;
+                       img.alt = objeto.tipo_objeto;
+
+                       const h1 = document.createElement('h1');
+                       h1.innerHTML = `${contador++}º - ${objeto.numero_furtos}`;
+   
+                       const span = document.createElement('span');
+                       span.innerHTML = objeto.tipo_objeto;
+   
+                       divOrdem.appendChild(img);
+                       divOrdem.appendChild(h1);
+                       divOrdem.appendChild(span);
+
+                       container.appendChild(divOrdem);
+                   });
+
+            });
+        } else {
+            console.error('Erro no furtorPor1kilometro');
+        }
+    })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados p/ KPI: ${error.message}`);
+        });
+   }
+
+
+function fetchPeríodoDiaComMaisFurtos() {
+
+    Promise.all([
+        fetch('/empresas/mesesGraficos', { cache: 'no-store' }).then(response => response.json()),
+        fetch(`/empresas/horarioMeses`, { cache: 'no-store' }).then(response => response.json())
+    ])
+        .then(([mesesGraficos, horarioMeses]) => {
+            console.log('Meses Gráficos:', mesesGraficos);
+            console.log('Horário Meses:', horarioMeses);
+
+             plotar(mesesGraficos, horarioMeses);
+        })
+        .catch(error => console.error(`Erro na obtenção dos dados: ${error.message}`));
+}
+
+
+
+function plotar(mesesGraficos, horarioMeses) {
     const grafico_periodo = document.getElementById('grafico_periodo');
+
+    const mesesLabels = mesesGraficos.map(mes => mes.nome_mes);
+    const horas = horarioMeses.map(horario => horario.hora);
 
     Chart.defaults.color = '#23005B';
     //Chart.defaults.borderColor = 'white';
@@ -202,10 +356,10 @@
     new Chart(grafico_periodo, {
     type: 'bar',
     data: {
-        labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'],
+        labels: mesesLabels,
         datasets: [{
             label: 'Periodo',
-            data: [12, 19, 3, 5, 2, 3],
+            data: horas,
             backgroundColor: '#5321CA',
             borderRadius: 17
         }]
@@ -240,6 +394,7 @@
     },
     barPercentage: 0.4
     }});
+}
 
     const grafico_meses = document.getElementById('grafico_meses');
 
@@ -368,7 +523,7 @@
         };
 
         // Carregar os limites dos municípios do Espírito Santo usando o GeoJSON
-        fetch('../ES_Municipios_2022.json') // Substitua pelo caminho correto do GeoJSON
+        fetch('../ES_Municipios_2022.json')        // Substitua pelo caminho correto do GeoJSON
             .then(response => response.json()) // Espera a resposta do fetch e converte para JSON
             .then(data => {
                 // Adiciona o GeoJSON ao mapa

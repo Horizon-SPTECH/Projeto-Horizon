@@ -4,31 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista - Horizon</title>
-    <link rel="shortcut icon" href="assets/Group 11.png" type="image/x-icon">
+    <link rel="shortcut icon" href="assets/group11.png" type="image/x-icon">
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
     <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css">
 </head>
-<body>
+<body onload="listartMunicipios()"> 
     <div class="background">
 
         <div class="container">
 
             <div class="container-barra-lateral">
                 <div class="cbl-logo">
-                    <img src="assets/Group 11.png" alt="">
+                    <img src="assets/group11.png" alt="">
                 </div>
 
                 <div class="cbl-botoes">
 
                     <div class="cbl-botoes-barralateral">
-                        <div class="bl-botao" id="bl-botao-inicio">
+                        <a href="dashboard.html" class="bl-botao" id="bl-botao">
                             <div class="bl-botao-filho">
                                 <img src="assets/casa.png" alt="">
                                 <span>Dashboard</span>
                             </div>
-                        </div>
-                        <a href="dashboard-indiv.html" class="bl-botao">
+                        </a>
+                        <a href="lista-municipios.html" class="bl-botao" id="bl-botao-inicio">
                             <div class="bl-botao-filho">
                                 <img src="assets/detalhe1.png" alt="">
                                 <span>Detalhes</span>
@@ -69,155 +69,10 @@
                             <th>Nome</th>
                             <th>Nº de habitantes</th>
                             <th>Furtos</th>
-                            <th> % de furtos no Espírito Santo por municipio</th>
+                            <th> Furtos por município (% do total no Espírito Santo)</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td style="border-bottom: 20px black solid;">Tiger Nixon</td>
-                            <td>System Architect</td>
-                            <td>Edinburgh</td>
-                            <td>61</td>
-                            
-                        </tr>
-                        <tr>
-                            <td>Garrett Winters</td>
-                            <td>Accountant</td>
-                            <td>Tokyo</td>
-                            <td>63</td>
-                            
-                        </tr>
-                        <tr>
-                            <td>Ashton Cox</td>
-                            <td>Junior Technical Author</td>
-                            <td>San Francisco</td>
-                            <td>66</td>
-                           
-                        </tr>
-                        <tr>
-                            <td>Cedric Kelly</td>
-                            <td>Senior Javascript Developer</td>
-                            <td>Edinburgh</td>
-                            <td>fgjdjgjdrigjrij</td>
-                        
-                        </tr>
-                        <tr>
-                            <td>Airi Satou</td>
-                            <td>Accountant</td>
-                            <td>Tokyo</td>
-                            <td>33</td>
-                           
-                        </tr>
-                        <tr>
-                            <td>Brielle Williamson</td>
-                            <td>Integration Specialist</td>
-                            <td>New York</td>
-                            <td>61</td>
-                           
-                        <tr>
-                            <td>Herrod Chandler</td>
-                            <td>Sales Assistant</td>
-                            <td>San Francisco</td>
-                            <td>59</td>
-                            
-                        </tr>
-                    
-                        <tr>
-                            <td>Shad Decker</td>
-                            <td>Regional Director</td>
-                            <td>Edinburgh</td>
-                            <td>51</td>
-                        </tr>
-                        <tr>
-                            <td>Michael Bruce</td>
-                            <td>Javascript Developer</td>
-                            <td>Singapore</td>
-                            <td>29</td>
-                        </tr>
-                        <tr>
-                            <td>Donna Snider</td>
-                            <td>Customer Support</td>
-                            <td>New York</td>
-                            <td>27</td>
-                        </tr>
-                        <tr>
-                            <td>Donna Snider</td>
-                            <td>Customer Support</td>
-                            <td>New York</td>
-                            <td>27</td>
-                        </tr>
-                        <tr>
-                            <td>Donna Snider</td>
-                            <td>Customer Support</td>
-                            <td>New York</td>
-                            <td>27</td>
-                        </tr>
-                        <tr>
-                            <td>Donna Snider</td>
-                            <td>Customer Support</td>
-                            <td>New York</td>
-                            <td>27</td>
-                        </tr>
-                        <tr>
-                            <td>Donna Snider</td>
-                            <td>Customer Support</td>
-                            <td>New York</td>
-                            <td>27</td>
-                        </tr>
-                        <tr>
-                            <td>Donna Snider</td>
-                            <td>Customer Support</td>
-                            <td>New York</td>
-                            <td>27</td>
-                        </tr>
-                        <tr>
-                            <td>Donna Snider</td>
-                            <td>Customer Support</td>
-                            <td>New York</td>
-                            <td>27</td>
-                        </tr>
-                        <tr>
-                            <td>Donna Snider</td>
-                            <td>Customer Support</td>
-                            <td>New York</td>
-                            <td>27</td>
-                        </tr><tr>
-                            <td>Donna Snider</td>
-                            <td>Customer Support</td>
-                            <td>New York</td>
-                            <td>27</td>
-                        </tr>
-                        <tr>
-                            <td>Donna Snider</td>
-                            <td>Customer Support</td>
-                            <td>New York</td>
-                            <td>27</td>
-                        </tr>
-                        <tr>
-                            <td>Donna Snider</td>
-                            <td>Customer Support</td>
-                            <td>New York</td>
-                            <td>27</td>
-                        </tr>
-                        <tr>
-                            <td>Donna Snider</td>
-                            <td>Customer Support</td>
-                            <td>New York</td>
-                            <td>27</td>
-                        </tr>
-                        <tr>
-                            <td>Donna Snider</td>
-                            <td>Customer Support</td>
-                            <td>New York</td>
-                            <td>27</td>
-
-                        </tr>
-                        <tr>
-                            <td>Donna Snider</td>
-                            <td>Customer Support</td>
-                            <td>New York</td>
-                            <td>27</td>
-                        </tr>
+                    <tbody id="bodyTabela">
                     </tbody>
                 </table>
             </div>
@@ -229,17 +84,70 @@
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
 <script>
-    new DataTable('#example', {
-        paging: false,
-        scrollCollapse: true,
-        scrollY: '70vh',
-        info:false,
-        language: {
-            emptyTable: "Nenhum dado disponível na tabela",
-            zeroRecords: "Município não encontrado",
-            search:"Buscar Município:"
-        }
-    });
+    function listartMunicipios(){
+        fetch(`/empresas/listartMunicipios`).then(function (resposta) {
+            if (resposta.ok) {
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+                    var table = document.getElementById("bodyTabela");
+                    table.innerHTML="";
+
+                    for(let i = 0; i < resposta.length; i++){
+                        var listaLinha = resposta[i];
+                        var trTable = document.createElement("tr");
+                        var thNome = document.createElement("th");
+                        var thHabitantes = document.createElement("th");
+                        var thFurtos = document.createElement("th");
+                        var threpresentacao = document.createElement("th")
+
+                        thNome.innerHTML = `${listaLinha.municipio}`;
+                        thHabitantes.innerHTML = `${listaLinha.numero_habitantes}`;
+                        thFurtos.innerHTML= `${listaLinha.numero_furtos}`
+                        threpresentacao.innerHTML= `${listaLinha.porcentagem_furtos}%`
+
+                        thNome.style.borderBottom = "1px solid black";
+                        thNome.style.textAlign = "left";
+                        thHabitantes.style.borderBottom = "1px solid black";
+                        thHabitantes.style.textAlign = "center";
+                        thFurtos.style.borderBottom = "1px solid black";
+                        thFurtos.style.textAlign = "center";
+                        threpresentacao.style.borderBottom = "1px solid black";
+                        threpresentacao.style.textAlign = "center";
+
+                        
+                        trTable.appendChild(thNome);
+                        trTable.appendChild(thHabitantes);
+                        trTable.appendChild(thFurtos);
+                        trTable.appendChild(threpresentacao);
+                        table.appendChild(trTable);
+                       
+                    }
+
+                  
+                    $('#example').DataTable({
+                        paging: false,
+                        scrollCollapse: true,
+                        scrollY: '68vh',
+                        info: false,
+                        language: {
+                            emptyTable: "Nenhum dado disponível na tabela",
+                            zeroRecords: "Município não encontrado",
+                            search: "Buscar Município:"
+                        }
+                    });
+
+
+                });
+            } else {
+                throw ('Houve um erro na API!');
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
+        });
+    }
+
+    
 </script>
 </html>
 
