@@ -48,7 +48,7 @@
                     <b><a class="link" href=""> Entre em contato</a></b>
                 </div>
                 <a href="dashboard.html" class="btn-entrar">
-                    <button class="btn-logar" onclick="entrar()">Entrar</button>
+                    <button class="btn-logar" onclick="validar()">Entrar</button>
                 </a>
             </div>
         </div>
@@ -62,27 +62,28 @@
 
 </html>
 
-<!-- <script>
+ <script>
 
+    function validar(){
     const email = document.getElementById("email");
-    const senha = document.getElementById("senha");
+    const senha = document.getElementById("password");
 
     let emailValido = false;
     let senhaValida = false;
 
 
     // VERIFICAÇÃO DE NOME, NÃO MAIS UTILIZADA
-    // nome.addEventListener('keyup', () => {
-    //     if (nome.value.trim().length < 2) {
-    //         mensagemErroNome.setAttribute('style', 'color: red');
-    //         mensagemErroNome.innerHTML = 'É preciso ter mais do que 1 caracter para o nome ser válido.';
-    //     }
-    //     else {
-    //         mensagemErroNome.removeAttribute('style')
-    //         mensagemErroNome.innerHTML = '';
-    //         nomeValido = true;
-    //     }
-    // });
+     nome.addEventListener('keyup', () => {
+        if (nome.value.trim().length < 2) {
+            mensagemErroNome.setAttribute('style', 'color: red');
+            mensagemErroNome.innerHTML = 'É preciso ter mais do que 1 caracter para o nome ser válido.';
+        }
+        else {
+            mensagemErroNome.removeAttribute('style')
+            mensagemErroNome.innerHTML = '';
+            nomeValido = true;
+        }
+    })
 
     email.addEventListener('keyup', () => {
         if (email.value.indexOf('@') == -1 || !email.value.endsWith('.com') || email.value.trim().length < 10) {
@@ -96,7 +97,7 @@
         }
     });
 
-    senha.addEventListener('keyup', () => {
+    password.addEventListener('keyup', () => {
         const senhaValor = senha.value;
 
         const verificacaoSenha = senhaValor.length >= 8
@@ -115,7 +116,13 @@
         }
     });
 
-</script> -->
+
+
+    }
+
+   
+
+</script> 
 
 
 <script>
