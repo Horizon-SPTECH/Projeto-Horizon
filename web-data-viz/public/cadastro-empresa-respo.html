@@ -108,17 +108,68 @@
             <span>Precisa de ajuda? <a href="index.html"><b> entre em contato</b></a></span>
         </div>
         <div class="buttom-cadastrar">
-            <a href="index.html"><button class="custom-button">Cadastrar</button></a>
+            <a href="index.html"><button onclick="cadastrar()" class="custom-button">Cadastrar</button></a>
         </div>
     </div>
-
-    <!-- JavaScript para alternar entre as telas -->
-    <script>
-        function mostrarCadastroResponsavel() {
-            document.getElementById('cadastroEmpresa').style.display = 'none';
-            document.getElementById('cadastroResponsavel').style.display = 'block';
-        }
-    </script>
 </body>
-
 </html>
+
+<script>
+    function mostrarCadastroResponsavel() {
+        document.getElementById('cadastroEmpresa').style.display = 'none';
+        document.getElementById('cadastroResponsavel').style.display = 'block';
+    }
+
+    let listaEmpresasCadastradas = [];
+
+    function cadastrar() {
+        var nomeEmpresaVar     = input_nome_empresa.value;
+        var cnpjEmpresaVar     = input_cnpj.value;
+        var cepEmpresaVar      = input_cep.value;
+        var enderecoEmpresaVar = input_endereco.value;
+        var numeroEmpresaVar   = input_numero.value;
+
+        var nomeVar      = input_nome.value;
+        var cpfVar       = input_cpf.value;
+        var telefoneVar  = input_telefone.value;
+        var emailVar     = input_email.value;
+        var senhaVar     = input_senha.value;
+        var confSenhaVar = input_conf_senha.value;
+        
+        fetch("/usuarios/cadastrar", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            nomeEmpresaServer:     nomeEmpresaVar,
+            cnpjEmpresaServer:     cnpjEmpresaVar,
+            cepEmpresaServer:      cepEmpresaVar,
+            enderecoEmpresaServer: enderecoEmpresaVar,
+            numeroEmpresaServer:   numeroEmpresaVar,
+            nomeServer:            nomeVar,
+            cpfServer:             cpfVar,
+            telefoneServer:        telefoneVar,
+            emailServer:           emailVar,
+            senhaServer:           senhaVar,
+            confSenhaServer:       confSenhaVar
+        }),
+        })
+        .then(function (resposta) {
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+                setTimeout(() => {
+                    window.location = "dashboard.html";
+                }, "2000");
+            } else {
+                throw "Houve um erro ao tentar realizar o cadastro!";
+            }
+        })
+        .catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+
+        return false;
+    }
+</script>
