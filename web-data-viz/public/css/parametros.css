@@ -1,0 +1,25 @@
+.card-parametro{
+    width: 78vw;
+    height: 75vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.box-white{
+width: 850px;
+height: 450px;
+background-color: white;
+border-radius: 20px;
+margin-bottom: 40px;
+}
+
+
+.box-title{
+    font-size: 18px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+}
