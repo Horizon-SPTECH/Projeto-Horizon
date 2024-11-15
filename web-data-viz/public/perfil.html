@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Horizon</title>
+    <link rel="shortcut icon" href="assets/group11.png" type="image/x-icon">
+    <link rel="stylesheet" href="css/perfil.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="js/disabled-senha.js"></script>
+</head>
+
+<body>
+    <div class="background">
+
+        <div class="container">
+
+            <div class="container-barra-lateral">
+                <div class="cbl-logo">
+                    <img src="assets/group11.png" alt="">
+                </div>
+
+                <div class="cbl-botoes">
+
+                    <div class="cbl-botoes-barralateral">
+                        <a href="dashboard.html" class="bl-botao">
+                            <div class="bl-botao-filho">
+                                <img src="assets/casa.png" alt="">
+                                <span>Dashboard</span>
+                            </div>
+                        </a>
+                        <a href="dashboard-indiv.html" class="bl-botao">
+                            <div class="bl-botao-filho">
+                                <img src="assets/detalhe1.png" alt="">
+                                <span>Detalhes</span>
+                            </div>
+                        </a>
+
+                        <a href="perfil.html" class="bl-botao">
+                            <div class="bl-botao" id="bl-botao-inicio">
+                                <div class="bl-botao-filho">
+                                    <img src="assets/icon-user.png" alt="">
+                                    <span>Perfil</span>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="empresa.html" class="bl-botao">
+                            <div class="bl-botao-filho">
+                                <img src="assets/icon-empresa.png" alt="">
+                                <span>Empresa</span>
+                            </div>
+                        </a>
+                        <a href="cadastro-funcionario.html" class="bl-botao">
+                            <div class="bl-botao-filho">
+                                <img src="assets/add.png" alt="">
+                                <span>Novo usuário</span>
+                            </div>
+                        </a>
+
+                    </div>
+
+                    <a href="index.html" class="bl-botao">
+                        <div class="bl-botao-filho">
+                            <img src="assets/porta.png" alt="">
+                            <span>Sair</span>
+                        </div>
+                    </a>
+                </div>
+
+            </div>
+
+            <div class="container-graficos-kpis">
+
+                <div class="cgk-navbar">
+                    <span>Perfil do Usuário</span>
+                </div>
+
+                <div class="box-perfil">
+                    <div class="box-info">
+                        <div class="titulo-info">
+                            <span class="span-info">Informações</span>
+                        </div>
+                        <div class="box-input">
+                            <div class="label-input">
+                                <label class="label-info" for="nome">Nome:</label>
+                                <div class="input-wrapper">
+                                    <input class="input-info" id="nome" type="text" placeholder="PITBULL" disabled>
+                                </div>
+                            </div>
+                            <div class="label-input">
+                                <label class="label-info" for="email">Email:</label>
+                                <div class="input-wrapper">
+                                    <input class="input-info" id="email" type="email" placeholder="usuario@gmal.com"
+                                        value="dayoucool@gmail.com">
+                                </div>
+                            </div>
+                            <div class="label-input">
+                                <label class="label-info" for="cpf">CPF:</label>
+                                <div class="input-wrapper">
+                                    <input class="input-info" id="cpf" type="text" placeholder="000.000.000-00" disabled>
+                                </div>
+                            </div>
+                            <div class="label-input">
+                                <label class="label-info" for="telefone">Telefone:</label>
+                                <div class="input-wrapper">
+                                    <input class="input-info" id="telefone" type="tel" value="11-940028922">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="btns-alterar">
+                            <div class="fundo-btn">
+                                <button class="button-alterar">Excluir conta</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-info">
+                        <div class="titulo-info">
+                            <span class="span-info">Alterar senha</span>
+                        </div>
+                        <div class="box-input">
+                            <div class="label-input">
+                                <label class="label-info" for="tipo">Tipo de usuario:</label>
+                                <div class="input-wrapper">
+                                    <input class="input-info" id="tipo" type="text" placeholder="Funcionário" disabled>
+                                </div>
+                            </div>
+                            <div class="label-input">
+                                <label class="label-info" for="senha-antiga">Senha antiga:</label>
+                                <div class="input-wrapper">
+                                    <input class="input-info" id="senha-antiga" type="password">
+                                    <img class="olho" src="assets/olho.png" alt=""
+                                        onclick="verSenha('senha-antiga', this)">
+                                </div>
+                            </div>
+                            <div class="label-input">
+                                <label class="label-info" for="senha-nova">Senha nova:</label>
+                                <div class="input-wrapper">
+                                    <input class="input-info" id="senha-nova" type="password">
+                                    <img class="olho" src="assets/olho.png" alt=""
+                                        onclick="verSenha('senha-nova', this)">
+                                </div>
+                            </div>
+                            <div class="label-input">
+                                <label class="label-info" for="confirmar-senha">Confirme a senha nova:</label>
+                                <div class="input-wrapper">
+                                    <input class="input-info" id="confirmar-senha" type="password">
+                                    <img class="olho" src="assets/olho.png" alt=""
+                                        onclick="verSenha('confirmar-senha', this)">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="btns-alterar">
+                            <div class="fundo-btn">
+                                <button class="button-alterar">Salvar alterações</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+</body>
+</html>

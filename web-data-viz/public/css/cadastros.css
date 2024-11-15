@@ -244,3 +244,188 @@ input::placeholder {
 .forms-right {
     margin-right: 10vw;
 }
+
+
+.container-add-funcionario {
+    width: 82%;
+    height: 78%;
+    border-radius: 15px;
+    border: 3px solid rgb(255 255 255);
+    background: linear-gradient(131deg, #310F67 6.29%, #77609D 106.36%);
+    box-shadow: 10px 28px 36px 17px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(25.5px);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.menu-sair{
+    width: 100%;
+    height: 5%;
+}
+
+.exit{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: row;
+    align-items: center;
+}
+.exit span{
+    color: white;
+    font-size: 28px;
+    margin-right: 2%;
+    cursor: pointer;
+    margin-top: 2%;
+}
+.titulo-cadastro{
+    width: 100%;
+    height: 10%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 40px;
+    font-weight: 500;
+}
+
+.box-inputs{
+    width: 100%;
+    height:50%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+}
+
+.label-input{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 33%;
+    justify-content: flex-start;
+}
+.label-info{
+    color: #D0BEEB;
+    margin-left: 14%;
+    font-size: 26px;
+    font-weight: 500;
+}
+.input-wrapper{
+    width: 100%;
+    height: 41%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.input-info{
+    background-color: #77609D;
+    border: none;
+    border-radius: 50px;
+    width: 70%;
+    margin-left: 14%;
+    height: 100%;
+    padding-left: 2%;
+    outline: none;
+    color: white;
+    font-size: 24px;
+}
+
+.input-info::placeholder {
+    color: #AC93D2;
+}
+
+.input-info:-ms-input-placeholder {  
+    color: #AC93D2;  
+}
+.input-info::-webkit-input-placeholder {
+    color: #AC93D2;
+}
+.input-info::-moz-placeholder {
+    color: #AC93D2;
+}
+.input-info:-moz-placeholder {
+    color: #AC93D2;
+}
+
+.box-lateral{
+    width: 100%;
+    height: 100%;
+}
+.box-select{
+    width: 100%;
+    height: 20%;
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.label-select{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.select-option{
+    width: 40%;
+    height: 38%;
+    font-size: 26px;
+    padding-left:2%;
+    border-radius: 15px;
+    margin-left: 30%;
+    background-color: #77609D;
+    color: white;
+    cursor: pointer;
+}
+
+.opcao{
+    font-size: 26px;
+}
+.select-funcionario{
+    color: #D0BEEB;
+    margin-left: 31%;
+    font-size: 26px;
+    font-weight: 500;
+}
+.box-btn{
+    width: 100%;
+    height: 15%;
+    display: flex;
+    align-content: flex-end;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 1%;
+}
+
+.button-cadastro{
+    width: 40%;
+    height: 64%;
+    border: none;
+    font-size: 32px;
+    font-weight: 600;
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+    border-radius: 50px;
+    background-color: #23005B;
+    color: #D0BEEB;
+    cursor: pointer;
+    border: none;
+}
+.olho {
+    width: 6%;
+    margin-left: -9%;
+    cursor: pointer;
+}
