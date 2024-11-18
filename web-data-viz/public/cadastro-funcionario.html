@@ -7,52 +7,85 @@
     <title>Cadastro - Funcionário</title>
     <link rel="icon" href="assets/group11.png" />
     <link rel="stylesheet" href="css/cadastros.css">
+    <script src="js/disabled-senha.js"></script>
 </head>
 
 <body>
     <div class="background">
-        <div class="nav-bar">
-            <div class="fundo-botao">
-                <a href="dashboard.html" class="botão-dashboard">
-                    <button>
-                        <h1>Dashboard</h1>
-                    </button>
-                </a>
+        <div class="container-add-funcionario">
+            <div class="menu-sair">
+                <div class="exit">
+                    <span onclick="voltarTela()">X</span>
+                </div>
+            </div>
+            <div class="titulo-cadastro">
+                <samp>Cadastre um  novo funcionário</samp>
+            </div>
+            <div class="box-inputs">
+                <div class="box-lateral">
+                    <div class="label-input">
+                        <label class="label-info" for="nome">Nome:</label>
+                        <div class="input-wrapper">
+                            <input class="input-info" id="nome" type="text" placeholder="Usuário">
+                        </div>
+                    </div>
+                    <div class="label-input">
+                        <label class="label-info" for="cpf">CPF:</label>
+                        <div class="input-wrapper">
+                            <input class="input-info" id="cpf" type="text" placeholder="000.000.000-00">
+                        </div>
+                    </div>
+                    <div class="label-input">
+                        <label class="label-info" for="telefone">Telefone:</label>
+                        <div class="input-wrapper">
+                            <input class="input-info" id="telefone" type="tel" placeholder="00 00000-0000">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="box-lateral">
+                    <div class="label-input">
+                        <label class="label-info" for="email">Email:</label>
+                        <div class="input-wrapper">
+                            <input class="input-info" id="email" type="email" placeholder="usuario@gmail.com">
+                        </div>
+                    </div>
+                    <div class="label-input">
+                        <label class="label-info" for="senha">Senha:</label>
+                        <div class="input-wrapper">
+                            <input class="input-info" id="senha" type="password">
+                            <img class="olho" src="assets/olho.png" alt=""
+                            onclick="verSenha('senha', this)">
+                        </div>
+                    </div>
+                    <div class="label-input">
+                        <label class="label-info" for="confirmar-senha">Confirmar senha:</label>
+                        <div class="input-wrapper">
+                            <input class="input-info" id="confirmar-senha" type="text">
+                            <img class="olho" src="assets/olho.png" alt=""
+                            onclick="verSenha('confirmar-senha', this)">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="box-select">
+                <div class="label-select">
+                    <label class="select-funcionario" for="select-funcionario">Tipo de Usuário</label>
+                    <select class="select-option" name="select-funcionario" id="select-funcionario">
+                        <option class="opcao" value="1">Funcionário</option>
+                        <option class="opcao" value="2">Gestor</option>
+                    </select>
+            </div>
+            </div>
+            <div class="box-btn">
+                <button class="button-cadastro">Cadastrar</button>
             </div>
         </div>
-        <div class="titulo">Cadastre um novo funcionário</div>
-        <div class="container">
-            <div class="input-container">
-                <div for="nome" class="msg-input">Nome</div>
-                <input class="custom-input" type="text" id="input_nome" name="nome">
-            </div>
-
-            <div class="input-container">
-                <div for="email" class="msg-input">Email</div>
-                <input class="custom-input" type="email" id="input_email" placeholder="usuario@empresa.com">
-            </div>
-
-            <div class="input-container">
-                <div for="senha" class="msg-input">Senha</div>
-                <input class="custom-input" type="password" id="input_senha" name="senha">
-            </div>
-            <div class="input-container">
-                <div for="conf_senha" class="msg-input">Confirmar senha</div>
-                <input class="custom-input" type="password" id="input_conf_senha" name="senha">
-            </div>
-        </div>
-
-        <div class="text-bottom">
-            <span>Precisa de ajuda? <a href="index.html"><b> entre em contato</b></a></span>
-
-        </div>
-        <div class="buttom-cadastrar">
-            <button class="custom-button">Cadastrar</button>
-        </div>
-
-
     </div>
-
 </body>
-
+<script>
+    function voltarTela(){
+        window.location.href = "dashboard.html"
+    }
+</script>
 </html>

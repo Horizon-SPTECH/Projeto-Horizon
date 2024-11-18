@@ -35,10 +35,17 @@
                             </div>
                         </a>
 
-                        <a href="alterar-senha.html" class="bl-botao">
+                        <a href="perfil.html" class="bl-botao">
                             <div class="bl-botao-filho">
-                                <img src="assets/cadeado.png" alt="">
-                                <span>Alterar senha</span>
+                                <img src="assets/icon-user.png" alt="">
+                                <span>Perfil</span>
+                            </div>
+                        </a>
+
+                        <a href="empresa.html" class="bl-botao">
+                            <div class="bl-botao-filho">
+                                <img src="assets/icon-empresa.png" alt="">
+                                <span>Empresa</span>
                             </div>
                         </a>
 
@@ -95,11 +102,23 @@
 
                     for(let i = 0; i < resposta.length; i++){
                         var listaLinha = resposta[i];
+
+                        let nomeMunicipio =  listaLinha.municipio;
+
                         var trTable = document.createElement("tr");
+                        trTable.style.cursor = "pointer"; 
+
+                        trTable.onclick = function() {
+                            guardarMunicipio(nomeMunicipio);
+                            window.location.href = `dashboard-indiv.html`;
+                        };
                         var thNome = document.createElement("th");
                         var thHabitantes = document.createElement("th");
                         var thFurtos = document.createElement("th");
                         var threpresentacao = document.createElement("th")
+
+                        var link = document.createElement("a");
+
 
                         thNome.innerHTML = `${listaLinha.municipio}`;
                         thHabitantes.innerHTML = `${listaLinha.numero_habitantes}`;
@@ -145,6 +164,10 @@
         }).catch(function (resposta) {
             console.error(resposta);
         });
+    }
+
+    function guardarMunicipio(nomeMunicipio){
+        sessionStorage.NOME_MUNICIPIO = nomeMunicipio;
     }
 
     

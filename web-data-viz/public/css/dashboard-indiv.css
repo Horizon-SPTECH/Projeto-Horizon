@@ -306,16 +306,26 @@ a{
 }
 
 .cgk-grafico-IA-img {
-    display: flex;
-    align-items: center;
-    gap: 3rem;
+    display: flex; 
+    overflow-x: auto; 
+    gap: 3rem; 
+    max-width: 100%; 
+    box-sizing: border-box; 
+    scrollbar-width: thin; 
+    scrollbar-color: #23005B transparent;
 }
 
 .cgk-grafico-IA-percentual {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
+    min-width: 30%; 
+    height: 80%;
+    flex-shrink: 0; 
+    background-color: #f3f3f3; 
+    border-radius: 8px; 
+    text-align: center; 
+    padding: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Adiciona sombra ao cartão */
 }
+
 
 .cgk-grafico-IA-percentual p {
     color: #5321CA;
@@ -351,4 +361,9 @@ a{
 #bl-botao-inicio {
     background-color: rgba(255, 255, 255, 0.329);
     color: white;
+}
+
+#kpiFurtosPor1k{
+    font-size: 1.5rem;
+    font-weight: 600;
 }
