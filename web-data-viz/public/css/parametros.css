@@ -1,25 +1,310 @@
-.card-parametro{
+button {
+    border-radius: 50px;
+    background: #23005B;
+    color: #fff;
+    width: 180px;
+    gap: 10px;
+    height: 50px;
+    font-weight: bold;
+    font-size: 18px;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background: linear-gradient(90deg, #2c0089 0%, #058909 100%);
+    cursor: pointer;
+}
+
+.card-parametro {
     width: 78vw;
     height: 75vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    gap: 5%;
+}
+
+
+.card-progress-box {
+    height: 80%;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
 }
 
-.box-white{
-width: 850px;
-height: 450px;
-background-color: white;
-border-radius: 20px;
-margin-bottom: 40px;
+.box-white {
+    width: 900px;
+    height: 270px;
+    background-color: white;
+    border-radius: 20px;
+    margin-bottom: 40px;
+    position: relative;
 }
 
+.card-info {
+    width: 250px;
+    height: 500px;
+    background-color: white;
+    border-radius: 20px;
+    margin-bottom: 40px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
 
-.box-title{
-    font-size: 18px;
+.card-info-criar {
+    width: 250px;
+    height: 500px;
+    background-color: white;
+    border-radius: 20px;
+    margin-bottom: 40px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+.card-info-criar header {
+    display: flex;
+    justify-content: center;
     font-weight: bold;
+    font-size: 20px;
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
+.card-info header {
+    justify-content: center;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.box-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #23005B;
     display: flex;
     justify-content: center;
     margin-top: 15px;
+}
+
+.content-box {
+    width: 97.9%;
+    height: 24.5%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.card-recomendacao {
+    display: flex;
+    width: 100%;
+    height: 53%;
+}
+
+.recomendacao {
+    display: flex;
+    width: 33%;
+    height: 55%;
+    align-items: center;
+    margin-top: 5%;
+    flex-direction: column;
+}
+
+.title-recomendacao {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #5321CA;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.text-recomendacao {
+    width: 80%;
+    height: 50%;
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    margin-top: 5%;
+}
+
+.text-recomendacao span {
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.text-recomendacao b {
+    font-size: 17px;
+}
+
+/* BARRA DE PROGRESSO */
+.card-white-progress {
+    width: 700px;
+    height: 80px;
+    background-color: white;
+    border-radius: 20px;
+    margin-bottom: 40px;
+    overflow: hidden;
+    max-height: 0;
+    /* Inicialmente escondido */
+    transition: max-height 0.7s ease-in;
+    /* Transição suave */
+}
+
+.progress-container {
+    position: relative;
+    width: 95%;
+    margin: 20px auto;
+}
+
+.progress-bar {
+    display: flex;
+    width: 100%;
+    height: 30px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+}
+
+.segment {
+    text-align: center;
+    line-height: 30px;
+    color: black;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.reasonable {
+    flex: 5;
+    background-color: green;
+}
+
+.alert {
+    flex: 5;
+    background-color: orange;
+}
+
+.critical {
+    flex: 5;
+    background-color: red;
+}
+
+.divisions {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+.division {
+    flex: 1;
+    border-left: 1px solid #000;
+}
+
+.division:first-child {
+    border-left: none;
+}
+
+.division-labels {
+    position: absolute;
+    top: 35px;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: black;
+    font-weight: bold;
+}
+
+/* Classe para mostrar o card com a transição */
+.card-white-progress.show {
+    max-height: 100px;
+    height: 100%;
+}
+
+
+.box-recomendacao-info {
+    width: 97%;
+    height: fit-content;
+    margin-left: 10px;
+}
+
+.box-recomendacao-info .title-recomendacao {
+    margin-top: 16px;
+}
+
+
+.box-recomendacao-info span {
+    font-size: 14px;
+    flex-wrap: wrap;
+}
+
+.card-info {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.7s ease-in;
+}
+
+.card-info.show {
+    max-height: 1000px;
+    /* Ajuste conforme o tamanho desejado */
+}
+
+.card-info-criar {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.7s ease-in;
+}
+
+.card-info-criar.show {
+    max-height: 1000px;
+}
+
+input {
+    border-radius: 50px;
+    background: #77609D;
+    border: none;
+    color: #fff;
+    padding: 5px;
+    width: 47px;
+    height: 20px;
+    font-size: 14px;
+}
+
+.card-info-criar button {
+    width: 50%;
+    height: 7%;
+    margin-top: 20px;
+}
+
+
+#texto-ajuda {
+    color: gray;
+    margin-top: 10px;
+    flex-wrap: wrap;
+    padding: 10px;
+    margin-left: 22px;
+}
+
+.swal2-actions {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    /* Controla o espaçamento entre os botões */
+}
+
+.btn-success,
+.btn-danger {
+    color: white;
+    font-size: 16px;
 }

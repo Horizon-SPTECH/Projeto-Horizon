@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Visão Individual - Horizon</title>
+    <title>Parâmetros - Horizon</title>
     <link rel="shortcut icon" href="assets/Group 11.png" type="image/x-icon">
     <link rel="stylesheet" href="css/parametros.css">
     <link rel="stylesheet" href="css/dashboard-indiv.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
+
 <body>
     <div class="background">
 
@@ -27,7 +30,7 @@
                                 <span>Dashboard</span>
                             </div>
                         </a>
-                        <a href="dashboard-indiv.html" class="bl-botao" id="bl-botao-inicio">
+                        <a href="dashboard-indiv.html" class="bl-botao" id="bl-botao">
                             <div class="bl-botao-filho">
                                 <img src="assets/detalhe1.png" alt="">
                                 <span>Detalhes</span>
@@ -47,7 +50,12 @@
                                 <span>Novo usuário</span>
                             </div>
                         </a>
-                        
+                        <a href="cadastro-funcionario.html" class="bl-botao" id="bl-botao-inicio">
+                            <div class="bl-botao-filho">
+                                <img src="assets/add.png" alt="">
+                                <span>Parametrização</span>
+                            </div>
+                        </a>
                     </div>
 
                     <a href="index.html" class="bl-botao">
@@ -69,9 +77,155 @@
 
 
                 <div class="card-parametro">
-                    <div class="box-white">
-                        <header class="box-title"><p>Determine aqui a % de furtos esperada (calcularemos com base na população)</p></header>
+                    <div class="card-info">
+                        <header>Informações:</header>
+                        <div class="box-recomendacao-info">
+                            <div class="title-recomendacao">
+                                <img src="assets/razoave.png" alt="">
+                                <span>Regular</span>
+                            </div>
+                            <span>Indica uma quantidade de furtos <b>dentro de um padrão aceitável</b>, sem necessidade
+                                de
+                                medidas imediatas.</span>
+                        </div>
+
+                        <div class="box-recomendacao-info">
+                            <div class="title-recomendacao">
+                                <img src="assets/alerta.png" alt="">
+                                <span>Alerta</span>
+                            </div>
+                            <span>Reflete uma quantidade de furtos que pode gerar <b>preocupações</b>, sugerindo a
+                                necessidade
+                                de monitoramento mais <b>atento</b>.</span>
+                        </div>
+                        <div class="box-recomendacao-info">
+                            <div class="title-recomendacao">
+                                <img src="assets/critico.png" alt="">
+                                <span>Crítico</span>
+                            </div>
+                            <span>Aponta para um número <b>elevado de furtos</b>, exigindo ações <b>urgentes</b> para
+                                mitigar
+                                os
+                                riscos e prevenir novos incidentes.</span>
+                        </div>
+
                     </div>
+                    <div class="card-progress-box">
+                        <div class="card-white-progress">
+                            <div class="progress-container">
+                                <div class="progress-bar">
+                                    <div class="segment reasonable">Razoável</div>
+                                    <div class="segment alert">Alerta</div>
+                                    <div class="segment critical">Crítico</div>
+                                    <div class="divisions">
+                                        <div class="division"></div>
+                                        <div class="division"></div>
+                                        <div class="division"></div>
+                                        <div class="division"></div>
+                                        <div class="division"></div>
+                                        <div class="division"></div>
+                                        <div class="division"></div>
+                                        <div class="division"></div>
+                                        <div class="division"></div>
+                                    </div>
+                                </div>
+                                <div class="division-labels">
+                                    <span>1%</span>
+                                    <span>2%</span>
+                                    <span>3%</span>
+                                    <span>4%</span>
+                                    <span>5%</span>
+                                    <span>6%</span>
+                                    <span>7%</span>
+                                    <span>8%</span>
+                                    <span>9%</span>
+                                    <span>10%</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box-white">
+                            <header class="box-title">
+                                <p>Defina os percentuais esperados de furtos para cada parâmetro com base na população:
+                                </p>
+                            </header>
+                            <div class="card-recomendacao">
+                                <div class="recomendacao">
+
+                                    <div class="title-recomendacao">
+                                        <img src="assets/razoave.png" alt="">
+                                        <span>Regular</span>
+
+                                    </div>
+                                    <main class="text-recomendacao">
+                                        <span>O percentual atual é: </span>
+                                        <b>7%</b>
+                                    </main>
+                                </div>
+                                <div class="recomendacao">
+                                    <div class="title-recomendacao">
+                                        <img src="assets/alerta.png" alt="">
+                                        <span>Alerta</span>
+                                    </div>
+                                    <main class="text-recomendacao">
+                                        <span>O percentual atual é: </span>
+                                        <b>7%</b>
+
+                                    </main>
+                                </div>
+                                <div class="recomendacao">
+                                    <div class="title-recomendacao">
+                                        <img src="assets/critico.png" alt="">
+                                        <span>Critico</span>
+
+                                    </div>
+                                    <main class="text-recomendacao">
+                                        <span>O percentual atual é: </span>
+                                        <b>7%</b>
+                                    </main>
+                                </div>
+
+                            </div>
+                            <div class="content-box">
+                                <button id="toggle-progress">Ver informações</button>
+                                <button id="toggle-criar">Criar Parâmetro</button>
+                                <button id="toggle-excluir">Excluir Parâmetro</button>
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="card-info-criar">
+                        <header>Cadastro de novo parâmetro:</header>
+                        <div class="box-recomendacao-info">
+                            <div class="title-recomendacao">
+                                <img src="assets/razoave.png" alt="">
+                                <span>Regular</span>
+                            </div>
+                            <span>Insira um novo valor:</span>
+                            <input type="number" id="input-razoavel">
+                        </div>
+
+                        <div class="box-recomendacao-info">
+                            <div class="title-recomendacao">
+                                <img src="assets/alerta.png" alt="">
+                                <span>Alerta</span>
+                            </div>
+                            <span>Insira um novo valor:</span>
+                            <input type="number" id="input-alerta">
+                        </div>
+                        <div class="box-recomendacao-info">
+                            <div class="title-recomendacao">
+                                <img src="assets/critico.png" alt="">
+                                <span>Crítico</span>
+                            </div>
+                            <span>Insira um novo valor:</span>
+                            <input type="number" id="input-critico">
+                        </div>
+                        <button>Criar</button>
+                        <span id="texto-ajuda">Não deixe de ver as informações para escolher o melhor
+                            parâmetro!</span>
+                    </div>
+
                 </div>
             </div>
 
@@ -79,4 +233,100 @@
 
     </div>
 </body>
+
 </html>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const toggleButton = document.getElementById("toggle-progress");
+        const progressCard = document.querySelector(".card-white-progress");
+
+        toggleButton.addEventListener("click", () => {
+            progressCard.classList.toggle("show");
+        });
+    });
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const toggleProgressButton = document.getElementById("toggle-progress");
+        const cardInfo = document.querySelector(".card-info");
+
+        toggleProgressButton.addEventListener("click", () => {
+            cardInfo.classList.toggle("show");
+        });
+    });
+    document.addEventListener("DOMContentLoaded", () => {
+        const toggleCriarButton = document.getElementById("toggle-criar");
+        const cardInfoCriar = document.querySelector(".card-info-criar");
+
+        toggleCriarButton.addEventListener("click", () => {
+            cardInfoCriar.classList.toggle("show");
+        });
+    });
+
+
+    document.addEventListener("DOMContentLoaded", () => {
+        // IDs dos inputs que precisam de validação
+        const inputIds = ["input-critico", "input-alerta", "input-razoavel"];
+
+        inputIds.forEach(id => {
+            const input = document.getElementById(id);
+
+            if (input) {
+                input.addEventListener("input", () => {
+                    let value = input.value.replace(/[^0-9]/g, '');
+
+                    if (value > 100) {
+                        value = '100';
+                    } else if (value < 1) {
+                        value = '';
+                    } else if (value.length > 1 && value.startsWith('0')) {
+                        value = value.replace(/^0+/, '');
+                    }
+
+                    input.value = value;
+                });
+            }
+        });
+    });
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const toggleCardInfoButton = document.getElementById("toggle-excluir");;
+
+        toggleCardInfoButton.addEventListener("click", () => {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: "btn btn-success",
+                    cancelButton: "btn btn-danger"
+                },
+                buttonsStyling: false
+            });
+            swalWithBootstrapButtons.fire({
+                title: "Você tem certeza?",
+                text: "Isso retornará o seus parâmetros para o padrão Horizon!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Sim, excluir!",
+                cancelButtonText: "Não, cancelar!",
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    swalWithBootstrapButtons.fire({
+                        title: "Deletado!",
+                        text: "O seu parâmetro foi deletado, e levado ao nosso padrão.",
+                        icon: "success"
+                    });
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                    swalWithBootstrapButtons.fire({
+                        title: "Cancelado",
+                        text: "Seu parâmetro segue o mesmo não se preocupe :)",
+                        icon: "error"
+                    });
+                }
+            });
+        });
+    });
+
+</script>
