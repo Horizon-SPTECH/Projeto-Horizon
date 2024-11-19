@@ -135,41 +135,47 @@
         var emailVar     = input_email.value;
         var senhaVar     = input_senha.value;
         var confSenhaVar = input_conf_senha.value;
+
+        if(nomeEmpresaVar == "") {
+            console.log("Nome da empresa incorreto")
+        } else {
+            fetch("/usuarios/cadastrar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                nomeEmpresaServer:     nomeEmpresaVar,
+                cnpjEmpresaServer:     cnpjEmpresaVar,
+                cepEmpresaServer:      cepEmpresaVar,
+                enderecoEmpresaServer: enderecoEmpresaVar,
+                numeroEmpresaServer:   numeroEmpresaVar,
+                nomeServer:            nomeVar,
+                cpfServer:             cpfVar,
+                telefoneServer:        telefoneVar,
+                emailServer:           emailVar,
+                senhaServer:           senhaVar,
+                confSenhaServer:       confSenhaVar
+            }),
+            })
+            .then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+                    setTimeout(() => {
+                        window.location = "dashboard.html";
+                    }, "2000");
+                } else {
+                    throw "Houve um erro ao tentar realizar o cadastro!";
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+
+            return false;
+        }
+         
         
-        fetch("/usuarios/cadastrar", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            nomeEmpresaServer:     nomeEmpresaVar,
-            cnpjEmpresaServer:     cnpjEmpresaVar,
-            cepEmpresaServer:      cepEmpresaVar,
-            enderecoEmpresaServer: enderecoEmpresaVar,
-            numeroEmpresaServer:   numeroEmpresaVar,
-            nomeServer:            nomeVar,
-            cpfServer:             cpfVar,
-            telefoneServer:        telefoneVar,
-            emailServer:           emailVar,
-            senhaServer:           senhaVar,
-            confSenhaServer:       confSenhaVar
-        }),
-        })
-        .then(function (resposta) {
-            console.log("resposta: ", resposta);
-
-            if (resposta.ok) {
-                setTimeout(() => {
-                    window.location = "dashboard.html";
-                }, "2000");
-            } else {
-                throw "Houve um erro ao tentar realizar o cadastro!";
-            }
-        })
-        .catch(function (resposta) {
-            console.log(`#ERRO: ${resposta}`);
-        });
-
-        return false;
     }
 </script>
