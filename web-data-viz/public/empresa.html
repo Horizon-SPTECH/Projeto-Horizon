@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Horizon</title>
+    <link rel="shortcut icon" href="assets/group11.png" type="image/x-icon">
+    <link rel="stylesheet" href="css/empresa.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+</head>
+
+<body>
+    <div class="background">
+
+        <div class="container">
+
+            <div class="container-barra-lateral">
+                <div class="cbl-logo">
+                    <img src="assets/group11.png" alt="">
+                </div>
+
+                <div class="cbl-botoes">
+
+                    <div class="cbl-botoes-barralateral">
+                        <a href="dashboard.html" class="bl-botao">
+                            <div class="bl-botao-filho">
+                                <img src="assets/casa.png" alt="">
+                                <span>Dashboard</span>
+                            </div>
+                        </a>
+                        <a href="lista-municipios.html" class="bl-botao">
+                            <div class="bl-botao-filho">
+                                <img src="assets/detalhe1.png" alt="">
+                                <span>Detalhes</span>
+                            </div>
+                        </a>
+
+                        <a href="perfil.html" class="bl-botao">
+                            <div class="bl-botao-filho">
+                                <img src="assets/icon-user.png" alt="">
+                                <span>Perfil</span>
+                            </div>
+                        </a>
+
+                        <a href="empresa.html" class="bl-botao">
+                            <div class="bl-botao" id="bl-botao-inicio">
+                                <div class="bl-botao-filho">
+                                    <img src="assets/icon-empresa.png" alt="">
+                                    <span>Empresa</span>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="cadastro-funcionario.html" class="bl-botao">
+                            <div class="bl-botao-filho">
+                                <img src="assets/add.png" alt="">
+                                <span>Novo usuário</span>
+                            </div>
+                        </a>
+
+                    </div>
+
+                    <a href="index.html" class="bl-botao">
+                        <div class="bl-botao-filho">
+                            <img src="assets/porta.png" alt="">
+                            <span>Sair</span>
+                        </div>
+                    </a>
+                </div>
+
+            </div>
+
+            <div class="container-graficos-kpis">
+
+                <div class="cgk-navbar">
+                    <span>Alterar dados empresariais</span>
+                </div>
+
+                <div class="box-empresa">
+                    <div class="box-info">
+                        <div class="box-input">
+                            <div class="label-input">
+                                <label class="label-info" for="nome">Nome:</label>
+                                <div class="input-wrapper">
+                                    <input class="input-info" id="nome" type="text" value="Horizon" disabled>
+                                </div>
+                            </div>
+                            <div class="label-input">
+                                <label class="label-info" for="cep">CEP:</label>
+                                <div class="input-wrapper">
+                                    <input class="input-info" id="cep" type="text" value="08343-410 ">
+                                </div>
+                            </div>
+                            <div class="label-input">
+                                <label class="label-info" for="logradouro">Logradouro:</label>
+                                <div class="input-wrapper">
+                                    <input class="input-info" id="Logradouro" type="text" value="Rua Haddock Lobo">
+                                </div>
+                            </div>
+                            <div class="label-input">
+                                <label class="label-info" for="complemento">Complemento:</label>
+                                <div class="input-wrapper">
+                                    <input class="input-info" id="complemento" type="text"
+                                        value="Em frente do starbucks">
+                                </div>
+                            </div>
+                            <div class="label-input">
+                                <label class="label-info" for="numero">Número:</label>
+                                <div class="input-wrapper">
+                                    <input class="input-info" id="numero" type="text" value="191">
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="btns-alterar">
+                            <div class="fundo-btn">
+                                <button class="button-alterar">Excluir Empresa
+
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-info">
+                        <div class="box-input">
+                            <div class="label-input">
+                                <label class="label-info" for="bairro">Bairro:</label>
+                                <div class="input-wrapper">
+                                    <input class="input-info" id="bairro" type="text" value="Cerqueira César">
+                                </div>
+                            </div>
+                            <div class="label-input">
+                                <label class="label-info" for="estado">Estado:</label>
+                                <div class="input-wrapper">
+                                    <input class="input-info" id="estado" type="text" value="São Paulo">
+                                </div>
+                            </div>
+                            <div class="label-input">
+                                <label class="label-info" for="cidade">Cidade:</label>
+                                <div class="input-wrapper">
+                                    <input class="input-info" id="cidade" type="text" value="São Paulo">
+                                </div>
+                            </div>
+                            <div class="label-input">
+                                <label class="label-info" for="cnpj">CNPJ:</label>
+                                <div class="input-wrapper">
+                                    <input class="input-info" id="cnpj" type="text" placeholder="87.989.255/0001-07" disabled>
+                                </div>
+                            </div>
+                            <div class="label-input">
+                                <label class="label-info" for="tippo_empresa">Tipo de empresa:</label>
+                                <div class="input-wrapper">
+                                    <input class="input-info" id="tippo_empresa" type="text" placeholder="Privada" disabled>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="btns-alterar">
+                            <div class="fundo-btn">
+                                <button class="button-alterar">Salvar alterações</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</body>
+
+</html>
