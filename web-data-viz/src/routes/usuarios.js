@@ -8,6 +8,7 @@ router.post("/cadastrar", function (req, res) {
     usuarioController.cadastrar(req, res);
 })
 
+//Recebendo os dados do html e direcionando para a função autenticar de usuarioController.js
 router.post("/autenticar", function (req, res) {
     usuarioController.autenticar(req, res);
 });
