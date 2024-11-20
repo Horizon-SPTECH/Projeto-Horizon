@@ -191,7 +191,7 @@ button:hover {
 }
 
 .reasonable {
-    flex: 5;
+    flex: 1.26;
     background-color: green;
 }
 

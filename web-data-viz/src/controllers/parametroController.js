@@ -28,13 +28,13 @@ function atualizarParametro(req, res) {
 }
 
 function padronizarParametro(req, res) {
-    var id_empresa = req.body.id_empresa;
+    var empresa = req.body.id_empresa;
 
     // Validação
-    if (id_empresa == undefined) {
+    if (empresa == undefined) {
         res.status(400).send("id_empresa está undefined!");
     } else {
-        parametroModel.padronizarParametro(id_empresa)
+        parametroModel.padronizarParametro(empresa)
             .then((resultado) => {
                 res.status(200).json(resultado);
             })
@@ -46,13 +46,11 @@ function padronizarParametro(req, res) {
 }
 
 function mostrarParametro(req, res) {
-    var id_empresa = req.params.empresaId;
-
-    // Validação
-    if (id_empresa == undefined) {
+    const empresa = req.query.id_empresa;
+    if (empresa == undefined) {
         res.status(400).send("id_empresa está undefined!");
     } else {
-        parametroModel.mostrarParametro(id_empresa)
+        parametroModel.mostrarParametro(empresa)
             .then((resultado) => {
                 if (resultado.length > 0) {
                     res.status(200).json(resultado);

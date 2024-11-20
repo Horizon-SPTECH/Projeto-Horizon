@@ -11,8 +11,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
-<body>
-    <script>mostrarParametro()</script>
+<body onload="mostrarParametro()">
     <div class="background">
 
         <div class="container">
@@ -364,11 +363,13 @@
             })
             .then(data => {
                 console.log('Parâmetros atualizados com sucesso:', data);
+                atualizarPagina()
+                mostrarParametro()
             })
             .catch(error => {
                 console.error('Erro ao atualizar parâmetros:', error);
             });
-            
+
     }
 
     function padronizarParametro() {
@@ -392,6 +393,8 @@
             })
             .then(data => {
                 console.log('Parâmetros padronizados com sucesso:', data);
+                atualizarPagina()
+                mostrarParametro()
             })
             .catch(error => {
                 console.error('Erro ao padronizar parâmetros:', error);
@@ -399,36 +402,48 @@
     }
 
     function mostrarParametro() {
-        const idEmpresa = 1; // Substitua pelo ID real da empresa
+    const idEmpresa = 1;
+    const empresa = `?id_empresa=${idEmpresa}`;
 
-        fetch(`/parametros/mostrarParametro?id_empresa=${idEmpresa}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
+    fetch(`/parametros/mostrarParametro${empresa}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erro ao obter parâmetros: ' + response.statusText);
+            }
+            return response.json();
         })
-            .then(response => {
-                if (response.ok) {
-                    return response.json();
-                } else {
-                    throw new Error('Erro ao obter parâmetros');
-                }
-            })
-            .then(data => {
-                console.log('Parâmetros:', data);
+        .then(data => {
+            console.log('Parâmetros:', data);
 
-                // Verifica se os dados foram retornados corretamente
-                if (data && data.limite_baixo && data.limite_ok && data.limite_alto) {
-                    // Armazena os valores no sessionStorage
-                    sessionStorage.setItem('limite_baixo', data.limite_baixo);
-                    sessionStorage.setItem('limite_ok', data.limite_ok);
-                    sessionStorage.setItem('limite_alto', data.limite_alto);
+            if (Array.isArray(data) && data.length > 0) {
+                const parametros = data[0];
+
+                if (
+                    parametros.limite_baixo !== undefined &&
+                    parametros.limite_ok !== undefined &&
+                    parametros.limite_alto !== undefined
+                ) {
+                    sessionStorage.setItem('limite_baixo', parametros.limite_baixo);
+                    sessionStorage.setItem('limite_ok', parametros.limite_ok);
+                    sessionStorage.setItem('limite_alto', parametros.limite_alto);
+                    console.log('Limites salvos no sessionStorage.');
+                } else {
+                    console.warn('Os campos esperados não estão presentes:', parametros);
                 }
-            })
-            .catch(error => {
-                console.error('Erro ao buscar parâmetros:', error);
-            });
-    }
+            } else {
+                console.warn('Os dados retornados não são válidos:', data);
+            }
+        })
+        .catch(error => {
+            console.error('Erro ao buscar parâmetros:', error);
+        });
+}
+
 
     const limiteBaixo = sessionStorage.getItem('limite_baixo');
     const limiteOk = sessionStorage.getItem('limite_ok');
@@ -436,8 +451,8 @@
 
     if (limiteBaixo == null || limiteOk == null || limiteAlto == null) {
         document.getElementById('percentualRegular').innerHTML = '4';
-        document.getElementById('percentualAlerta').innerHTML = '7';
-        document.getElementById('percentualCritico').innerHTML = '8';
+        document.getElementById('percentualAlerta').innerHTML = '6';
+        document.getElementById('percentualCritico').innerHTML = '>6';
     } else {
         document.getElementById('percentualRegular').innerHTML = limiteBaixo;
         document.getElementById('percentualAlerta').innerHTML = limiteOk;
@@ -445,5 +460,9 @@
     }
 
 
-
+    function atualizarPagina(){
+        setTimeout(function () {
+                        window.location = "parametros.html";
+                    }, 2000);
+    }
 </script>
