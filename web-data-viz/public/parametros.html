@@ -12,6 +12,7 @@
 </head>
 
 <body>
+    <script>mostrarParametro()</script>
     <div class="background">
 
         <div class="container">
@@ -159,7 +160,7 @@
                                     </div>
                                     <main class="text-recomendacao">
                                         <span>O percentual atual é: </span>
-                                        <b>7%</b>
+                                        <b id="percentualRegular">7%</b>
                                     </main>
                                 </div>
                                 <div class="recomendacao">
@@ -169,7 +170,7 @@
                                     </div>
                                     <main class="text-recomendacao">
                                         <span>O percentual atual é: </span>
-                                        <b>7%</b>
+                                        <b id="percentualAlerta">7%</b>
 
                                     </main>
                                 </div>
@@ -181,7 +182,7 @@
                                     </div>
                                     <main class="text-recomendacao">
                                         <span>O percentual atual é: </span>
-                                        <b>7%</b>
+                                        <b id="percentualCritico">7%</b>
                                     </main>
                                 </div>
 
@@ -203,7 +204,7 @@
                                 <span>Regular</span>
                             </div>
                             <span>Insira um novo valor:</span>
-                            <input type="number" id="input-razoavel">
+                            <input type="number" id="limiteBaixo">
                         </div>
 
                         <div class="box-recomendacao-info">
@@ -212,7 +213,7 @@
                                 <span>Alerta</span>
                             </div>
                             <span>Insira um novo valor:</span>
-                            <input type="number" id="input-alerta">
+                            <input type="number" id="limiteOk">
                         </div>
                         <div class="box-recomendacao-info">
                             <div class="title-recomendacao">
@@ -220,9 +221,9 @@
                                 <span>Crítico</span>
                             </div>
                             <span>Insira um novo valor:</span>
-                            <input type="number" id="input-critico">
+                            <input type="number" id="limiteAlto">
                         </div>
-                        <button>Criar</button>
+                        <button onclick="atualizarParametro()">Criar</button>
                         <span id="texto-ajuda">Não deixe de ver as informações para definir o melhor
                             parâmetro!</span>
                     </div>
@@ -267,7 +268,7 @@
 
     document.addEventListener("DOMContentLoaded", () => {
         // IDs dos inputs que precisam de validação
-        const inputIds = ["input-critico", "input-alerta", "input-razoavel"];
+        const inputIds = ["limiteBaixo", "limiteOk", "limiteAlto"];
 
         inputIds.forEach(id => {
             const input = document.getElementById(id);
@@ -311,6 +312,7 @@
                 reverseButtons: true
             }).then((result) => {
                 if (result.isConfirmed) {
+                    padronizarParametro();
                     swalWithBootstrapButtons.fire({
                         title: "Deletado!",
                         text: "O seu parâmetro foi deletado, e levado ao nosso padrão.",
@@ -334,5 +336,114 @@
 
 
 <script>
+
+    function atualizarParametro() {
+        const idEmpresa = 1; // Substitua pelo ID real da empresa
+        const limiteBaixo = document.getElementById('limiteBaixo').value;
+        const limiteOk = document.getElementById('limiteOk').value;
+        const limiteAlto = document.getElementById('limiteAlto').value;
+
+        fetch('/parametros/atualizarParametro', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                id_empresa: idEmpresa,
+                limite_baixo: limiteBaixo,
+                limite_ok: limiteOk,
+                limite_alto: limiteAlto,
+            }),
+        })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Erro ao atualizar parâmetro');
+                }
+            })
+            .then(data => {
+                console.log('Parâmetros atualizados com sucesso:', data);
+            })
+            .catch(error => {
+                console.error('Erro ao atualizar parâmetros:', error);
+            });
+            
+    }
+
+    function padronizarParametro() {
+        const idEmpresa = 1; // Substitua pelo ID real da empresa
+
+        fetch('/parametros/padronizarParametro', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                id_empresa: idEmpresa,
+            }),
+        })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Erro ao padronizar parâmetros');
+                }
+            })
+            .then(data => {
+                console.log('Parâmetros padronizados com sucesso:', data);
+            })
+            .catch(error => {
+                console.error('Erro ao padronizar parâmetros:', error);
+            });
+    }
+
+    function mostrarParametro() {
+        const idEmpresa = 1; // Substitua pelo ID real da empresa
+
+        fetch(`/parametros/mostrarParametro?id_empresa=${idEmpresa}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Erro ao obter parâmetros');
+                }
+            })
+            .then(data => {
+                console.log('Parâmetros:', data);
+
+                // Verifica se os dados foram retornados corretamente
+                if (data && data.limite_baixo && data.limite_ok && data.limite_alto) {
+                    // Armazena os valores no sessionStorage
+                    sessionStorage.setItem('limite_baixo', data.limite_baixo);
+                    sessionStorage.setItem('limite_ok', data.limite_ok);
+                    sessionStorage.setItem('limite_alto', data.limite_alto);
+                }
+            })
+            .catch(error => {
+                console.error('Erro ao buscar parâmetros:', error);
+            });
+    }
+
+    const limiteBaixo = sessionStorage.getItem('limite_baixo');
+    const limiteOk = sessionStorage.getItem('limite_ok');
+    const limiteAlto = sessionStorage.getItem('limite_alto');
+
+    if (limiteBaixo == null || limiteOk == null || limiteAlto == null) {
+        document.getElementById('percentualRegular').innerHTML = '4';
+        document.getElementById('percentualAlerta').innerHTML = '7';
+        document.getElementById('percentualCritico').innerHTML = '8';
+    } else {
+        document.getElementById('percentualRegular').innerHTML = limiteBaixo;
+        document.getElementById('percentualAlerta').innerHTML = limiteOk;
+        document.getElementById('percentualCritico').innerHTML = limiteAlto;
+    }
+
+
 
 </script>
