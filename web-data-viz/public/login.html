@@ -76,32 +76,7 @@
     let emailValido = false;
     let senhaValida = false;
 
-    email.addEventListener('keyup', () => {
-        if (email.value.indexOf('@') == -1 || !email.value.endsWith('.com') || email.value.trim().length < 10) {
-            mensagemErroEmail.innerHTML = 'Digite um e-mail válido! Use @ e .com';
-        }
-        else {
-            mensagemErroEmail.innerHTML = '';
-            emailValido = true;
-        }
-    });
 
-    senha.addEventListener('keyup', () => {
-        const senhaValor = senha.value;
-
-        const verificacaoSenha = senhaValor.length >= 8
-            && /[!@#$%^&*(),.?":{}|<>]/.test(senhaValor) &&
-            /[0-9]/.test(senhaValor);
-
-        if (!verificacaoSenha) {
-            mensagemErroSenha.innerHTML = 'Digite uma senha com 8 caracteres, 1 número e 1 caracter especial.';
-            console.log('Digite uma senha com 8 caracteres, 1 número e 1 caracter especial.')
-        }
-        else {
-            mensagemErroSenha.innerHTML = '';
-            senhaValida = true;
-        }
-    });
 
 
     function entrar(){            
@@ -133,6 +108,9 @@
                     console.log(JSON.stringify(json));
                     sessionStorage.EMAIL_USUARIO = json.email;
                     sessionStorage.SENHA_USUARIO = json.senha;
+                    sessionStorage.ATIVO = json.ativo;
+                    sessionStorage.ID_EMPRESA = json.id_empresa;
+                    sessionStorage.ID_TIPO = json.id_tipo_usuario;
            
                     setTimeout(function () {
                         window.location = "dashboard.html";
