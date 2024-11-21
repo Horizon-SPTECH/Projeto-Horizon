@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esqueci a senha</title>
+    <link rel="icon" href="assets/group11.png" />
+    <link rel="stylesheet" href="css/esqueciSenha.css">
+    <script src="js/block-screan.js"></script>
+</head>
+
+<body onload="sessaoEmail()">
+    <div class="background">
+        <div class="nav-bar">
+            <div class="fundo-botao">
+                <a href="login.html" class="botão-dashboard">
+                    <button>
+                        <h1>Voltar</h1>
+                    </button>
+                </a>
+            </div>
+        </div>
+        <div class="titulo">Esqueci a senha</div>
+        <div class="container">
+            <!-- <div class="input-container">
+                <div for="senhaAntiga" class="msg-input">Senha antiga</div>
+                <input class="custom-input" type="password" id="senhaAntiga" name="senhaAntiga">
+            </div> -->
+
+
+            <div class="input-container">
+                <div for="token" class="msg-input">Token:</div>
+                <input class="custom-input" type="text" id="token" name="token" required>
+            </div>
+        </div>
+        <div class="buttom-alterar">
+            <button onclick=" verificarToken()" class="custom-button">Verificar</button>
+        </div>
+    </div>
+
+    </div>
+
+</body>
+<script>
+
+    let email = sessionStorage.getItem("EMAIL");
+
+    function guardarToken(tokenVar){
+        sessionStorage.TOKEN = tokenVar;
+    }
+
+    function verificarToken() {
+        let tokenVar = document.getElementById("token").value;
+
+        console.log("Dados enviados:", {
+            tokenServer: tokenVar
+        });
+
+            fetch("/usuarios/verificarToken", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                tokenServer: tokenVar
+            }),
+        })
+        .then(function (resposta) {
+            console.log("Resposta completa:", resposta);
+
+            if (resposta.ok) {
+                alert("Token válido!");
+                setTimeout(() =>{
+                    guardarToken(tokenVar);
+                    window.location.href = "esqueciSenha.html";
+
+                }, 2000)
+               
+            } else {
+                return resposta.text().then((mensagemErro) => {
+                    console.error("Erro do servidor:", mensagemErro);
+                    alert(`Erro ao validar o token: ${mensagemErro}`);
+                });
+            }
+        })
+        .catch(function (erro) {
+            console.error("#ERRO:", erro);
+            alert("Ocorreu um erro inesperado. Tente novamente.");
+        });
+    }
+
+
+</script>
+
+</html>

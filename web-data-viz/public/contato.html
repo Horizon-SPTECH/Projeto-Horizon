@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="shortcut icon" href="assets/logo.png" type="image/x-icon">
+   <link rel="stylesheet" href="css/contate-nos.css">
+   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.5/dist/sweetalert2.all.min.js"></script>
+   <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.5/dist/sweetalert2.min.css" rel="stylesheet">
+   <title>Contate-nos - Horizon</title>
+</head>
+
+<body>
+   <div class="container">
+       <div class="fundo-btn">
+           <a href="index.html" class="fundo-roxo">
+               <button class="btn-contatar">Início</button>
+           </a>
+       </div>
+       <div class="box-contatar">
+           <div class="contato-logo">
+               <img src="assets/grupo98.png">
+               <p class="p-horizon">Contato</p>
+               <br>
+               <p class="p-horizon">Horizon</p>
+           </div>
+           <div class="contatar">
+               <div class="titulos">
+                   <h1 class="titulo1">Entre em contato conosco!</h1>
+                   <h2 class="titulo2">Envie uma mensagem!</h2>
+               </div>
+               <form id="form-contato" onsubmit="enviarEmail(event)" method="POST">
+               <div class="label-input">
+                   <label for="nome">Nome</label>
+                   <input id="nome" name="nome" type="text" required>
+               </div>
+               <div class="label-input">
+                   <label for="email">Email</label>
+                   <input type="email" id="email" name="email" placeholder="usuario@empresa.com">
+               </div>
+               <div class="label-input-msg">
+                   <label for="mensagem">Mensagem</label>
+                   <textarea wrap="hard" id="mensagem" name="mensagem">
+               </textarea>
+               </div>
+                   <button id="button-submit" class="btn-enviar" type="submit">Enviar</button>
+               </form>
+           </div>
+       </div>
+
+   </div>
+</body>
+
+</html>
+
+<script>
+
+    let botaoSubmit = document.querySelector('#button-submit');
+
+  
+    async function enviarEmail(){
+        event.preventDefault();
+
+    const nameInput = document.querySelector('#nome').value;
+    const emailInput = document.querySelector('#email').value;
+    const messageInput = document.querySelector('#mensagem').value;
+    const response = await fetch('/send-emailContact', {
+        method: 'POST',
+        headers :{
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            nome: nameInput,
+            email: emailInput,
+            mensagem: messageInput,
+        }),
+    });
+
+    const message = await response.text();
+    }
+</script>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esqueci a senha</title>
+    <link rel="icon" href="assets/group11.png" />
+    <link rel="stylesheet" href="css/esqueciSenha.css">
+</head>
+
+<body>
+    <div class="background">
+        <div class="nav-bar">
+            <div class="fundo-botao">
+                <a href="login.html" class="botão-dashboard">
+                    <button>
+                        <h1>Voltar</h1>
+                    </button>
+                </a>
+            </div>
+        </div>
+        <div class="titulo">Esqueci a senha</div>
+        <div class="container">
+            <!-- <div class="input-container">
+                <div for="senhaAntiga" class="msg-input">Senha antiga</div>
+                <input class="custom-input" type="password" id="senhaAntiga" name="senhaAntiga">
+            </div> -->
+
+
+            <div class="input-container">
+                <div for="email" class="msg-input">Email Cadastrado</div>
+                <input class="custom-input" type="email" id="email" name="email" required>
+            </div>
+        </div>
+        <div class="buttom-alterar">
+            <button onclick="enviarToken()" class="custom-button">Alterar</button>
+        </div>
+    </div>
+
+    </div>
+
+</body>
+<script>
+    function enviarToken() {
+
+        function guardarToken(emailVar){
+            sessionStorage.EMAIL = emailVar;
+        }
+
+        let emailVar = document.getElementById("email").value;
+
+        console.log("Dados enviados:", {
+            emailServer: emailVar
+        });
+
+        fetch("/usuarios/gerarToken", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                emailServer: emailVar
+            }),
+        })
+        .then(function (resposta) {
+            console.log("Resposta completa:", resposta);
+
+            if (resposta.ok) {
+                alert("Token enviado! Verifique seu email.");
+                setTimeout(() => {
+                    guardarToken(emailVar)
+                    window.location.href = "digitarToken.html";
+                }, 2000);
+            } else {
+                return resposta.text().then((mensagemErro) => {
+                    console.error("Erro do servidor:", mensagemErro);
+                    alert(`Erro ao enviar o token: ${mensagemErro}`);
+                });
+            }
+        })
+        .catch(function (erro) {
+            console.error("#ERRO:", erro);
+            alert("Ocorreu um erro inesperado. Tente novamente.");
+        });
+
+           
+    }
+</script>
+
+</html>

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Horizon</title>
+    <link rel="shortcut icon" href="assets/group11.png" type="image/x-icon">
+    <link rel="stylesheet" href="css/lista-funcionario.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.5/dist/sweetalert2.all.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.5/dist/sweetalert2.min.css" rel="stylesheet">
+
+</head>
+
+<body onload="listartUser()">
+    <div class="background">
+
+        <div class="container">
+
+            <div class="container-barra-lateral">
+                <div class="cbl-logo">
+                    <img src="assets/group11.png" alt="">
+                </div>
+
+                <div class="cbl-botoes">
+
+                    <div class="cbl-botoes-barralateral">
+                        <a href="dashboard.html" class="bl-botao">
+                            <div class="bl-botao-filho">
+                                <img src="assets/casa.png" alt="">
+                                <span>Dashboard</span>
+                            </div>
+                        </a>
+                        <a href="lista-municipios.html" class="bl-botao">
+                            <div class="bl-botao-filho">
+                                <img src="assets/detalhe1.png" alt="">
+                                <span>Detalhes</span>
+                            </div>
+                        </a>
+
+                        <a href="perfil.html" class="bl-botao">
+                            <div class="bl-botao-filho">
+                                <img src="assets/icon-user.png" alt="">
+                                <span>Perfil</span>
+                            </div>
+                        </a>
+
+                        <a href="empresa.html" class="bl-botao">
+                            <div class="bl-botao-filho">
+                                <img src="assets/icon-empresa.png" alt="">
+                                <span>Empresa</span>
+                            </div>
+                        </a>
+                        <div class="bl-botao" id="bl-botao-inicio">
+
+                            <div class="bl-botao-filho">
+                                <img src="assets/icon-search.png" alt="">
+                                <span>Funcionários</span>
+                            </div>
+                        </div>
+
+                        <a href="cadastro-funcionario.html" class="bl-botao">
+                            <div class="bl-botao-filho">
+                                <img src="assets/add.png" alt="">
+                                <span>Novo usuário</span>
+                            </div>
+                        </a>
+
+                    </div>
+
+                    <a href="index.html" class="bl-botao">
+                        <div class="bl-botao-filho">
+                            <img src="assets/porta.png" alt="">
+                            <span>Sair</span>
+                        </div>
+                    </a>
+
+                </div>
+
+            </div>
+
+            <div class="container-graficos-kpis">
+
+                <div class="cgk-navbar">
+                    <span>Lista de funcionário da Horizon</span>
+                </div>
+
+                <div class="cgk-graficos-kpi">
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</body>
+
+</html>
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<script>
+
+
+    var idEMpresa = sessionStorage.ID_EMPRESA = 3;
+    var userAtivo = sessionStorage.ATIVO = 1;
+    var tipoFuncionario = sessionStorage.TIPO_FUNCIONARIO = "Gerente";
+    //var tipEmpresa = sessionStorage.TIPO_EMPRESA = "PRIVADA";
+
+
+
+
+    function listartUser() {
+        fetch(`/usuarios/listarFuncionarios/${idEMpresa}`).then(function (resposta) {
+            if (resposta.ok) {
+                resposta.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+                    const container = document.querySelector('.cgk-graficos-kpi');
+                    container.innerHTML = ``;
+
+                    resposta.forEach((objeto, index) => {
+
+                        const divCard = document.createElement('div');
+                        divCard.id = 'cgk-graficos-id';
+
+                        if (objeto.usuario_ativo == 0) {
+                            divCard.classList.add('desativado');
+                        }
+
+                        const divIden = document.createElement('div');
+                        divIden.classList.add('img-nome');
+
+                        const imgUser = document.createElement('img');
+                        imgUser.src = 'assets/icor-perfil-lista.png';
+
+                        const spanNome = document.createElement('span');
+                        spanNome.innerHTML = `<b> ${objeto.nome} </b>`;
+
+                        const divLateral = document.createElement('div');
+                        divLateral.classList.add('info-lateral');
+
+                        const divInfo = document.createElement('div');
+                        divInfo.classList.add('info-usuario');
+
+                        const spanEmail = document.createElement('span');
+                        spanEmail.innerHTML = `Email: <b>${objeto.email}</b>`;
+
+                        const spanCpf = document.createElement('span');
+                        spanCpf.innerHTML = `CPF: <b>${objeto.cpf}</b>`;
+
+                        const spanTipo = document.createElement('span');
+                        spanTipo.innerHTML = `Tipo: <b>${objeto.tipo_usuario_cargo}</b>`
+
+                        const spanTelefone = document.createElement('span');
+                        spanTelefone.innerHTML = `Telefone: <b>${objeto.telefone}</b>`;
+
+                        const divFundo = document.createElement('div');
+                        divFundo.classList.add('btn-fundo-deletar-user');
+
+
+
+                        divInfo.appendChild(spanEmail);
+                        divInfo.appendChild(spanCpf);
+                        divInfo.appendChild(spanTipo);
+                        divInfo.appendChild(spanTelefone);
+
+                        let idUser = objeto.id;
+
+                        if (objeto.usuario_ativo == 1) {
+                            const btn = document.createElement('button')
+                            btn.innerHTML = `Desativar`;
+                            divFundo.appendChild(btn);
+
+                            btn.onclick = function () {
+                                guardarIdFunc(idUser);
+
+                                Swal.fire({
+                                    title: "Tem certeza de que deseja desativar este funcionário?",
+                                    icon: "warning",
+                                    showDenyButton: true,
+                                    confirmButtonText: '<span style="font-weight: bold; font-size: 16px;">Confirmar</span>',
+                                    denyButtonText: '<span style="font-weight: bold; font-size: 16px;">Cancelar</span>',
+                                    confirmButtonColor: "green", 
+                                    denyButtonColor: "red",      
+                                }).then((result) => {
+                                
+
+                                    if (result.isConfirmed) {
+                                        fetch(`/usuarios/desativarUsuario/${idUser}`, {
+                                            method: "PUT",
+                                            headers: {
+                                                "Content-Type": "application/json"
+                                            }
+                                        })
+                                            .then(response => response.json())
+                                            .then(data => {
+                                            
+                                                if (data.affectedRows > 0 || data.changedRows > 0) {
+                                                    Swal.fire(
+                                                        "Desativado!",
+                                                        `Funcionário ${objeto.nome} foi desativado da sua empresa.`,
+                                                        "success"
+                                                    ).then(() => {
+                                                        window.location.href = "/lista-funcionario.html";
+                                                    });
+                                                } else {
+                                                    Swal.fire(
+                                                        "Erro",
+                                                        "Houve um erro ao tentar desativar o funcionário.",
+                                                        "error"
+                                                    );
+                                                }
+                                            })
+                                            .catch(error => {
+                                                Swal.fire(
+                                                    "Erro",
+                                                    "Não foi possível se conectar ao servidor. Tente novamente mais tarde.",
+                                                    "error"
+                                                );
+                                            });
+                                    } else if (result.isDenied) {
+                                        Swal.fire(
+                                            "Cancelado",
+                                            "Funcionário não desativado!",
+                                            "error"
+                                        );
+                                    }
+                                });
+                            }
+                        }
+
+                        divLateral.appendChild(divInfo);
+                        divLateral.appendChild(divFundo);
+
+                        divIden.appendChild(imgUser);
+                        divIden.appendChild(spanNome);
+
+                        divCard.appendChild(divIden);
+                        divCard.appendChild(divLateral);
+
+                        container.appendChild(divCard);
+                    });
+
+                });
+            } else {
+                throw ('Houve um erro na API!');
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
+        });
+    }
+
+
+    function guardarIdFunc(idUser) {
+        sessionStorage.ID_FUNCIONARIO = idUser;
+    }
+
+</script>

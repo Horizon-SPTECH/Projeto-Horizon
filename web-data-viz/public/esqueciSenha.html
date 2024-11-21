@@ -7,9 +7,10 @@
     <title>Esqueci a senha</title>
     <link rel="icon" href="assets/group11.png" />
     <link rel="stylesheet" href="css/esqueciSenha.css">
+    <script src="js/block-screan.js"></script>
 </head>
 
-<body>
+<body onload="sessao()">
     <div class="background">
         <div class="nav-bar">
             <div class="fundo-botao">
@@ -28,8 +29,8 @@
             </div> -->
 
             <div class="input-container">
-                <div for="senhaNova" class="msg-input">Senha nova</div>
-                <input class="custom-input" type="password" id="senhaNova" name="senhaNova">
+                <div for="novaSenha" class="msg-input">Senha nova</div>
+                <input class="custom-input" type="password" id="novaSenha" name="novaSenha">
             </div>
 
             <div class="input-container">
@@ -38,17 +39,70 @@
             </div>
         </div>
 
-        <div class="text-bottom">
-
-
-        </div>
         <div class="buttom-alterar">
-            <button class="custom-button">Alterar</button>
+            <button onclick="alterarSenha()" class="custom-button">Alterar</button>
+
         </div>
     </div>
 
     </div>
 
 </body>
+<script>
+    function alterarSenha() {
+        let novaSenha = document.getElementById("novaSenha").value;
+        let senhaConfirma = document.getElementById("senhaConfirma").value;
+        let token = sessionStorage.getItem("TOKEN");
+
+
+
+        if (!novaSenha || !senhaConfirma) {
+            alert("Por favor, preencha todos os campos.");
+            return;
+        }
+
+        if (novaSenha !== senhaConfirma) {
+            alert("As senhas não coincidem. Tente novamente.");
+            return;
+        }
+        console.log("Dados enviados:", {
+            senhaNovaServer: novaSenha
+        });
+
+         
+            fetch("/usuarios/alterarSenha", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            senhaNovaServer: novaSenha,
+                            tokenServer: token
+                        }),
+                    })
+                    .then(function (resposta) {
+                        console.log("Resposta completa:", resposta)
+            if (resposta.ok) {
+                alert("Senha alterada com sucesso!");
+                setTimeout(()=>{
+                    sessionStorage.clear();
+                    window.location.href = "login.html";
+                })
+            } else {
+                return resposta.text().then((mensagemErro) => {
+                    console.error("Erro do servidor:", mensagemErro);
+                    alert(`Erro ao alterar Senha: ${mensagemErro}`);
+                });
+            }
+    })
+    .catch(function (erro) {
+        console.error("#ERRO:", erro);
+        alert("Ocorreu um erro inesperado. Tente novamente.");
+    });
+
+       
+}
+
+</script>
 
 </html>
