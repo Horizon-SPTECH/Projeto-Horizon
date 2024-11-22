@@ -54,6 +54,7 @@
         <div class="text-bottom">
             <span>Precisa de ajuda? <a href="index.html"><b> entre em contato</b></a></span>
         </div>
+
         <div class="buttom-cadastrar">
             <button class="custom-button" onclick="mostrarCadastroResponsavel()">Próximo</button>
         </div>
@@ -115,67 +116,73 @@
 </html>
 
 <script>
+    var nomeVar      = input_nome.value;
+    var cpfVar       = input_cpf.value;
+    var telefoneVar  = input_telefone.value;
+    var emailVar     = input_email.value;
+    var senhaVar     = input_senha.value;
+    var confSenhaVar = input_conf_senha.value;
+
     function mostrarCadastroResponsavel() {
-        document.getElementById('cadastroEmpresa').style.display = 'none';
-        document.getElementById('cadastroResponsavel').style.display = 'block';
-    }
-
-    let listaEmpresasCadastradas = [];
-
-    function cadastrar() {
         var nomeEmpresaVar     = input_nome_empresa.value;
         var cnpjEmpresaVar     = input_cnpj.value;
         var cepEmpresaVar      = input_cep.value;
         var enderecoEmpresaVar = input_endereco.value;
         var numeroEmpresaVar   = input_numero.value;
 
-        var nomeVar      = input_nome.value;
-        var cpfVar       = input_cpf.value;
-        var telefoneVar  = input_telefone.value;
-        var emailVar     = input_email.value;
-        var senhaVar     = input_senha.value;
-        var confSenhaVar = input_conf_senha.value;
-
         if(nomeEmpresaVar == "") {
-            console.log("Nome da empresa incorreto")
+            console.log("Nome da empresa invalido")
+        } else if(cnpjEmpresaVar == "" || cnpjEmpresaVar.length != 14 || isNaN(cnpjEmpresaVar)) {
+            console.log("CNPJ da empresa invalido")
+        } else if(cepEmpresaVar == "" || cepEmpresaVar.length != 8 || isNaN(cepEmpresaVar)) {
+            console.log("CEP da empresa invalido")
+        } else if(enderecoEmpresaVar == "") {
+            console.log("Endereco da empresa invalido")
+        } else if(numeroEmpresaVar == "" || isNaN(numeroEmpresaVar)) {
+            console.log("Numero do endereco invalido")
         } else {
-            fetch("/usuarios/cadastrar", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                nomeEmpresaServer:     nomeEmpresaVar,
-                cnpjEmpresaServer:     cnpjEmpresaVar,
-                cepEmpresaServer:      cepEmpresaVar,
-                enderecoEmpresaServer: enderecoEmpresaVar,
-                numeroEmpresaServer:   numeroEmpresaVar,
-                nomeServer:            nomeVar,
-                cpfServer:             cpfVar,
-                telefoneServer:        telefoneVar,
-                emailServer:           emailVar,
-                senhaServer:           senhaVar,
-                confSenhaServer:       confSenhaVar
-            }),
-            })
-            .then(function (resposta) {
-                console.log("resposta: ", resposta);
-
-                if (resposta.ok) {
-                    setTimeout(() => {
-                        window.location = "dashboard.html";
-                    }, "2000");
-                } else {
-                    throw "Houve um erro ao tentar realizar o cadastro!";
-                }
-            })
-            .catch(function (resposta) {
-                console.log(`#ERRO: ${resposta}`);
-            });
-
-            return false;
+            document.getElementById('cadastroEmpresa').style.display = 'none';
+            document.getElementById('cadastroResponsavel').style.display = 'block';
         }
-         
-        
+    }
+
+    let listaEmpresasCadastradas = [];
+
+    function cadastrar() {
+        fetch("/usuarios/cadastrar", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            nomeEmpresaServer:     nomeEmpresaVar,
+            cnpjEmpresaServer:     cnpjEmpresaVar,
+            cepEmpresaServer:      cepEmpresaVar,
+            enderecoEmpresaServer: enderecoEmpresaVar,
+            numeroEmpresaServer:   numeroEmpresaVar,
+            nomeServer:            nomeVar,
+            cpfServer:             cpfVar,
+            telefoneServer:        telefoneVar,
+            emailServer:           emailVar,
+            senhaServer:           senhaVar,
+            confSenhaServer:       confSenhaVar
+        }),
+        })
+        .then(function (resposta) {
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+                setTimeout(() => {
+                    window.location = "dashboard.html";
+                }, "2000");
+            } else {
+                throw "Houve um erro ao tentar realizar o cadastro!";
+            }
+        })
+        .catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+
+        return false;        
     }
 </script>
