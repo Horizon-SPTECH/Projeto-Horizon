@@ -9,10 +9,9 @@
     <link rel="stylesheet" href="css/esqueciSenha.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.5/dist/sweetalert2.all.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.5/dist/sweetalert2.min.css" rel="stylesheet">
-    <script src="js/block-screan.js"></script>
 </head>
 
-<body onload="sessao()">
+<body>
     <div class="background">
         <div class="nav-bar">
             <div class="fundo-botao">
@@ -30,20 +29,15 @@
                 <input class="custom-input" type="password" id="senhaAntiga" name="senhaAntiga">
             </div> -->
 
-            <div class="input-container">
-                <div for="novaSenha" class="msg-input">Senha nova</div>
-                <input class="custom-input" type="password" id="novaSenha" name="novaSenha">
-            </div>
 
             <div class="input-container">
-                <div for="senhaConfirma" class="msg-input">Confirme a nova senha</div>
-                <input class="custom-input" type="password" id="senhaConfirma" name="senhaConfirma">
+                <div for="email" class="msg-input">Email Cadastrado</div>
+                <input class="custom-input" type="email" id="email" name="email" required>
             </div>
             <p id="msg_erro"></p>
         </div>
-
         <div class="buttom-alterar">
-            <button onclick="alterarSenha()" class="custom-button">Alterar</button>
+            <button onclick="enviarToken()" class="custom-button">Alterar</button>
         </div>
     </div>
 
@@ -51,58 +45,69 @@
 
 </body>
 <script>
-    function alterarSenha() {
-        let novaSenha = document.getElementById("novaSenha").value;
-        let senhaConfirma = document.getElementById("senhaConfirma").value;
-        let token = sessionStorage.getItem("TOKEN");
+
+    function guardarToken(emailVar){
+        sessionStorage.EMAIL = emailVar;
+    }
+
+
+
+    function enviarToken() {
+
+        let emailVar = document.getElementById("email").value;
         const pMsg = document.querySelector("#msg_erro");
 
+//        console.log("Dados enviados:", {
+//            emailServer: emailVar
+//        });
 
-        if (!novaSenha || !senhaConfirma) {
-            pMsg.innerHTML = "Por favor, preencha todos os campos.";
-            pMsg.style.background = "radial-gradient(101.81% 98.73% at 51.96% 40.13%, rgba(96, 103, 242, 0.80) 0.01%, rgba(52, 52, 52, 0.80) 94.06%)";
-            setTimeout(() => {
-                pMsg.innerHTML = "";
-                pMsg.style.background = "";
 
-            }, 5000);
-        } else if (novaSenha !== senhaConfirma) {
-            pMsg.innerHTML = "As senhas não coincidem. Tente novamente.";
-            pMsg.style.background = "radial-gradient(101.81% 98.73% at 51.96% 40.13%, rgba(96, 103, 242, 0.80) 0.01%, rgba(52, 52, 52, 0.80) 94.06%)";
-            setTimeout(() => {
-                pMsg.innerHTML = "";
-                pMsg.style.background = "";
+            const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            if (emailVar === "") {  
+                pMsg.innerHTML = "Preencha o campo de email!";
+                pMsg.style.background = "radial-gradient(101.81% 98.73% at 51.96% 40.13%, rgba(96, 103, 242, 0.80) 0.01%, rgba(52, 52, 52, 0.80) 94.06%)";
+                setTimeout(() => {
+                    pMsg.innerHTML = "";
+                    pMsg.style.background = "";
 
-            }, 5000);
-        } else {
-            fetch("/usuarios/alterarSenha", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    senhaNovaServer: novaSenha,
-                    tokenServer: token
-                }),
-            })
+                }, 5000);
+
+            }else if (!emailRegex.test(emailVar)) {
+                pMsg.innerHTML = "Por favor, insira um email válido!";
+                pMsg.style.background = "radial-gradient(101.81% 98.73% at 51.96% 40.13%, rgba(96, 103, 242, 0.80) 0.01%, rgba(52, 52, 52, 0.80) 94.06%)";
+
+                setTimeout(() => {
+                    pMsg.innerHTML = "";
+                    pMsg.style.background = "";
+                }, 5000);
+            }else{
+                fetch("/usuarios/gerarToken", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        emailServer: emailVar
+                    }),
+                })
                 .then(function (resposta) {
-                    console.log("Resposta completa:", resposta)
+                    console.log("Resposta completa:", resposta);
                     if (resposta.ok) {
                         Swal.fire({
                             title: 'Sucesso!',
-                            text: 'Senha alterada com sucesso!',
+                            text: 'Token enviado! Verifique seu email.',
                             icon: 'success',
                             confirmButtonText: 'OK'
                         }).then(() => {
-                            sessionStorage.clear();
-                            window.location.href = "login.html";
+                            guardarToken(emailVar)
+                            window.location.href = "/digitarToken.html";
                         });
                     } else {
                         return resposta.text().then((mensagemErro) => {
                             console.error("Erro do servidor:", mensagemErro);
                             Swal.fire({
                                 title: 'Erro!',
-                                text: `Erro ao alterar Senha: ${mensagemErro}`,
+                                text: 'Email não cadastrado no nosso sistema!',
                                 icon: 'error',
                                 confirmButtonText: 'OK'
                             });
@@ -113,15 +118,14 @@
                     console.error("#ERRO:", erro);
                     Swal.fire({
                         title: 'Erro!',
-                        text: 'Ocorreu um erro inesperado. Tente novamente.',
+                        text: 'Houve um erro ao enviar seu token. Tente novamente.',
                         icon: 'error',
                         confirmButtonText: 'OK'
                     });
                 });
-        }
-
+            }         
     }
-
 </script>
+
 
 </html>

@@ -1,5 +1,17 @@
 var usuarioModel = require("../models/usuarioModel");
-var aquarioModel = require("../models/aquarioModel");
+const crypto = require("crypto");
+const nodemailer = require("nodemailer");
+
+
+const transporter = nodemailer.createTransport({
+    host:"smtp-relay.gmail.com",
+    service: 'gmail',
+    port:587,
+    auth: {
+        user: 'horizonContateNos@gmail.com',
+        pass: 'wxfg vjdw ybis qlmg'
+    }
+});
 
 function autenticar(req, res) {
     var email = req.body.emailServer;
@@ -20,20 +32,7 @@ function autenticar(req, res) {
                     if (resultadoAutenticar.length == 1) {
                         console.log(resultadoAutenticar);
 
-                        aquarioModel.buscarAquariosPorEmpresa(resultadoAutenticar[0].empresaId)
-                            .then((resultadoAquarios) => {
-                                if (resultadoAquarios.length > 0) {
-                                    res.json({
-                                        id: resultadoAutenticar[0].id,
-                                        email: resultadoAutenticar[0].email,
-                                        nome: resultadoAutenticar[0].nome,
-                                        senha: resultadoAutenticar[0].senha,
-                                        aquarios: resultadoAquarios
-                                    });
-                                } else {
-                                    res.status(204).json({ aquarios: [] });
-                                }
-                            })
+
                     } else if (resultadoAutenticar.length == 0) {
                         res.status(403).send("Email e/ou senha inválido(s)");
                     } else {
@@ -88,7 +87,147 @@ function cadastrar(req, res) {
     }
 }
 
+function listarFuncionarios(req, res) {
+
+    var idEMpresa = req.params.idEMpresa
+
+    usuarioModel.listarFuncionarios(idEMpresa).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar a quantidade de avisos: ", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+  }
+
+
+
+
+function desativarUsuario(req, res){
+    var idUser = req.params.idUser;
+
+    usuarioModel.desativarUsuario(idUser)
+    .then(
+        function(resultado){
+            res.json(resultado);
+        }
+    )
+    .catch(
+        function(erro){
+            console.log(erro);
+            console.log("ERRO ao atualizar com put", erro.sqlMessage)
+            res.status(500).json(erro.sqlMessage);
+        }
+    )
+}
+
+
+
+
+
+function gerarToken(req, res) {
+    const email = req.body.emailServer;
+
+    if (!email) {
+        res.status(400).send("Email não informado!");
+        return;
+    }
+
+    usuarioModel.buscarPorEmail(email).then((resultado) => {
+        if (resultado.length === 0) {
+          res.status(404).send("Email não encontrado!");
+        } else {
+          const token = crypto.randomBytes(64).toString("hex");
+    
+          usuarioModel.salvarToken(email, token).then(() => {
+            let mailOptions = {
+              from: 'horizonContateNos@gmail.com', 
+              to: email,
+              subject: 'Recuperação de Senha - Token', 
+              text: `Olá, você solicitou a recuperação de senha. Use o seguinte token para prosseguir: ${token}`, 
+            };
+    
+            transporter.sendMail(mailOptions, (error, info) => {
+              if (error) {
+                console.error("Erro ao enviar e-mail:", error);
+                res.status(500).send("Erro ao enviar o e-mail com o token.");
+                return;
+              }
+              console.log('E-mail enviado:', info.response);
+              res.status(200).send(`Token gerado e enviado para o e-mail: ${email}`);
+            });
+          }).catch((erro) => {
+            res.status(500).send("Erro ao salvar token.");
+            console.error(erro);
+          });
+        }
+      }).catch((erro) => {
+        res.status(500).send("Erro ao buscar email no banco.");
+        console.error(erro);
+      });
+}
+
+function verificarToken(req, res) {
+    const token = req.body.tokenServer;
+
+    if (!token) {
+        res.status(400).send("Token não informado!");
+        return;
+    }
+
+    usuarioModel.verificarToken(token).then((resultado) => {
+        if (resultado.length === 0) {
+            res.status(404).send("Token inválido ou expirado!");
+        } else {
+            res.status(200).send("Token válido! Redirecionando para alteração de senha...");
+        }
+    }).catch((erro) => {
+        res.status(500).send("Erro ao verificar token no banco.");
+        console.error(erro);
+    });
+}
+
+function alterarSenha(req, res) {
+    const { tokenServer: token, senhaNovaServer: novaSenha } = req.body;
+
+    if (!token || !novaSenha) {
+        res.status(400).send("Token ou nova senha não informados!");
+        return;
+    }
+
+    usuarioModel.verificarToken(token).then((resultado) => {
+        if (resultado.length === 0) {
+            res.status(404).send("Token inválido ou expirado!");
+        } else {
+            usuarioModel.alterarSenha(resultado[0].email, novaSenha).then(() => {
+                const novoToken = crypto.randomBytes(64).toString("hex");
+                usuarioModel.salvarToken(resultado[0].email, novoToken).then(() => {
+                    res.status(200).send("Senha alterada com sucesso!");
+                }).catch((erro) => {
+                    res.status(500).send("Erro ao salvar novo token no banco.");
+                    console.error(erro);
+                });
+            }).catch((erro) => {
+                res.status(500).send("Erro ao alterar senha.");
+                console.error(erro);
+            });
+        }
+    }).catch((erro) => {
+        res.status(500).send("Erro ao verificar token.");
+        console.error(erro);
+    });
+}
+
 module.exports = {
     autenticar,
-    cadastrar
+    cadastrar,
+    listarFuncionarios,
+    desativarUsuario,
+    gerarToken,
+    verificarToken,
+    alterarSenha
 }

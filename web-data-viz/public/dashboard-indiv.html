@@ -4,18 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Visão Individual - Horizon</title>
-    <link rel="shortcut icon" href="assets/Group 11.png" type="image/x-icon">
+    <link rel="shortcut icon" href="assets/group11.png" type="image/x-icon">
     <link rel="stylesheet" href="css/dashboard-indiv.css">
     <link rel="stylesheet" href="dashboard.html">
 </head>
-<body>
+<body onload="inicializarPagina()">
     <div class="background">
 
         <div class="container">
 
             <div class="container-barra-lateral">
                 <div class="cbl-logo">
-                    <img src="assets/Group 11.png" alt="">
+                    <img src="assets/group11.png" alt="">
                 </div>
 
                 <div class="cbl-botoes">
@@ -27,17 +27,31 @@
                                 <span>Dashboard</span>
                             </div>
                         </a>
-                        <a href="dashboard-indiv.html" class="bl-botao" id="bl-botao-inicio">
+                        <a href="lista-municipios.html" class="bl-botao" id="bl-botao-inicio">
                             <div class="bl-botao-filho">
                                 <img src="assets/detalhe1.png" alt="">
                                 <span>Detalhes</span>
                             </div>
                         </a>
 
-                        <a href="alterar-senha.html" class="bl-botao">
+                        <a href="perfil.html" class="bl-botao">
                             <div class="bl-botao-filho">
-                                <img src="assets/cadeado.png" alt="">
-                                <span>Alterar senha</span>
+                                <img src="assets/icon-user.png" alt="">
+                                <span>Perfil</span>
+                            </div>
+                        </a>
+
+                        <a href="empresa.html" class="bl-botao">
+                            <div class="bl-botao-filho">
+                                <img src="assets/icon-empresa.png" alt="">
+                                <span>Empresa</span>
+                            </div>
+                        </a>
+
+                        <a href="lista-funcionario.html" class="bl-botao">
+                            <div class="bl-botao-filho">
+                                <img src="assets/icon-search.png" alt="">
+                                <span>Funcionários</span>
                             </div>
                         </a>
 
@@ -64,14 +78,14 @@
             <div class="container-graficos-kpis">
 
                 <div class="cgk-navbar">
-                    <span>Visão única - Serra</span>
+                    <span class="nome-municipio"></span>
                 </div>
 
                 <div class="cgk-mapa-kpi">
 
                     <div class="cgk-mapa">
                         <div class="cgk-grafico-titulo">
-                            <span>Horários com mais furtos</span>
+                            <span>Número de Furtos por Dia da Semana</span>
                         </div>
 
                         <div class="cgk-mapa-grafico">
@@ -87,7 +101,7 @@
 
                             <div class="cgk-kpi-furtosHab-kpi">
                                 <h3 style="font-size: 15px;">Furtos no município</h3>
-                                <span>300</span>
+                                <span id="kpiFurtosPor1k"></span>
                             </div>
                         </div>
 
@@ -97,23 +111,6 @@
                             </div>
                             
                             <div class="cgk-kpi-obj-imgs">
-                                <div class="cgk-kpi-obj-ordem">
-                                    <img src="assets/moto.png" alt="">
-                                    <h1>1° - 682</h1>
-                                    <span>Moto</span>
-                                </div>
-
-                                <div class="cgk-kpi-obj-ordem">
-                                    <img src="assets/celular.png" alt="">
-                                    <h1>2° - 435</h1>
-                                    <span>Celular</span>
-                                </div>
-
-                                <div class="cgk-kpi-obj-ordem">
-                                    <img src="assets/carro.png" alt="">
-                                    <h1>3° - 123</h1>
-                                    <span>Carro</span>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -139,23 +136,6 @@
                             </div>
 
                             <div class="cgk-grafico-IA-img">
-                                <div class="cgk-grafico-IA-percentual">
-                                    <img src="assets/seta_2.png" alt="">
-                                    <h1>15%</h1>
-                                    <p>Agosto</p>
-                                </div>
-
-                                <div class="cgk-grafico-IA-percentual">
-                                    <img src="assets/seta_2.png" alt="">
-                                    <h1>12%</h1>
-                                    <p>Setembro</p>
-                                </div>
-
-                                <div class="cgk-grafico-IA-percentual">
-                                    <img src="assets/seta_2.png" alt="">
-                                    <h1>8%</h1>
-                                    <p>Outubro</p>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -173,18 +153,191 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
+
+    var municipio = sessionStorage.getItem('NOME_MUNICIPIO');
+    console.log(municipio);
+
+    const nomeMunicipio = document.querySelector('.nome-municipio');
+    nomeMunicipio.innerHTML = `Visão única - ${municipio}`;
+
+    function inicializarPagina(){
+        fetchNumeroFurtosPorDiaSemana();
+        fetchMesesComMaisFurto();
+        furtorNoMunicipio();
+        objetosRoubados();
+        porcentagemFurto()
+    }
+
+    function furtorNoMunicipio() {
+        fetch(`/empresas/furtosIndi/${municipio}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    const furtosMunicipio = document.getElementById('kpiFurtosPor1k');
+                    furtosMunicipio.innerHTML += `${resposta[0].total_furtos}`
+
+                });
+            } else {
+                console.error('Erro no furtorPor1kilometro');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ KPI: ${error.message}`);
+            });
+    }
+
+    function objetosRoubados() {
+        fetch(`/empresas/objetosMaisRoubadosIndi/${municipio}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+                    const container = document.querySelector('.cgk-kpi-obj-imgs');
+                    container.innerHTML = '';
+                    var contador = 1;
+
+                    resposta.forEach((objeto, index) => {
+
+                        const divOrdem = document.createElement('div');
+                        divOrdem.classList.add('cgk-kpi-obj-ordem');
+
+                        const img = document.createElement('img');
+                        img.src = `assets/${objeto.tipo_objeto.toLowerCase()}.png`;
+                        img.alt = objeto.tipo_objeto;
+
+                        const h1 = document.createElement('h1');
+                        h1.innerHTML = `${contador++}º - ${objeto.numero_furtos}`;
+
+                        const span = document.createElement('span');
+                        span.innerHTML = objeto.tipo_objeto;
+
+                        divOrdem.appendChild(img);
+                        divOrdem.appendChild(h1);
+                        divOrdem.appendChild(span);
+
+                        container.appendChild(divOrdem);
+                    });
+
+                });
+            } else {
+                console.error('Erro no furtorPor1kilometro');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ KPI: ${error.message}`);
+            });
+    }
+
+
+    function porcentagemFurto() {
+        fetch(`/empresas/porcentualFurtos/${municipio}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+                    const container = document.querySelector('.cgk-grafico-IA-img');
+                    container.innerHTML = '';
+
+                    resposta.forEach((objeto, index) => {
+                        const divNova = document.createElement('div');
+                        divNova.classList.add('cgk-grafico-IA-percentual');
+
+                        const imgSeta = document.createElement('img');
+                        imgSeta.src = objeto.percentual_variacao < 0 
+                        ? 'assets/seta_2.png' 
+                        : 'assets/seta-vermelha.png'; 
+
+                        const h1Nova = document.createElement('h1');
+                        h1Nova.innerHTML = `${String(objeto.percentual_variacao).replace('-', '')}%`;
+                        
+                        const pNova = document.createElement('p');
+                        pNova.innerHTML = objeto.mes_nome;
+
+                        divNova.appendChild(imgSeta);
+                        divNova.appendChild(h1Nova);
+                        divNova.appendChild(pNova);
+
+                        container.appendChild(divNova);
+
+                    });
+
+                });
+            } else {
+                console.error('Erro no furtorPor1kilometro');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ KPI: ${error.message}`);
+            });
+    }
+
+
+
+
+    function fetchNumeroFurtosPorDiaSemana() {
+
+        Promise.all([
+            fetch('/empresas/diaSemanaGraficos', { cache: 'no-store' }).then(response => response.json()),
+            fetch(`/empresas/furtosSemanasUnica/${municipio}`, { cache: 'no-store' }).then(response => response.json()),
+
+        ])
+            .then(([diaSemanaGraficos, furtosSemanasUnica]) => {
+                console.log('Dia da Semana Gráficos:', diaSemanaGraficos);
+                console.log('Furtos Semanas Indi:', furtosSemanasUnica);
+
+                plotar(diaSemanaGraficos, furtosSemanasUnica);
+
+            })
+            .catch(error => console.error(`Erro na obtenção dos dados: ${error.message}`));
+    }
+
+    function fetchMesesComMaisFurto() {
+
+        Promise.all([
+        fetch('/empresas/mesesGraficos', { cache: 'no-store' }).then(response => response.json()),
+        fetch(`/empresas/furtosMesesUnica/${municipio}`, { cache: 'no-store' }).then(response => response.json()),
+
+        ])
+            .then(([mesesGraficos, furtosMesesUnica]) => {
+                console.log('7 Meses Gráficos:', mesesGraficos);
+                console.log('Furtos Meses Indi:', furtosMesesUnica);
+
+                plotar2(mesesGraficos, furtosMesesUnica);
+
+            })
+            .catch(error => console.error(`Erro na obtenção dos dados: ${error.message}`));
+    }
+
+
+    function plotar(diaSemanaGraficos, furtosSemanasUnica) {
     const grafico_periodo = document.getElementById('grafico_periodo');
 
+    const traducaoDiaSemana = {
+        Sunday: 'Dom',
+        Monday: 'Seg',
+        Tuesday: 'Ter',
+        Wednesday: 'Qua',
+        Thursday: 'Qui',
+        Friday: 'Sex',
+        Saturday: 'Sab'
+    };
+
+    const diaLabels = diaSemanaGraficos.map(dia => traducaoDiaSemana[dia.dia_semana]);
+    const furtos = furtosSemanasUnica.map(diaIndi => diaIndi.total_furtos);
+
+    console.log(furtos);
+
     Chart.defaults.color = '#23005B';
-    //Chart.defaults.borderColor = 'white';
+
+    console.log(diaLabels);
 
     new Chart(grafico_periodo, {
     type: 'bar',
     data: {
-        labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'],
+        labels: diaLabels,
         datasets: [{
-            label: 'Periodo',
-            data: [12, 19, 3, 5, 2, 3],
+            label: 'Furtos',
+            data: furtos,
             backgroundColor: '#5321CA',
             borderRadius: 17
         }]
@@ -219,16 +372,37 @@
       },
     barPercentage: 0.4
     }});
+}
+
+function plotar2(mesesGraficos, furtosMesesUnica) {
+
+    const traducaoDosMeses = {
+            January: 'Jan',
+            February: 'Fev',
+            March: 'Mar',
+            April: 'Abr',
+            May: 'Mai',
+            June: 'Jun',
+            July: 'Jul',
+            August: 'Ago',
+            September: 'Set',
+            October: 'Out',
+            November: 'Nov',
+            December: 'Dez'
+        };
+    const mesesLabels = mesesGraficos.map(mes => traducaoDosMeses[mes.nome_mes]);
+    const furtosMes = furtosMesesUnica.map(dia=> dia.total_furtos);
+
 
     const grafico_meses = document.getElementById('grafico_meses');
 
     new Chart(grafico_meses, {
     type: 'bar',
     data: {
-        labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'],
+        labels: mesesLabels,
         datasets: [{
-            label: 'Meses',
-            data: [12, 19, 3, 5, 2, 3],
+            label: 'Furtos',
+            data: furtosMes,
             backgroundColor: '#5321CA',
             borderRadius: 17
         }]
@@ -263,4 +437,5 @@
       },
     barPercentage: 0.4
     }});
+}
 </script>
