@@ -7,6 +7,8 @@
     <title>Esqueci a senha</title>
     <link rel="icon" href="assets/group11.png" />
     <link rel="stylesheet" href="css/esqueciSenha.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.5/dist/sweetalert2.all.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.5/dist/sweetalert2.min.css" rel="stylesheet">
     <script src="js/block-screan.js"></script>
 </head>
 
@@ -37,11 +39,11 @@
                 <div for="senhaConfirma" class="msg-input">Confirme a nova senha</div>
                 <input class="custom-input" type="password" id="senhaConfirma" name="senhaConfirma">
             </div>
+            <p id="msg_erro"></p>
         </div>
 
         <div class="buttom-alterar">
             <button onclick="alterarSenha()" class="custom-button">Alterar</button>
-
         </div>
     </div>
 
@@ -53,55 +55,72 @@
         let novaSenha = document.getElementById("novaSenha").value;
         let senhaConfirma = document.getElementById("senhaConfirma").value;
         let token = sessionStorage.getItem("TOKEN");
-
+        const pMsg = document.querySelector("#msg_erro");
 
 
         if (!novaSenha || !senhaConfirma) {
-            alert("Por favor, preencha todos os campos.");
-            return;
-        }
+            pMsg.innerHTML = "Por favor, preencha todos os campos.";
+            pMsg.style.background = "radial-gradient(101.81% 98.73% at 51.96% 40.13%, rgba(96, 103, 242, 0.80) 0.01%, rgba(52, 52, 52, 0.80) 94.06%)";
+            setTimeout(() => {
+                pMsg.innerHTML = "";
+                pMsg.style.background = "";
 
-        if (novaSenha !== senhaConfirma) {
-            alert("As senhas não coincidem. Tente novamente.");
-            return;
-        }
-        console.log("Dados enviados:", {
-            senhaNovaServer: novaSenha
-        });
+            }, 5000);
+        } else if (novaSenha !== senhaConfirma) {
+            pMsg.innerHTML = "As senhas não coincidem. Tente novamente.";
+            pMsg.style.background = "radial-gradient(101.81% 98.73% at 51.96% 40.13%, rgba(96, 103, 242, 0.80) 0.01%, rgba(52, 52, 52, 0.80) 94.06%)";
+            setTimeout(() => {
+                pMsg.innerHTML = "";
+                pMsg.style.background = "";
 
-         
+            }, 5000);
+        } else {
             fetch("/usuarios/alterarSenha", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                        body: JSON.stringify({
-                            senhaNovaServer: novaSenha,
-                            tokenServer: token
-                        }),
-                    })
-                    .then(function (resposta) {
-                        console.log("Resposta completa:", resposta)
-            if (resposta.ok) {
-                alert("Senha alterada com sucesso!");
-                setTimeout(()=>{
-                    sessionStorage.clear();
-                    window.location.href = "login.html";
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    senhaNovaServer: novaSenha,
+                    tokenServer: token
+                }),
+            })
+                .then(function (resposta) {
+                    console.log("Resposta completa:", resposta)
+                    if (resposta.ok) {
+                        Swal.fire({
+                            title: 'Sucesso!',
+                            text: 'Senha alterada com sucesso!',
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                        }).then(() => {
+                            sessionStorage.clear();
+                            window.location.href = "login.html";
+                        });
+                    } else {
+                        return resposta.text().then((mensagemErro) => {
+                            console.error("Erro do servidor:", mensagemErro);
+                            Swal.fire({
+                                title: 'Erro!',
+                                text: `Erro ao alterar Senha: ${mensagemErro}`,
+                                icon: 'error',
+                                confirmButtonText: 'OK'
+                            });
+                        });
+                    }
                 })
-            } else {
-                return resposta.text().then((mensagemErro) => {
-                    console.error("Erro do servidor:", mensagemErro);
-                    alert(`Erro ao alterar Senha: ${mensagemErro}`);
+                .catch(function (erro) {
+                    console.error("#ERRO:", erro);
+                    Swal.fire({
+                        title: 'Erro!',
+                        text: 'Ocorreu um erro inesperado. Tente novamente.',
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
                 });
-            }
-    })
-    .catch(function (erro) {
-        console.error("#ERRO:", erro);
-        alert("Ocorreu um erro inesperado. Tente novamente.");
-    });
+        }
 
-       
-}
+    }
 
 </script>
 

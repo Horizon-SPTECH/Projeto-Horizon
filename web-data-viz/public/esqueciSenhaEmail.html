@@ -7,6 +7,8 @@
     <title>Esqueci a senha</title>
     <link rel="icon" href="assets/group11.png" />
     <link rel="stylesheet" href="css/esqueciSenha.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.5/dist/sweetalert2.all.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.5/dist/sweetalert2.min.css" rel="stylesheet">
 </head>
 
 <body>
@@ -32,6 +34,7 @@
                 <div for="email" class="msg-input">Email Cadastrado</div>
                 <input class="custom-input" type="email" id="email" name="email" required>
             </div>
+            <p id="msg_erro"></p>
         </div>
         <div class="buttom-alterar">
             <button onclick="enviarToken()" class="custom-button">Alterar</button>
@@ -42,50 +45,87 @@
 
 </body>
 <script>
+
+    function guardarToken(emailVar){
+        sessionStorage.EMAIL = emailVar;
+    }
+
+
+
     function enviarToken() {
 
-        function guardarToken(emailVar){
-            sessionStorage.EMAIL = emailVar;
-        }
-
         let emailVar = document.getElementById("email").value;
+        const pMsg = document.querySelector("#msg_erro");
 
-        console.log("Dados enviados:", {
-            emailServer: emailVar
-        });
+//        console.log("Dados enviados:", {
+//            emailServer: emailVar
+//        });
 
-        fetch("/usuarios/gerarToken", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                emailServer: emailVar
-            }),
-        })
-        .then(function (resposta) {
-            console.log("Resposta completa:", resposta);
 
-            if (resposta.ok) {
-                alert("Token enviado! Verifique seu email.");
+            const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            if (emailVar === "") {  
+                pMsg.innerHTML = "Preencha o campo de email!";
+                pMsg.style.background = "radial-gradient(101.81% 98.73% at 51.96% 40.13%, rgba(96, 103, 242, 0.80) 0.01%, rgba(52, 52, 52, 0.80) 94.06%)";
                 setTimeout(() => {
-                    guardarToken(emailVar)
-                    window.location.href = "digitarToken.html";
-                }, 2000);
-            } else {
-                return resposta.text().then((mensagemErro) => {
-                    console.error("Erro do servidor:", mensagemErro);
-                    alert(`Erro ao enviar o token: ${mensagemErro}`);
-                });
-            }
-        })
-        .catch(function (erro) {
-            console.error("#ERRO:", erro);
-            alert("Ocorreu um erro inesperado. Tente novamente.");
-        });
+                    pMsg.innerHTML = "";
+                    pMsg.style.background = "";
 
-           
+                }, 5000);
+
+            }else if (!emailRegex.test(emailVar)) {
+                pMsg.innerHTML = "Por favor, insira um email válido!";
+                pMsg.style.background = "radial-gradient(101.81% 98.73% at 51.96% 40.13%, rgba(96, 103, 242, 0.80) 0.01%, rgba(52, 52, 52, 0.80) 94.06%)";
+
+                setTimeout(() => {
+                    pMsg.innerHTML = "";
+                    pMsg.style.background = "";
+                }, 5000);
+            }else{
+                fetch("/usuarios/gerarToken", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        emailServer: emailVar
+                    }),
+                })
+                .then(function (resposta) {
+                    console.log("Resposta completa:", resposta);
+                    if (resposta.ok) {
+                        Swal.fire({
+                            title: 'Sucesso!',
+                            text: 'Token enviado! Verifique seu email.',
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                        }).then(() => {
+                            guardarToken(emailVar)
+                            window.location.href = "/digitarToken.html";
+                        });
+                    } else {
+                        return resposta.text().then((mensagemErro) => {
+                            console.error("Erro do servidor:", mensagemErro);
+                            Swal.fire({
+                                title: 'Erro!',
+                                text: 'Email não cadastrado no nosso sistema!',
+                                icon: 'error',
+                                confirmButtonText: 'OK'
+                            });
+                        });
+                    }
+                })
+                .catch(function (erro) {
+                    console.error("#ERRO:", erro);
+                    Swal.fire({
+                        title: 'Erro!',
+                        text: 'Houve um erro ao enviar seu token. Tente novamente.',
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
+                });
+            }         
     }
 </script>
+
 
 </html>

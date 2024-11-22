@@ -44,6 +44,7 @@
                    <textarea wrap="hard" id="mensagem" name="mensagem">
                </textarea>
                </div>
+                   <p id="msg_erro"></p>
                    <button id="button-submit" class="btn-enviar" type="submit">Enviar</button>
                </form>
            </div>
@@ -58,25 +59,77 @@
 
     let botaoSubmit = document.querySelector('#button-submit');
 
+
+    
+        async function enviarEmail(){
+            event.preventDefault();
+
+        const nameInput = document.querySelector('#nome').value;
+        const emailInput = document.querySelector('#email').value;
+        const messageInput = document.querySelector('#mensagem').value;
+
+        const nomeRegex = /^[A-Za-zÀ-ÿ\s]+$/;
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        const pMsg = document.querySelector("#msg_erro");
+    
+
+        if (nameInput === "" || emailInput === "" || messageInput === "") {  
+                pMsg.innerHTML = "Preencha todos os campos!";
+                setTimeout(() => {
+                    pMsg.innerHTML = "";
+                }, 5000);
+
+        }else if (!nomeRegex.test(nameInput)) {
+            pMsg.innerHTML = "O nome deve conter apenas letras e espaços!";
+            setTimeout(() => {
+                pMsg.innerHTML = "";
+            }, 5000);
+        } else if (!emailRegex.test(emailInput)) {
+            pMsg.innerHTML = "Por favor, insira um email válido!";
+            setTimeout(() => {
+                pMsg.innerHTML = "";
+            }, 5000); 
+        }else if(nameInput.length  < 3){
+            pMsg.innerHTML = "O nome deve conter no mínimo 3 caracteres!";
+            setTimeout(() => {
+                pMsg.innerHTML = "";
+            }, 5000);
+
+        }else{
+            const response = await fetch('/send-emailContact', {
+                method: 'POST',
+                headers :{
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    nome: nameInput,
+                    email: emailInput,
+                    mensagem: messageInput,
+                }),
+            });
+            const message = await response.text();
+            if (response.ok) {
+                Swal.fire({
+                    title: 'Sucesso!',
+                    text: 'Sua mensagem foi enviada com sucesso.',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                }).then(() => {
+                    window.location.href = "/index.html";
+                });
+            } else {
+                Swal.fire({
+                    title: 'Erro!',
+                    text: 'Houve um erro ao enviar sua mensagem. Tente novamente.',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+            }
+        }
+            
+        }
+
+
   
-    async function enviarEmail(){
-        event.preventDefault();
-
-    const nameInput = document.querySelector('#nome').value;
-    const emailInput = document.querySelector('#email').value;
-    const messageInput = document.querySelector('#mensagem').value;
-    const response = await fetch('/send-emailContact', {
-        method: 'POST',
-        headers :{
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            nome: nameInput,
-            email: emailInput,
-            mensagem: messageInput,
-        }),
-    });
-
-    const message = await response.text();
-    }
+    
 </script>

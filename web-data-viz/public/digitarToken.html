@@ -8,6 +8,8 @@
     <link rel="icon" href="assets/group11.png" />
     <link rel="stylesheet" href="css/esqueciSenha.css">
     <script src="js/block-screan.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.5/dist/sweetalert2.all.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.5/dist/sweetalert2.min.css" rel="stylesheet">
 </head>
 
 <body onload="sessaoEmail()">
@@ -33,6 +35,7 @@
                 <div for="token" class="msg-input">Token:</div>
                 <input class="custom-input" type="text" id="token" name="token" required>
             </div>
+            <p id="msg_erro"></p>
         </div>
         <div class="buttom-alterar">
             <button onclick=" verificarToken()" class="custom-button">Verificar</button>
@@ -52,42 +55,64 @@
 
     function verificarToken() {
         let tokenVar = document.getElementById("token").value;
+        const pMsg = document.querySelector("#msg_erro");
 
-        console.log("Dados enviados:", {
-            tokenServer: tokenVar
-        });
 
+
+        if(tokenVar == ""){
+            pMsg.innerHTML = "Preencha o campo de Token!";
+            pMsg.style.background = "radial-gradient(101.81% 98.73% at 51.96% 40.13%, rgba(96, 103, 242, 0.80) 0.01%, rgba(52, 52, 52, 0.80) 94.06%)";
+            setTimeout(() => {
+                pMsg.innerHTML = "";
+                pMsg.style.background = "";
+
+            }, 5000);
+        }else{
             fetch("/usuarios/verificarToken", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                tokenServer: tokenVar
-            }),
-        })
-        .then(function (resposta) {
-            console.log("Resposta completa:", resposta);
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    tokenServer: tokenVar
+                }),
+            })
+            .then(function (resposta) {
+                console.log("Resposta completa:", resposta);
+    
+                if (resposta.ok) {
 
-            if (resposta.ok) {
-                alert("Token válido!");
-                setTimeout(() =>{
-                    guardarToken(tokenVar);
-                    window.location.href = "esqueciSenha.html";
-
-                }, 2000)
-               
-            } else {
-                return resposta.text().then((mensagemErro) => {
-                    console.error("Erro do servidor:", mensagemErro);
-                    alert(`Erro ao validar o token: ${mensagemErro}`);
+                    Swal.fire({
+                        title: 'Sucesso!',
+                        text: 'Token válido!',
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    }).then(() => {
+                        guardarToken(tokenVar);
+                        window.location.href = "esqueciSenha.html";
+                    });
+                } else {
+                    return resposta.text().then((mensagemErro) => {
+                        console.error("Erro do servidor:", mensagemErro);
+                        Swal.fire({
+                            title: 'Erro!',
+                            text: `Erro ao validar o token: ${mensagemErro}`,
+                            icon: 'error',
+                            confirmButtonText: 'OK'
+                        });
+                    });
+                }
+            })
+            .catch(function (erro) {
+                console.error("#ERRO:", erro);
+                Swal.fire({
+                    title: 'Erro!',
+                    text: 'Ocorreu um erro inesperado. Tente novamente.',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
                 });
-            }
-        })
-        .catch(function (erro) {
-            console.error("#ERRO:", erro);
-            alert("Ocorreu um erro inesperado. Tente novamente.");
-        });
+            });
+        }
     }
 
 
