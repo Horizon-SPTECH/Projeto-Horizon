@@ -4,7 +4,6 @@ function atualizarParametro(req, res) {
     var id_empresa = req.body.id_empresa;
     var limite_baixo = req.body.limite_baixo;
     var limite_ok = req.body.limite_ok;
-    var limite_alto = req.body.limite_alto;
 
     // Validações
     if (id_empresa == undefined) {
@@ -13,10 +12,8 @@ function atualizarParametro(req, res) {
         res.status(400).send("limite_baixo está undefined!");
     } else if (limite_ok == undefined) {
         res.status(400).send("limite_ok está undefined!");
-    } else if (limite_alto == undefined) {
-        res.status(400).send("limite_alto está undefined!");
     } else {
-        parametroModel.atualizarParametro(id_empresa, limite_baixo, limite_ok, limite_alto)
+        parametroModel.atualizarParametro(id_empresa, limite_baixo, limite_ok)
             .then((resultado) => {
                 res.status(200).json(resultado);
             })
@@ -26,6 +23,7 @@ function atualizarParametro(req, res) {
             });
     }
 }
+
 
 function padronizarParametro(req, res) {
     var empresa = req.body.id_empresa;

@@ -1,13 +1,12 @@
 var database = require("../database/config");
 
-function atualizarParametro(id_empresa, limite_baixo, limite_ok, limite_alto) {
+function atualizarParametro(id_empresa, limite_baixo, limite_ok) {
     var instrucaoSql = `
         UPDATE parametro
         SET 
             limite_baixo = ${limite_baixo},
             limite_ok = ${limite_ok},
-            limite_alto = ${limite_alto},
-            data_atualizacao = CURDATE() -- Atualiza para a data atual
+            data_atualizacao = CURDATE()
         WHERE 
             id_empresa = ${id_empresa};
     `;
@@ -15,16 +14,16 @@ function atualizarParametro(id_empresa, limite_baixo, limite_ok, limite_alto) {
     return database.executar(instrucaoSql);
 }
 
-function padronizarParametro(id_empresa) {
+function padronizarParametro(empresa) {
     var instrucaoSql = `
         UPDATE parametro
         SET 
-            limite_baixo = 3,
-            limite_ok = 7,
-            limite_alto = GREATEST(limite_alto, 8),
+            limite_baixo = 2,
+            limite_ok = 6,
+            limite_alto = 100,
             data_atualizacao = CURDATE()
         WHERE 
-            id_empresa = ${id_empresa};
+            id_empresa = ${empresa};
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);

@@ -52,7 +52,7 @@
                         </a>
                         <a href="cadastro-funcionario.html" class="bl-botao" id="bl-botao-inicio">
                             <div class="bl-botao-filho">
-                                <img src="assets/add.png" alt="">
+                                <img src="assets/parameter.png" alt="">
                                 <span>Parametrização</span>
                             </div>
                         </a>
@@ -146,7 +146,7 @@
                         </div>
                         <div class="box-white">
                             <header class="box-title">
-                                <p>Defina os percentuais esperados de furtos para cada parâmetro com base na população:
+                                <p>Defina os percentuais aceitáveis para categorizar a situação dos furtos:
                                 </p>
                             </header>
                             <div class="card-recomendacao">
@@ -181,7 +181,7 @@
                                     </div>
                                     <main class="text-recomendacao">
                                         <span>O percentual atual é: </span>
-                                        <b id="percentualCritico">7%</b>
+                                        <b>></b><b id="percentualCritico">7%</b>
                                     </main>
                                 </div>
 
@@ -219,10 +219,9 @@
                                 <img src="assets/critico.png" alt="">
                                 <span>Crítico</span>
                             </div>
-                            <span>Insira um novo valor:</span>
-                            <input type="number" id="limiteAlto">
+                            <span></span>
                         </div>
-                        <button onclick="atualizarParametro()">Criar</button>
+                        <button id="toggle-criar-parametro" onclick="atualizarParametro() ">Criar</button>
                         <span id="texto-ajuda">Não deixe de ver as informações para definir o melhor
                             parâmetro!</span>
                     </div>
@@ -267,7 +266,7 @@
 
     document.addEventListener("DOMContentLoaded", () => {
         // IDs dos inputs que precisam de validação
-        const inputIds = ["limiteBaixo", "limiteOk", "limiteAlto"];
+        const inputIds = ["limiteBaixo", "limiteOk"];
 
         inputIds.forEach(id => {
             const input = document.getElementById(id);
@@ -331,51 +330,126 @@
         });
     });
 
+    function alertCriarParametro(){
+        document.addEventListener("DOMContentLoaded", () => {
+        const toggleCriarParametro = document.getElementById("toggle-criar-parametro");
+
+        if (toggleCriarParametro) {
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                }
+            });
+
+            toggleCriarParametro.addEventListener("click", () => {
+                Toast.fire({
+                    icon: "success",
+                    title: "Cadastrado com sucesso"
+                });
+            });
+        }
+    });
+    }
+    
+
 </script>
 
 
 <script>
 
-    function atualizarParametro() {
-        const idEmpresa = 1; // Substitua pelo ID real da empresa
-        const limiteBaixo = document.getElementById('limiteBaixo').value;
-        const limiteOk = document.getElementById('limiteOk').value;
-        const limiteAlto = document.getElementById('limiteAlto').value;
+function atualizarParametro() {
+    const idEmpresa = 1; // Substitua pelo ID real da empresa
+    const limiteBaixo = document.getElementById('limiteBaixo').value;
+    const limiteOk = document.getElementById('limiteOk').value;
 
-        fetch('/parametros/atualizarParametro', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                id_empresa: idEmpresa,
-                limite_baixo: limiteBaixo,
-                limite_ok: limiteOk,
-                limite_alto: limiteAlto,
-            }),
-        })
-            .then(response => {
-                if (response.ok) {
-                    return response.json();
-                } else {
-                    throw new Error('Erro ao atualizar parâmetro');
-                }
-            })
-            .then(data => {
-                console.log('Parâmetros atualizados com sucesso:', data);
-                atualizarPagina()
-                mostrarParametro()
-            })
-            .catch(error => {
-                console.error('Erro ao atualizar parâmetros:', error);
-            });
-
+    // Função de validação para garantir números de 1 a 2 dígitos
+    function validarEntrada(valor) {
+        const regex = /^[0-9]{1,2}$/; // Apenas números de 1 ou 2 dígitos
+        return regex.test(valor);
     }
 
-    function padronizarParametro() {
-        const idEmpresa = 1; // Substitua pelo ID real da empresa
+    // Verificar se os campos são válidos
+    if (!validarEntrada(limiteBaixo) || !validarEntrada(limiteOk)) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Entrada Inválida!',
+            text: 'Certifique-se de que os campos contenham apenas números de até 2 dígitos e não estejam vazios.',
+            confirmButtonText: 'Ok'
+        });
+        return;
+    }
 
-        fetch('/parametros/padronizarParametro', {
+    // Verificar se limiteBaixo é menor que limiteOk e que os dois não sejam iguais
+    if (parseInt(limiteBaixo) >= parseInt(limiteOk)) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Configuração Inválida!',
+            text: 'O valor do Limite Baixo deve ser menor que o Limite Ok, e os dois valores não podem ser iguais.',
+            confirmButtonText: 'Ok'
+        });
+        return;
+    }
+
+    fetch('/parametros/atualizarParametro', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            id_empresa: idEmpresa,
+            limite_baixo: limiteBaixo,
+            limite_ok: limiteOk,
+        }),
+    })
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error('Erro ao atualizar parâmetro');
+            }
+        })
+        .then(data => {
+            console.log('Parâmetros atualizados com sucesso:', data);
+
+            // Exibir alerta de sucesso ao criar parâmetro
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                }
+            });
+
+            Toast.fire({
+                icon: "success",
+                title: "Cadastrado com sucesso"
+            });
+
+            atualizarPagina(); // Atualizar a página
+            mostrarParametro(); // Recarregar os parâmetros
+        })
+        .catch(error => {
+            console.error('Erro ao atualizar parâmetros:', error);
+        });
+}
+
+
+
+    function padronizarParametro() {
+        const idEmpresa = 1;
+        const empresa = `?id_empresa=${idEmpresa}`;
+
+        fetch(`/parametros/padronizarParametro`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -402,47 +476,47 @@
     }
 
     function mostrarParametro() {
-    const idEmpresa = 1;
-    const empresa = `?id_empresa=${idEmpresa}`;
+        const idEmpresa = 1;
+        const empresa = `?id_empresa=${idEmpresa}`;
 
-    fetch(`/parametros/mostrarParametro${empresa}`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Erro ao obter parâmetros: ' + response.statusText);
-            }
-            return response.json();
+        fetch(`/parametros/mostrarParametro${empresa}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
         })
-        .then(data => {
-            console.log('Parâmetros:', data);
-
-            if (Array.isArray(data) && data.length > 0) {
-                const parametros = data[0];
-
-                if (
-                    parametros.limite_baixo !== undefined &&
-                    parametros.limite_ok !== undefined &&
-                    parametros.limite_alto !== undefined
-                ) {
-                    sessionStorage.setItem('limite_baixo', parametros.limite_baixo);
-                    sessionStorage.setItem('limite_ok', parametros.limite_ok);
-                    sessionStorage.setItem('limite_alto', parametros.limite_alto);
-                    console.log('Limites salvos no sessionStorage.');
-                } else {
-                    console.warn('Os campos esperados não estão presentes:', parametros);
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Erro ao obter parâmetros: ' + response.statusText);
                 }
-            } else {
-                console.warn('Os dados retornados não são válidos:', data);
-            }
-        })
-        .catch(error => {
-            console.error('Erro ao buscar parâmetros:', error);
-        });
-}
+                return response.json();
+            })
+            .then(data => {
+                console.log('Parâmetros:', data);
+
+                if (Array.isArray(data) && data.length > 0) {
+                    const parametros = data[0];
+
+                    if (
+                        parametros.limite_baixo !== undefined &&
+                        parametros.limite_ok !== undefined &&
+                        parametros.limite_alto !== undefined
+                    ) {
+                        sessionStorage.setItem('limite_baixo', parametros.limite_baixo);
+                        sessionStorage.setItem('limite_ok', parametros.limite_ok);
+                        sessionStorage.setItem('limite_alto', parametros.limite_alto);
+                        console.log('Limites salvos no sessionStorage.');
+                    } else {
+                        console.warn('Os campos esperados não estão presentes:', parametros);
+                    }
+                } else {
+                    console.warn('Os dados retornados não são válidos:', data);
+                }
+            })
+            .catch(error => {
+                console.error('Erro ao buscar parâmetros:', error);
+            });
+    }
 
 
     const limiteBaixo = sessionStorage.getItem('limite_baixo');
@@ -452,17 +526,17 @@
     if (limiteBaixo == null || limiteOk == null || limiteAlto == null) {
         document.getElementById('percentualRegular').innerHTML = '4';
         document.getElementById('percentualAlerta').innerHTML = '6';
-        document.getElementById('percentualCritico').innerHTML = '>6';
+        document.getElementById('percentualCritico').innerHTML = '6';
     } else {
         document.getElementById('percentualRegular').innerHTML = limiteBaixo;
         document.getElementById('percentualAlerta').innerHTML = limiteOk;
-        document.getElementById('percentualCritico').innerHTML = limiteAlto;
+        document.getElementById('percentualCritico').innerHTML = limiteOk;
     }
 
 
-    function atualizarPagina(){
+    function atualizarPagina() {
         setTimeout(function () {
-                        window.location = "parametros.html";
-                    }, 2000);
+            window.location = "parametros.html";
+        }, 2000);
     }
 </script>
