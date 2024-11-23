@@ -19,7 +19,7 @@
                 </div>
             </div>
             <div class="titulo-cadastro">
-                <samp>Cadastre um  novo funcionário</samp>
+                <samp>Cadastre um novo funcionário</samp>
             </div>
             <div class="box-inputs">
                 <div class="box-lateral">
@@ -54,16 +54,14 @@
                         <label class="label-info" for="senha">Senha:</label>
                         <div class="input-wrapper">
                             <input class="input-info" id="senha" type="password">
-                            <img class="olho" src="assets/olho.png" alt=""
-                            onclick="verSenha('senha', this)">
+                            <img class="olho" src="assets/olho.png" alt="" onclick="verSenha('senha', this)">
                         </div>
                     </div>
                     <div class="label-input">
                         <label class="label-info" for="confirmar-senha">Confirmar senha:</label>
                         <div class="input-wrapper">
                             <input class="input-info" id="confirmar-senha" type="text">
-                            <img class="olho" src="assets/olho.png" alt=""
-                            onclick="verSenha('confirmar-senha', this)">
+                            <img class="olho" src="assets/olho.png" alt="" onclick="verSenha('confirmar-senha', this)">
                         </div>
                     </div>
                 </div>
@@ -75,17 +73,71 @@
                         <option class="opcao" value="1">Funcionário</option>
                         <option class="opcao" value="2">Gestor</option>
                     </select>
-            </div>
+                </div>
             </div>
             <div class="box-btn">
-                <button class="button-cadastro">Cadastrar</button>
+                <button class="button-cadastro" onclick="cadastrar()">Cadastrar</button>
             </div>
         </div>
     </div>
 </body>
 <script>
-    function voltarTela(){
+    function voltarTela() {
         window.location.href = "dashboard.html"
     }
+
+    function cadastrar() {
+        let emailVar = document.getElementById("email").value;
+        let nomeVar = document.getElementById("nome").value;
+        let senhaVar = document.getElementById("senha").value;
+        let telefoneVar = document.getElementById("telefone").value;
+        let idEmpresa = sessionStorage.getItem("ID_EMPRESA");
+        let tipoUsuarioVar = document.getElementById("select-funcionario").value;
+        let cpfVar = document.getElementById("cpf").value;
+       
+        console.log(idEmpresa)
+        console.log(tipoUsuarioVar)
+
+        fetch(`/usuarios/cadastrar/${idEmpresa}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+                nomeServer: nomeVar,
+                emailServer: emailVar,
+                senhaServer: senhaVar,
+                idTipoUsuarioServer: tipoUsuarioVar,
+                idEmpresaServer: idEmpresa,
+                telefoneServer: telefoneVar,
+                cpfServer: cpfVar
+            }),
+        })
+            .then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+                    alert('FOI CARAAARRRRIOIII');
+
+                    setTimeout(() => {
+                        window.location = "dashboard.html";
+                    }, "2000");
+
+                } else {
+                    throw "Houve um erro ao tentar realizar o cadastro!";
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+
+            });
+
+        return false;
+    }
+
+
 </script>
+
 </html>
