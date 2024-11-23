@@ -23,5 +23,13 @@ router.put("/desativarFuncionario/:idUsuario", function (req, res) {
     usuarioController.desativarFuncionario(req, res);
 });
 
+router.put("/atualizarUsuario/:idUsuario", function (req, res) {
+    usuarioController.atualizarUsuario(req, res);
+});
+
+router.get("/verificarSenha/:idUsuario", function (req, res) {
+    usuarioController.verificarSenha(req, res);
+});
+
 
 module.exports = router;

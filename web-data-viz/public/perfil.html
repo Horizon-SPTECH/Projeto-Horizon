@@ -89,14 +89,14 @@
                             <div class="label-input">
                                 <label class="label-info" for="nome">Nome:</label>
                                 <div class="input-wrapper">
-                                    <input class="input-info" id="nome" type="text" placeholder="PITBULL" disabled>
+                                    <input class="input-info" id="nome" type="text" placeholder="" disabled>
                                 </div>
                             </div>
                             <div class="label-input">
                                 <label class="label-info" for="email">Email:</label>
                                 <div class="input-wrapper">
                                     <input class="input-info" id="email" type="email" placeholder="usuario@gmal.com"
-                                        value="dayoucool@gmail.com">
+                                        value="">
                                 </div>
                             </div>
                             <div class="label-input">
@@ -109,7 +109,7 @@
                             <div class="label-input">
                                 <label class="label-info" for="telefone">Telefone:</label>
                                 <div class="input-wrapper">
-                                    <input class="input-info" id="telefone" type="tel" value="11-940028922">
+                                    <input class="input-info" id="telefone" type="tel" value="">
                                 </div>
                             </div>
                         </div>
@@ -157,7 +157,7 @@
                         </div>
                         <div class="btns-alterar">
                             <div class="fundo-btn">
-                                <button class="button-alterar" onclick="salvarAlteracoes()">Salvar alterações</button>
+                                <button class="button-alterar" onclick="atualizarUsuario()">Salvar alterações</button>
                             </div>
                         </div>
 
@@ -181,7 +181,7 @@
     let btnAddUser = document.querySelector("#btn-novo-user");
 
 
-    if(Idtipo == 1){
+    if (Idtipo == 1) {
         btnEmpresa.style.display = "none";
         btnAddUser.style.display = "none";
     }
@@ -224,19 +224,89 @@
             }
         }).then(response => response.json())
             .then(data => {
-                
-                if(data.affectedRows > 0){
+
+                if (data.affectedRows > 0) {
                     Swal.fire("Sucesso", `Sua Conta foi excluida com sucesso!`, "success")
-                    .then(() => {
-                                sessionStorage.clear();
+                        .then(() => {
+                            sessionStorage.clear();
                             window.location.href = "login.html";
-                    });
+                        });
                 }
 
             })
-            .catch (function (error) {
-            console.error(`Erro na exclusão da conta: ${error.message}`);
-        });
+            .catch(function (error) {
+                console.error(`Erro na exclusão da conta: ${error.message}`);
+            });
+    }
+
+
+    function atualizarUsuario() {
+        let emailVar = document.getElementById("email").value.trim();
+        let senhaVar = document.getElementById("senha-nova").value;
+        let senhaAntigaVar = document.getElementById("senha-antiga").value;
+        let confirmarSenhaVar = document.getElementById("confirmar-senha").value;
+        let telefoneVar = document.getElementById("telefone").value;
+        let idUser = sessionStorage.getItem("ID_USUARIO");
+
+        if (senhaVar !== confirmarSenhaVar) {
+            Swal.fire("Atenção", "As senhas não correspondem!", "warning");
+            return false;
+        }
+
+        fetch(`/usuarios/verificarSenha/${idUser}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+
+                   if(resposta[0].senha == senhaAntigaVar){
+
+                    alert(senhaAntigaVar)
+
+                    fetch(`/usuarios/atualizarUsuario/${idUser}`, {
+                        method: "PUT",
+                        headers: {
+                            "Content-Type": "application/json"
+                        }
+                        , body: JSON.stringify({
+                            emailServer: emailVar,
+                            senhaServer: senhaVar,
+                            idUsuarioServer: idUser,
+                            telefoneServer: telefoneVar
+                        }),
+                    }).then(response => response.json())
+                        .then(data => {
+
+                            if (data.affectedRows > 0) {
+                                Swal.fire("Sucesso", `Sua Conta foi atualizada com sucesso!`, "success")
+                                    .then(() => {
+                                        sessionStorage.clear();
+                                        window.location.href = "login.html";
+                                    });
+                            }
+
+                        })
+                        .catch(function (error) {
+                            console.error(`Erro na exclusão da conta: ${error.message}`);
+                        });
+
+
+                   }else{
+                    alert('SENHA ERRADA')
+                    alert(senhaAntigaVar)
+                   }
+
+
+                });
+            } else {
+                console.error('Erro ao verificar senha');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ KPI: ${error.message}`);
+            });
+
     }
 
 </script>

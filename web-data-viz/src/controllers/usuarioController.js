@@ -110,10 +110,65 @@ function perfilUsuario(req, res) {
     });
   }
 
+  function atualizarUsuario(req, res) {
+    // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
+    
+    var email = req.body.emailServer;
+    var senha = req.body.senhaServer;
+    var idUsuario = req.body.idUsuarioServer;
+    var telefone = req.body.telefoneServer;
+
+    // Faça as validações dos valores
+     if (email == undefined) {
+        res.status(400).send("Seu email está undefined!");
+    } else if (senha == undefined) {
+        res.status(400).send("Sua senha está undefined!");
+    } else if (idUsuario == undefined) {
+        res.status(400).send("Seu tipo do usuário está undefined!");
+    } else if (telefone == undefined) {
+        res.status(400).send("Seu telefone está undefined!");
+    } else{
+
+        // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
+        usuarioModel.atualizarUsuario(email, senha, idUsuario, telefone)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao realizar o cadastro! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
+
+function verificarSenha(req, res) {
+    var idUsuario = req.params.idUsuario
+
+    usuarioModel.verificarSenha(idUsuario).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar a quantidade de avisos: ", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+  }
 
 module.exports = {
     autenticar,
     cadastrar,
     perfilUsuario,
-    desativarFuncionario
+    desativarFuncionario,
+    atualizarUsuario,
+    verificarSenha
 }

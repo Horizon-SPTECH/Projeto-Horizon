@@ -71,18 +71,51 @@ WHERE
 }
 
 function desativarFuncionario(idUsuario) {
-   
-    var instrucao = 
-                   `UPDATE usuario SET ativo = 0 where id = ${idUsuario};`
-    ;
+
+    var instrucao =
+        `UPDATE usuario SET ativo = 0 where id = ${idUsuario};`
+        ;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
-  }
+}
 
+function atualizarUsuario(email, senha, idUsuario, telefone) {
+
+    var instrucaoUsuario =
+        ` UPDATE usuario SET email = '${email}', senha = '${senha}' WHERE id = '${idUsuario}'`;
+
+    // Segunda instrução: inserir o telefone associado ao último usuário inserido
+    var instrucaoTelefone =
+        ` UPDATE telefone SET numero = '${telefone}' WHERE id_usuario = '${idUsuario}'`;
+
+    console.log("Executando a instrução SQL para usuário: \n" + instrucaoUsuario);
+    console.log("Executando a instrução SQL para telefone: \n" + instrucaoTelefone);
+
+    // Executar ambas as instruções em sequência
+    return database.executar(instrucaoUsuario)
+        .then(() => {
+            return database.executar(instrucaoTelefone);
+        })
+        .catch((erro) => {
+            console.error("Erro ao executar as instruções SQL:", erro);
+            throw erro;
+        });
+}
+
+function verificarSenha(idUsuario) {
+    
+    var instrucaoSql = `
+        SELECT senha FROM usuario WHERE id = '${idUsuario}' ;
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
 
 module.exports = {
     autenticar,
     cadastrar,
     perfilUsuario,
-    desativarFuncionario
+    desativarFuncionario,
+    atualizarUsuario,
+    verificarSenha
 };
