@@ -109,20 +109,13 @@
             <span>Precisa de ajuda? <a href="index.html"><b> entre em contato</b></a></span>
         </div>
         <div class="buttom-cadastrar">
-            <a href="index.html"><button onclick="cadastrar()" class="custom-button">Cadastrar</button></a>
+            <button onclick="cadastrar()" class="custom-button">Cadastrar</button>
         </div>
     </div>
 </body>
 </html>
 
 <script>
-    var nomeVar      = input_nome.value;
-    var cpfVar       = input_cpf.value;
-    var telefoneVar  = input_telefone.value;
-    var emailVar     = input_email.value;
-    var senhaVar     = input_senha.value;
-    var confSenhaVar = input_conf_senha.value;
-
     function mostrarCadastroResponsavel() {
         var nomeEmpresaVar     = input_nome_empresa.value;
         var cnpjEmpresaVar     = input_cnpj.value;
@@ -149,40 +142,61 @@
     let listaEmpresasCadastradas = [];
 
     function cadastrar() {
-        fetch("/usuarios/cadastrar", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            nomeEmpresaServer:     nomeEmpresaVar,
-            cnpjEmpresaServer:     cnpjEmpresaVar,
-            cepEmpresaServer:      cepEmpresaVar,
-            enderecoEmpresaServer: enderecoEmpresaVar,
-            numeroEmpresaServer:   numeroEmpresaVar,
-            nomeServer:            nomeVar,
-            cpfServer:             cpfVar,
-            telefoneServer:        telefoneVar,
-            emailServer:           emailVar,
-            senhaServer:           senhaVar,
-            confSenhaServer:       confSenhaVar
-        }),
-        })
-        .then(function (resposta) {
-            console.log("resposta: ", resposta);
+        var nomeVar      = input_nome.value;
+        var cpfVar       = input_cpf.value;
+        var telefoneVar  = input_telefone.value;
+        var emailVar     = input_email.value;
+        var senhaVar     = input_senha.value;
+        var confSenhaVar = input_conf_senha.value;
+        let regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        let regexSenha = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-zA-Z]).{6,}$/;
 
-            if (resposta.ok) {
-                setTimeout(() => {
-                    window.location = "dashboard.html";
-                }, "2000");
-            } else {
-                throw "Houve um erro ao tentar realizar o cadastro!";
-            }
-        })
-        .catch(function (resposta) {
-            console.log(`#ERRO: ${resposta}`);
-        });
+        if(nomeVar == "") {
+            console.log("Nome invalido")
+        } else if(cpfVar == "" || cpfVar.length != 11 || isNaN(cpfVar)) {
+            console.log("CPF invalido")
+        } else if(telefoneVar == "" || telefoneVar.length != 11  || isNaN(telefoneVar)) {
+            console.log("Telefone invalido")
+        } else if(!regexEmail.test(emailVar)) {
+            console.log("Email invalido")
+        } else if(!regexSenha.test(senhaVar)) {
+            console.log("Senha invalido")
+        } else if(confSenhaVar != senhaVar) {
+            console.log("A confirmacao de senha nao e igual a senha")
+        } else {
+            fetch("/usuarios/cadastrar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                nomeEmpresaServer:     nomeEmpresaVar,
+                cnpjEmpresaServer:     cnpjEmpresaVar,
+                cepEmpresaServer:      cepEmpresaVar,
+                enderecoEmpresaServer: enderecoEmpresaVar,
+                numeroEmpresaServer:   numeroEmpresaVar,
+                nomeServer:            nomeVar,
+                cpfServer:             cpfVar,
+                telefoneServer:        telefoneVar,
+                emailServer:           emailVar,
+                senhaServer:           senhaVar,
+                confSenhaServer:       confSenhaVar
+            }),
+            })
+            .then(function (resposta) {
+                console.log("resposta: ", resposta);
 
-        return false;        
+                if (resposta.ok) {
+                    setTimeout(() => {
+                        window.location = "dashboard.html";
+                    }, "2000");
+                } else {
+                    throw "Houve um erro ao tentar realizar o cadastro!";
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+        }
     }
 </script>

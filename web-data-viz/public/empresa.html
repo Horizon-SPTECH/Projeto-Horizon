@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 </head>
 
-<body>
+<body onload="mostrarDadosEmpresa()">
     <div class="background">
 
         <div class="container">
@@ -115,7 +115,7 @@
                         </div>
                         <div class="btns-alterar">
                             <div class="fundo-btn">
-                                <button class="button-alterar">Excluir Empresa
+                                <button onclick="desativarEmpresa()" class="button-alterar">Excluir Empresa
 
                                 </button>
                             </div>
@@ -157,7 +157,7 @@
                         </div>
                         <div class="btns-alterar">
                             <div class="fundo-btn">
-                                <button class="button-alterar">Salvar alterações</button>
+                                <button onclick="atualizarDadosEmpresa()" class="button-alterar">Salvar alterações</button>
                             </div>
                         </div>
                     </div>
@@ -173,5 +173,177 @@
 </html>
 
 <script>
-    
+    function mostrarDadosEmpresa() {
+        const idEmpresa = 1;
+        const empresa = `?id_empresa=${idEmpresa}`;
+
+        fetch(`/empresa/mostrarDadosEmpresa${empresa}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Erro ao obter dados da empresa: ' + response.statusText);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('DadosEmpresa:', data);
+
+                if (Array.isArray(data) && data.length > 0) {
+                    const dadosEmpresa = data[0];
+                    console.log(dadosEmpresa['Tipo de empresa']);
+
+                    console.log('Propriedades disponíveis:', Object.keys(dadosEmpresa));
+
+                    if (
+                        dadosEmpresa.Nome &&
+                        dadosEmpresa.CEP &&
+                        dadosEmpresa.Logradouro &&
+                        dadosEmpresa['Número'] &&
+                        dadosEmpresa.Bairro && 
+                        dadosEmpresa.Estado &&
+                        dadosEmpresa.Cidade &&
+                        dadosEmpresa.CNPJ &&
+                        dadosEmpresa['Tipo de empresa']
+                    ) {
+                        sessionStorage.setItem('nome', dadosEmpresa.Nome);
+                        sessionStorage.setItem('cep', dadosEmpresa.CEP);
+                        sessionStorage.setItem('logradouro', dadosEmpresa.Logradouro);
+                        sessionStorage.setItem('complemento', dadosEmpresa.Complemento);
+                        sessionStorage.setItem('numero', dadosEmpresa['Número']);
+                        sessionStorage.setItem('bairro', dadosEmpresa.Bairro);
+                        sessionStorage.setItem('estado', dadosEmpresa.Estado);
+                        sessionStorage.setItem('cidade', dadosEmpresa.Cidade);
+                        sessionStorage.setItem('cnpj', dadosEmpresa.CNPJ);
+                        sessionStorage.setItem('tipoEmpresa', dadosEmpresa['Tipo de empresa']);
+                        console.log('Limites salvos no sessionStorage.');
+                    } else {
+                        console.warn('Os campos esperados não estão presentes:', dadosEmpresa);
+                    }
+                } else {
+                    console.warn('Os dados retornados não são válidos:', data);
+                }
+            })
+            .catch(error => {
+                console.error('Erro ao buscar parâmetros:', error);
+            });
+    }
+
+    const nome = sessionStorage.getItem('nome');
+    const cep = sessionStorage.getItem('cep');
+    const logradouro = sessionStorage.getItem('logradouro');
+    const complemento = sessionStorage.getItem('complemento');
+    const numero = sessionStorage.getItem('numero');
+    const bairro = sessionStorage.getItem('bairro');
+    const estado = sessionStorage.getItem('estado');
+    const cidade = sessionStorage.getItem('cidade');
+    const cnpj = sessionStorage.getItem('cnpj');
+    const tipoEmpresa = sessionStorage.getItem('tipoEmpresa');
+
+    document.getElementById('nome').value         = nome;
+    document.getElementById('cep').value          = cep;
+    document.getElementById('Logradouro').value   = logradouro;
+    document.getElementById('complemento').value  = complemento;
+    document.getElementById('numero').value       = numero;
+    document.getElementById('bairro').value       = bairro;
+    document.getElementById('estado').value       = estado;
+    document.getElementById('cidade').value       = cidade;
+    document.getElementById('cnpj').placeholder   = cnpj;
+    document.getElementById('tippo_empresa').placeholder = tipoEmpresa;
+
+    function atualizarDadosEmpresa() {
+        const idEmpresa = 1;
+        const empresa = `?id_empresa=${idEmpresa}`;
+
+        const nome = document.getElementById('nome').value
+        const cep = document.getElementById('cep').value
+        const logradouro = document.getElementById('Logradouro').value
+        const complemento = document.getElementById('complemento').value
+        const numero = document.getElementById('numero').value
+        const bairro = document.getElementById('bairro').value
+        const estado = document.getElementById('estado').value
+        const cidade = document.getElementById('cidade').value
+        const cnpj = document.getElementById('cnpj').placeholder
+        const tipoEmpresa = document.getElementById('tippo_empresa').placeholder
+
+        fetch(`/empresa/atualizarDadosEmpresa${empresa}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                empresaServer: idEmpresa,
+                nomeServer: nome,
+                cepServer: cep,
+                logradouroServer: logradouro,
+                complementoServer: complemento,
+                numeroServer: numero,
+                bairroServer: bairro,
+                estadoServer: estado,
+                cidadeServer: cidade,
+                cnpjServer: cnpj,
+                descricaoServer: tipoEmpresa,
+            }),
+        })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Erro ao atualizar parâmetro');
+                }
+            })
+            .then(data => {
+                console.log('Parâmetros atualizados com sucesso:', data);
+        
+                atualizarPagina(); // Atualizar a página
+                mostrarDadosEmpresa(); // Recarregar os parâmetros
+            })
+            .catch(error => {
+                console.error('Erro ao atualizar parâmetros:', error);
+            });
+        }
+
+    function atualizarPagina() {
+        setTimeout(function () {
+            window.location = "empresa.html";
+        }, 2000);
+    }
+
+    function desativarEmpresa() {
+        const idEmpresa = 1;
+
+        fetch(`/empresa/desativarEmpresa`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                empresaServer: idEmpresa,
+            }),
+        })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Erro ao desativar empresa');
+                }
+            })
+            .then(data => {
+                console.log('Empresa desativada com sucesso com sucesso:', data);
+                atualizarPagina()
+                telaInicial()
+            })
+            .catch(error => {
+                console.error('Erro ao desativar empresa:', error);
+            });
+    }
+
+    function telaInicial() {
+        setTimeout(function () {
+            window.location = "index.html";
+        }, 2000);
+    }
 </script>
