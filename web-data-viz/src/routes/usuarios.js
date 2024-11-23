@@ -19,8 +19,8 @@ router.get("/perfilUsuario/:idUsuario", function (req, res) {
     usuarioController.perfilUsuario(req, res);
 });
 
-router.put("/desativarUsuario/:idUsuario", function (req, res) {
-    usuarioController.desativarUsuario(req, res);
+router.put("/desativarFuncionario/:idUsuario", function (req, res) {
+    usuarioController.desativarFuncionario(req, res);
 });
 
 

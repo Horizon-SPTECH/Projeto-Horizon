@@ -7,8 +7,9 @@
     <link rel="shortcut icon" href="assets/group11.png" type="image/x-icon">
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+    <script src="js/block-screan.js"></script>
 </head>
-<body>
+<body onload="acessar()">
     <div class="background">
 
         <div class="container">
@@ -41,7 +42,7 @@
                             </div>
                         </a>
 
-                        <a href="cadastro-funcionario.html" class="bl-botao">
+                        <a id="btn-novo-user" href="cadastro-funcionario.html" class="bl-botao">
                             <div class="bl-botao-filho">
                                 <img src="assets/add.png" alt="">
                                 <span>Novo usuário</span>
@@ -50,7 +51,7 @@
                         
                     </div>
 
-                    <a href="index.html" class="bl-botao">
+                    <a onclick="limparSession()" href="index.html" class="bl-botao">
                         <div class="bl-botao-filho">
                             <img src="assets/porta.png" alt="">
                             <span>Sair</span>
@@ -194,6 +195,16 @@
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
 <script>
+
+    let Idtipo = sessionStorage.getItem("ID_TIPO");
+    let btnEmpresa = document.querySelector("#btn-empresa");
+    let btnAddUser = document.querySelector("#btn-novo-user");
+
+
+    if(Idtipo == 1){
+        btnEmpresa.style.display = "none";
+        btnAddUser.style.display = "none";
+    }
     const grafico_periodo = document.getElementById('grafico_periodo');
 
     Chart.defaults.color = '#23005B';

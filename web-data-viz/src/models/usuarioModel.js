@@ -70,7 +70,7 @@ WHERE
     return database.executar(instrucaoSql);
 }
 
-function desativarUsuario(idUsuario) {
+function desativarFuncionario(idUsuario) {
    
     var instrucao = 
                    `UPDATE usuario SET ativo = 0 where id = ${idUsuario};`
@@ -84,5 +84,5 @@ module.exports = {
     autenticar,
     cadastrar,
     perfilUsuario,
-    desativarUsuario
+    desativarFuncionario
 };

@@ -7,10 +7,14 @@
     <title>Cadastro - Funcionário</title>
     <link rel="icon" href="assets/group11.png" />
     <link rel="stylesheet" href="css/cadastros.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.5/dist/sweetalert2.all.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.5/dist/sweetalert2.min.css" rel="stylesheet">
+    <script src="js/block-screan.js"></script>
+
     <script src="js/disabled-senha.js"></script>
 </head>
 
-<body>
+<body onload="acessar()">
     <div class="background">
         <div class="container-add-funcionario">
             <div class="menu-sair">
@@ -60,7 +64,7 @@
                     <div class="label-input">
                         <label class="label-info" for="confirmar-senha">Confirmar senha:</label>
                         <div class="input-wrapper">
-                            <input class="input-info" id="confirmar-senha" type="text">
+                            <input class="input-info" id="confirmar-senha" type="password">
                             <img class="olho" src="assets/olho.png" alt="" onclick="verSenha('confirmar-senha', this)">
                         </div>
                     </div>
@@ -87,16 +91,56 @@
     }
 
     function cadastrar() {
-        let emailVar = document.getElementById("email").value;
-        let nomeVar = document.getElementById("nome").value;
+        let emailVar = document.getElementById("email").value.trim();
+        let nomeVar = document.getElementById("nome").value.trim();
         let senhaVar = document.getElementById("senha").value;
+        let confirmarSenhaVar = document.getElementById("confirmar-senha").value;
         let telefoneVar = document.getElementById("telefone").value;
         let idEmpresa = sessionStorage.getItem("ID_EMPRESA");
-        let tipoUsuarioVar = document.getElementById("select-funcionario").value;
-        let cpfVar = document.getElementById("cpf").value;
-       
-        console.log(idEmpresa)
-        console.log(tipoUsuarioVar)
+        let tipoUsuarioVar = document.getElementById("select-funcionario").value.trim();
+        let cpfVar = document.getElementById("cpf").value.trim();
+
+
+        if (!nomeVar || !emailVar || !senhaVar || !confirmarSenhaVar || !telefoneVar || !cpfVar || !tipoUsuarioVar) {
+            Swal.fire("Atenção", "Preencha todos os campos obrigatórios!", "warning");
+            return false;
+        }
+
+        const emailRegex = /^[^\s@]+@gmail\.com$/;
+        if (!emailRegex.test(emailVar)) {
+            Swal.fire("Atenção", "E-mail inválido! Use um e-mail com domínio @gmail.com.", "warning");
+            return false;
+        }
+        const cpfRegex = /^\d{11}$/;
+        if (!cpfRegex.test(cpfVar)) {
+            Swal.fire("Atenção", "CPF inválido! Deve conter exatamente 11 números, sem pontos ou traços.", "warning");
+            return false;
+        }
+
+        const telefoneRegex = /^\d+$/;
+        if (!telefoneRegex.test(telefoneVar) || telefoneVar.length <  10) {
+            Swal.fire("Atenção", "Telefone inválido! Deve conter no mínimo 11 números.", "warning");
+            return false;
+        }
+
+
+        const senhaRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z0-9!@#$%^&*]{8,}$/;
+        if (!senhaRegex.test(senhaVar)) {
+            Swal.fire(
+                "Atenção",
+                "A senha deve ter no mínimo 8 caracteres, incluindo pelo menos 1 número e 1 caractere especial!",
+                "warning"
+            );
+            return false;
+        }
+
+        if (senhaVar !== confirmarSenhaVar) {
+            Swal.fire("Atenção", "As senhas não correspondem!", "warning");
+            return false;
+        }
+
+//        console.log(idEmpresa)
+//        console.log(tipoUsuarioVar)
 
         fetch(`/usuarios/cadastrar/${idEmpresa}`, {
             method: "POST",
@@ -104,8 +148,6 @@
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                // crie um atributo que recebe o valor recuperado aqui
-                // Agora vá para o arquivo routes/usuario.js
                 nomeServer: nomeVar,
                 emailServer: emailVar,
                 senhaServer: senhaVar,
@@ -119,24 +161,23 @@
                 console.log("resposta: ", resposta);
 
                 if (resposta.ok) {
-                    alert('FOI CARAAARRRRIOIII');
-
+                    
+                    Swal.fire("Sucesso", "Funcionário cadastrado com sucesso!", "success");
                     setTimeout(() => {
                         window.location = "dashboard.html";
-                    }, "2000");
+                    }, 2000);
 
                 } else {
                     throw "Houve um erro ao tentar realizar o cadastro!";
                 }
             })
             .catch(function (resposta) {
+                Swal.fire("Erro", `#ERRO: ${resposta}`, "error");
                 console.log(`#ERRO: ${resposta}`);
 
             });
-
         return false;
     }
-
 
 </script>
 

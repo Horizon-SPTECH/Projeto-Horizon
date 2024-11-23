@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="assets/logo.png" type="image/x-icon">
     <link rel="stylesheet" href="css/login.css">
-    <script src="js/sessao.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.5/dist/sweetalert2.all.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.5/dist/sweetalert2.min.css" rel="stylesheet">
     <title>Login - Horizon</title>
 </head>
 
@@ -53,7 +54,6 @@
                 <!-- </a> -->
 
             <br>
-            <div id="mensagemErroSenha"></div>  
             
             <div id="mensagemErroEmail"></div>
 
@@ -71,19 +71,31 @@
  <script>
 
     const email = document.getElementById("email");
-    const senha = document.getElementById("password");
+    //const senha = document.getElementById("password");
 
-    let emailValido = false;
-    let senhaValida = false;
+    //let emailValido = false;
+    //let senhaValida = false;
+
+
+    
+    email.addEventListener('keyup', () => {
+        if (email.value.indexOf('@') == -1 || !email.value.endsWith('.com') || email.value.trim().length < 10) {
+            mensagemErroEmail.innerHTML = 'Digite um e-mail válido! Use @ e .com';
+        }else {
+            mensagemErroEmail.innerHTML = '';
+            emailValido = true;
+        }
+    });
 
 
 
 
     function entrar(){            
-        const email = document.getElementById("email");
         const senha = document.getElementById("password");
         var emailVar = email.value;
         var senhaVar = senha.value;
+
+
     
         console.log("FORM LOGIN: ", emailVar);
         console.log("FORM SENHA: ", senhaVar);
@@ -106,23 +118,71 @@
                 resposta.json().then(json => {
                     console.log(json);
                     console.log(JSON.stringify(json));
-                    sessionStorage.ID_USUARIO = json.id;
-                    sessionStorage.EMAIL_USUARIO = json.email;
-                    sessionStorage.SENHA_USUARIO = json.senha;
-                    sessionStorage.ATIVO = json.ativo;
-                    sessionStorage.ID_EMPRESA = json.id_empresa;
-                    sessionStorage.ID_TIPO = json.id_tipo_usuario;
-           
-                    setTimeout(function () {
-                        window.location = "dashboard.html";
-                    }, 1000); // apenas para exibir o loading
-
-                });
-
+                    if(json.ativo == 0){
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: "top-end",
+                            showConfirmButton: false,
+                            timer: 3000,
+                            timerProgressBar: true,
+                            didOpen: (toast) => {
+                              toast.onmouseenter = Swal.stopTimer;
+                              toast.onmouseleave = Swal.resumeTimer;
+                            }
+                          });
+                          Toast.fire({
+                            icon: "error",
+                            title: "Esta conta foi desativada!"
+                          });
+                    }else{
+                        sessionStorage.ID_USUARIO = json.id;
+                        sessionStorage.EMAIL_USUARIO = json.email;
+                        sessionStorage.ATIVO = json.ativo;
+                        sessionStorage.ID_EMPRESA = json.id_empresa;
+                        sessionStorage.ID_TIPO = json.id_tipo_usuario;
+               
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: "top-end",
+                            showConfirmButton: false,
+                            timer: 2400,
+                            timerProgressBar: true,
+                            didOpen: (toast) => {
+                                toast.onmouseenter = Swal.stopTimer;
+                                toast.onmouseleave = Swal.resumeTimer;
+                            }
+                        });
+                        
+                        Toast.fire({
+                            icon: "success",
+                            title: "Login realizado com sucesso!"
+                        }).then(() => {
+                            if (json.id_tipo_usuario == 3) {
+                                window.location.href = "cadastro-empresa.html";
+                            } else {
+                                window.location.href = "dashboard.html";
+                            }
+                        });
+                    }
+                })
             } else {
 
                 console.log("Houve um erro ao tentar realizar o login!");
-
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: "top-end",
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                      toast.onmouseenter = Swal.stopTimer;
+                      toast.onmouseleave = Swal.resumeTimer;
+                    }
+                  });
+                  Toast.fire({
+                    icon: "warning",
+                    title: "Senha ou email incorreta!"
+                  });
                 resposta.text().then(texto => {
                     console.error(texto);
                 });

@@ -98,10 +98,10 @@ function perfilUsuario(req, res) {
     });
   }
 
-  function desativarUsuario(req, res) {
+  function desativarFuncionario(req, res) {
     var idUsuario = req.params.idUsuario
   
-    usuarioModel.desativarUsuario(idUsuario).then(function (resultado) {
+    usuarioModel.desativarFuncionario(idUsuario).then(function (resultado) {
        res.json(resultado);
     }).catch(function (erro) {
         console.log(erro);
@@ -115,5 +115,5 @@ module.exports = {
     autenticar,
     cadastrar,
     perfilUsuario,
-    desativarUsuario
+    desativarFuncionario
 }
