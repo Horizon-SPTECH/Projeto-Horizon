@@ -12,18 +12,18 @@ function autenticar(email, senha) {
 // Coloque os mesmos parâmetros aqui. Vá para a var instrucaoSql
 function cadastrar(nome, email, cpf, senha, idTipoUsuario, idEmpresa, telefone) {
     // Primeira instrução: inserir dados do usuário
-    var instrucaoUsuario = 
+    var instrucaoUsuario =
         ` INSERT INTO usuario (nome, email, ativo, cpf, senha, id_tipo_usuario, id_empresa) VALUES ('${nome}', '${email}', 1, '${cpf}',  '${senha}', '${idTipoUsuario}', '${idEmpresa}');`
-    ;
+        ;
 
     // Segunda instrução: inserir o telefone associado ao último usuário inserido
-    var instrucaoTelefone = 
-       ` INSERT INTO telefone (numero, id_tipo_telefone, id_usuario) 
+    var instrucaoTelefone =
+        ` INSERT INTO telefone (numero, id_tipo_telefone, id_usuario) 
         SELECT '${telefone}' AS numero,
                1 AS id_tipo_telefone,
                MAX(id) AS id_usuario
         FROM usuario;`
-    ;
+        ;
 
     console.log("Executando a instrução SQL para usuário: \n" + instrucaoUsuario);
     console.log("Executando a instrução SQL para telefone: \n" + instrucaoTelefone);
@@ -39,7 +39,50 @@ function cadastrar(nome, email, cpf, senha, idTipoUsuario, idEmpresa, telefone) 
         });
 }
 
+function perfilUsuario(idUsuario) {
+
+    var instrucaoSql = `
+        SELECT 
+    u.id AS usuario_id,
+    u.nome AS nome_usuario,
+    u.email AS email_usuario,
+    u.ativo AS usuario_ativo,
+    u.cpf AS cpf_usuario,
+    u.senha AS senha_usuario,
+    t.numero AS telefone_usuario,
+    tu.cargo AS cargo_usuario
+FROM 
+    usuario u
+LEFT JOIN 
+    telefone t ON u.id = t.id_usuario
+LEFT JOIN 
+    tipo_telefone tt ON t.id_tipo_telefone = tt.id
+LEFT JOIN 
+    empresa e ON u.id_empresa = e.id
+LEFT JOIN 
+    tipo_empresa te ON e.id_tipo_empresa = te.id
+LEFT JOIN 
+    tipo_usuario tu ON u.id_tipo_usuario = tu.id
+WHERE 
+    u.id = ${idUsuario};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function desativarUsuario(idUsuario) {
+   
+    var instrucao = 
+                   `UPDATE usuario SET ativo = 0 where id = ${idUsuario};`
+    ;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+  }
+
+
 module.exports = {
     autenticar,
-    cadastrar
+    cadastrar,
+    perfilUsuario,
+    desativarUsuario
 };

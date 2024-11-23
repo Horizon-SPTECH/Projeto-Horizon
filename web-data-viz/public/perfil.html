@@ -11,7 +11,7 @@
     <script src="js/disabled-senha.js"></script>
 </head>
 
-<body>
+<body onload="trazendoDadosUsuario()">
     <div class="background">
 
         <div class="container">
@@ -99,7 +99,8 @@
                             <div class="label-input">
                                 <label class="label-info" for="cpf">CPF:</label>
                                 <div class="input-wrapper">
-                                    <input class="input-info" id="cpf" type="text" placeholder="000.000.000-00" disabled>
+                                    <input class="input-info" id="cpf" type="text" placeholder="000.000.000-00"
+                                        disabled>
                                 </div>
                             </div>
                             <div class="label-input">
@@ -111,7 +112,7 @@
                         </div>
                         <div class="btns-alterar">
                             <div class="fundo-btn">
-                                <button class="button-alterar">Excluir conta</button>
+                                <button class="button-alterar" onclick="desativarUsuario()">Excluir conta</button>
                             </div>
                         </div>
                     </div>
@@ -153,7 +154,7 @@
                         </div>
                         <div class="btns-alterar">
                             <div class="fundo-btn">
-                                <button class="button-alterar">Salvar alterações</button>
+                                <button class="button-alterar" onclick="salvarAlteracoes()">Salvar alterações</button>
                             </div>
                         </div>
 
@@ -167,4 +168,57 @@
 
     </div>
 </body>
+
 </html>
+
+<script>
+    function trazendoDadosUsuario() {
+        let idUser = sessionStorage.getItem("ID_USUARIO");
+        fetch(`/usuarios/perfilUsuario/${idUser}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    let emailVar = document.getElementById("email");
+                    let nomeVar = document.getElementById("nome");
+                    let cpfVar = document.getElementById("cpf");
+                    let telefoneVar = document.getElementById("telefone");
+                    let tipoUsuarioVar = document.getElementById("tipo");
+
+                    emailVar.value = resposta[0].email_usuario
+                    nomeVar.placeholder = resposta[0].nome_usuario
+                    cpfVar.placeholder = resposta[0].cpf_usuario
+                    telefoneVar.value = resposta[0].telefone_usuario
+                    tipoUsuarioVar.placeholder = resposta[0].cargo_usuario
+
+                });
+            } else {
+                console.error('Erro no maiorMunicipioFurtos');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ KPI: ${error.message}`);
+            });
+    }
+
+    function desativarUsuario() {
+        let idUser = sessionStorage.getItem("ID_USUARIO");
+        fetch(`/usuarios/desativarUsuario/${idUser}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(response => response.json())
+            .then(data => {
+                
+                if(data.affectedRows > 0){
+                    alert("usuário desativado")
+                }
+
+            })
+            .catch (function (error) {
+            console.error(`Erro na obtenção dos dados p/ KPI: ${error.message}`);
+        });
+    }
+
+</script>

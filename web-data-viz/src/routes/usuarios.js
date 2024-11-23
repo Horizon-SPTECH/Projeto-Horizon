@@ -14,4 +14,14 @@ router.post("/autenticar", function (req, res) {
     usuarioController.autenticar(req, res);
 });
 
+//Recebendo os dados do html e direcionando para a função autenticar de usuarioController.js
+router.get("/perfilUsuario/:idUsuario", function (req, res) {
+    usuarioController.perfilUsuario(req, res);
+});
+
+router.put("/desativarUsuario/:idUsuario", function (req, res) {
+    usuarioController.desativarUsuario(req, res);
+});
+
+
 module.exports = router;
