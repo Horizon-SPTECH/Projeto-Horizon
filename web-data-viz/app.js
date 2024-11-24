@@ -20,7 +20,7 @@ var usuarioRouter = require("./src/routes/usuarios");
 var medidasRouter = require("./src/routes/medidas");
 var empresasRouter = require("./src/routes/empresas");
 var parametrosRouter = require("./src/routes/parametros");
-var dashboardsRouter = require("./src/routes/empresas");
+var dashboardsRouter = require("./src/routes/dashboards");
 
 
 app.use(express.json());

@@ -25,15 +25,14 @@ function autenticar(req, res) {
 
         usuarioModel.autenticar(email, senha)
             .then(
-                function (resultadoAutenticar) {
-                    console.log(`\nResultados encontrados: ${resultadoAutenticar.length}`);
-                    console.log(`Resultados: ${JSON.stringify(resultadoAutenticar)}`); // transforma JSON em String
+                function (resultado) {
+                    console.log(`\nResultados encontrados: ${resultado.length}`);
+                    console.log(`Resultados: ${JSON.stringify(resultado)}`); // transforma JSON em String
 
-                    if (resultadoAutenticar.length == 1) {
-                        console.log(resultadoAutenticar);
-
-
-                    } else if (resultadoAutenticar.length == 0) {
+                    if (resultado.length == 1) {
+                        console.log(resultado);
+                        res.json(resultado[0]);
+                    } else if (resultado.length == 0) {
                         res.status(403).send("Email e/ou senha inválido(s)");
                     } else {
                         res.status(403).send("Mais de um usuário com o mesmo login e senha!");
@@ -47,7 +46,6 @@ function autenticar(req, res) {
                 }
             );
     }
-
 }
 
 function cadastrar(req, res) {
@@ -55,7 +53,10 @@ function cadastrar(req, res) {
     var nome = req.body.nomeServer;
     var email = req.body.emailServer;
     var senha = req.body.senhaServer;
-    var fkEmpresa = req.body.idEmpresaVincularServer;
+    var idTipoUsuario = req.body.idTipoUsuarioServer;
+    var idEmpresa = req.body.idEmpresaServer;
+    var telefone = req.body.telefoneServer;
+    var cpf = req.body.cpfServer;
 
     // Faça as validações dos valores
     if (nome == undefined) {
@@ -64,12 +65,18 @@ function cadastrar(req, res) {
         res.status(400).send("Seu email está undefined!");
     } else if (senha == undefined) {
         res.status(400).send("Sua senha está undefined!");
-    } else if (fkEmpresa == undefined) {
-        res.status(400).send("Sua empresa a vincular está undefined!");
-    } else {
+    } else if (idTipoUsuario == undefined) {
+        res.status(400).send("Seu tipo do usuário está undefined!");
+    } else if (idEmpresa == undefined){
+        res.status(400).send("Sua empresa está undefined!");
+    }else if (telefone == undefined) {
+        res.status(400).send("Seu telefone está undefined!");
+    }else if (cpf == undefined){
+        res.status(400).send("Seu cpf está undefined!");
+    }else{
 
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-        usuarioModel.cadastrar(nome, email, senha, fkEmpresa)
+        usuarioModel.cadastrar(nome, email, cpf, senha, idTipoUsuario, idEmpresa, telefone)
             .then(
                 function (resultado) {
                     res.json(resultado);
@@ -222,6 +229,88 @@ function alterarSenha(req, res) {
     });
 }
 
+function perfilUsuario(req, res) {
+    var idUsuario = req.params.idUsuario
+  
+    usuarioModel.perfilUsuario(idUsuario).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar a quantidade de avisos: ", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+  }
+
+  function desativarFuncionario(req, res) {
+    var idUsuario = req.params.idUsuario
+  
+    usuarioModel.desativarFuncionario(idUsuario).then(function (resultado) {
+       res.json(resultado);
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar a quantidade de avisos: ", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+  }
+
+  function atualizarUsuario(req, res) {
+    // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
+    
+    var email = req.body.emailServer;
+    var senha = req.body.senhaServer;
+    var idUsuario = req.body.idUsuarioServer;
+    var telefone = req.body.telefoneServer;
+
+    // Faça as validações dos valores
+     if (email == undefined) {
+        res.status(400).send("Seu email está undefined!");
+    } else if (senha == undefined) {
+        res.status(400).send("Sua senha está undefined!");
+    } else if (idUsuario == undefined) {
+        res.status(400).send("Seu tipo do usuário está undefined!");
+    } else if (telefone == undefined) {
+        res.status(400).send("Seu telefone está undefined!");
+    } else{
+
+        // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
+        usuarioModel.atualizarUsuario(email, senha, idUsuario, telefone)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao realizar o cadastro! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
+
+function verificarSenha(req, res) {
+    var idUsuario = req.params.idUsuario
+
+    usuarioModel.verificarSenha(idUsuario).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar a quantidade de avisos: ", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+  }
+
 module.exports = {
     autenticar,
     cadastrar,
@@ -229,5 +318,9 @@ module.exports = {
     desativarUsuario,
     gerarToken,
     verificarToken,
-    alterarSenha
+    alterarSenha,
+    perfilUsuario,
+    desativarFuncionario,
+    atualizarUsuario,
+    verificarSenha
 }

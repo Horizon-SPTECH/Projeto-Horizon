@@ -3,23 +3,40 @@ var database = require("../database/config")
 function autenticar(email, senha) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ", email, senha)
     var instrucaoSql = `
-        SELECT id, nome, email, fk_empresa as empresaId FROM usuario WHERE email = '${email}' AND senha = '${senha}';
+        SELECT id, nome, email, ativo, cpf, senha, id_empresa, id_tipo_usuario FROM usuario WHERE email = '${email}' AND senha = '${senha}';
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
 
 // Coloque os mesmos parâmetros aqui. Vá para a var instrucaoSql
-function cadastrar(nome, email, senha, fkEmpresa) {
-    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", nome, email, senha, fkEmpresa);
-    
-    // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
-    //  e na ordem de inserção dos dados.
-    var instrucaoSql = `
-        INSERT INTO usuario (nome, email, senha, fk_empresa) VALUES ('${nome}', '${email}', '${senha}', '${fkEmpresa}');
-    `;
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
-    return database.executar(instrucaoSql);
+function cadastrar(nome, email, cpf, senha, idTipoUsuario, idEmpresa, telefone) {
+    // Primeira instrução: inserir dados do usuário
+    var instrucaoUsuario =
+        ` INSERT INTO usuario (nome, email, ativo, cpf, senha, id_tipo_usuario, id_empresa) VALUES ('${nome}', '${email}', 1, '${cpf}',  '${senha}', '${idTipoUsuario}', '${idEmpresa}');`
+        ;
+
+    // Segunda instrução: inserir o telefone associado ao último usuário inserido
+    var instrucaoTelefone =
+        ` INSERT INTO telefone (numero, id_tipo_telefone, id_usuario) 
+        SELECT '${telefone}' AS numero,
+               1 AS id_tipo_telefone,
+               MAX(id) AS id_usuario
+        FROM usuario;`
+        ;
+
+    console.log("Executando a instrução SQL para usuário: \n" + instrucaoUsuario);
+    console.log("Executando a instrução SQL para telefone: \n" + instrucaoTelefone);
+
+    // Executar ambas as instruções em sequência
+    return database.executar(instrucaoUsuario)
+        .then(() => {
+            return database.executar(instrucaoTelefone);
+        })
+        .catch((erro) => {
+            console.error("Erro ao executar as instruções SQL:", erro);
+            throw erro;
+        });
 }
 
 function listarFuncionarios(idEMpresa) {
@@ -84,6 +101,77 @@ function alterarSenha(email, novaSenha) {
     return database.executar(instrucaoSql);
 }
 
+function perfilUsuario(idUsuario) {
+
+    var instrucaoSql = `
+        SELECT 
+    u.id AS usuario_id,
+    u.nome AS nome_usuario,
+    u.email AS email_usuario,
+    u.ativo AS usuario_ativo,
+    u.cpf AS cpf_usuario,
+    u.senha AS senha_usuario,
+    t.numero AS telefone_usuario,
+    tu.cargo AS cargo_usuario
+FROM 
+    usuario u
+LEFT JOIN 
+    telefone t ON u.id = t.id_usuario
+LEFT JOIN 
+    tipo_telefone tt ON t.id_tipo_telefone = tt.id
+LEFT JOIN 
+    empresa e ON u.id_empresa = e.id
+LEFT JOIN 
+    tipo_empresa te ON e.id_tipo_empresa = te.id
+LEFT JOIN 
+    tipo_usuario tu ON u.id_tipo_usuario = tu.id
+WHERE 
+    u.id = ${idUsuario};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function desativarFuncionario(idUsuario) {
+
+    var instrucao =
+        `UPDATE usuario SET ativo = 0 where id = ${idUsuario};`
+        ;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
+function atualizarUsuario(email, senha, idUsuario, telefone) {
+
+    var instrucaoUsuario =
+        ` UPDATE usuario SET email = '${email}', senha = '${senha}' WHERE id = '${idUsuario}'`;
+
+    // Segunda instrução: inserir o telefone associado ao último usuário inserido
+    var instrucaoTelefone =
+        ` UPDATE telefone SET numero = '${telefone}' WHERE id_usuario = '${idUsuario}'`;
+
+    console.log("Executando a instrução SQL para usuário: \n" + instrucaoUsuario);
+    console.log("Executando a instrução SQL para telefone: \n" + instrucaoTelefone);
+
+    // Executar ambas as instruções em sequência
+    return database.executar(instrucaoUsuario)
+        .then(() => {
+            return database.executar(instrucaoTelefone);
+        })
+        .catch((erro) => {
+            console.error("Erro ao executar as instruções SQL:", erro);
+            throw erro;
+        });
+}
+
+function verificarSenha(idUsuario) {
+    
+    var instrucaoSql = `
+        SELECT senha FROM usuario WHERE id = '${idUsuario}' ;
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
 
 module.exports = {
     autenticar,
@@ -93,5 +181,9 @@ module.exports = {
     buscarPorEmail,
     salvarToken,
     verificarToken,
-    alterarSenha
+    alterarSenha,
+    perfilUsuario,
+    desativarFuncionario,
+    atualizarUsuario,
+    verificarSenha
 };

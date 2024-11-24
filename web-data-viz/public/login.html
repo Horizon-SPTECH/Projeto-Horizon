@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="assets/logo.png" type="image/x-icon">
     <link rel="stylesheet" href="css/login.css">
-    <script src="js/sessao.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.5/dist/sweetalert2.all.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.5/dist/sweetalert2.min.css" rel="stylesheet">
     <title>Login - Horizon</title>
 </head>
 
@@ -47,100 +48,55 @@
                     <p class="link" >Precisa de ajuda?</p>
                     <b><a class="link" href=""> Entre em contato</a></b>
                 </div>
-                <a href="dashboard.html" class="btn-entrar">
-                    <button class="btn-logar" onclick="entrar()">Entrar</button>
-                </a>
+                <!-- <a href="dashboard.html" class="btn-entrar"> -->
+                    <button class="btn-logar" onclick="entrar()" >Entrar</button>
+    
+                <!-- </a> -->
+
+            <br>
+            
+            <div id="mensagemErroEmail"></div>
+
             </div>
+
+
         </div>
 
     </div>
-
-
-
 
 </body>
 
 </html>
 
-<!-- <script>
+ <script>
 
     const email = document.getElementById("email");
-    const senha = document.getElementById("senha");
+    //const senha = document.getElementById("password");
 
-    let emailValido = false;
-    let senhaValida = false;
+    //let emailValido = false;
+    //let senhaValida = false;
 
 
-    // VERIFICAÇÃO DE NOME, NÃO MAIS UTILIZADA
-    // nome.addEventListener('keyup', () => {
-    //     if (nome.value.trim().length < 2) {
-    //         mensagemErroNome.setAttribute('style', 'color: red');
-    //         mensagemErroNome.innerHTML = 'É preciso ter mais do que 1 caracter para o nome ser válido.';
-    //     }
-    //     else {
-    //         mensagemErroNome.removeAttribute('style')
-    //         mensagemErroNome.innerHTML = '';
-    //         nomeValido = true;
-    //     }
-    // });
-
+    
     email.addEventListener('keyup', () => {
         if (email.value.indexOf('@') == -1 || !email.value.endsWith('.com') || email.value.trim().length < 10) {
-            mensagemErroEmail.setAttribute('style', 'color: red');
             mensagemErroEmail.innerHTML = 'Digite um e-mail válido! Use @ e .com';
-        }
-        else {
-            mensagemErroEmail.removeAttribute('style');
+        }else {
             mensagemErroEmail.innerHTML = '';
             emailValido = true;
         }
     });
 
-    senha.addEventListener('keyup', () => {
-        const senhaValor = senha.value;
-
-        const verificacaoSenha = senhaValor.length >= 8
-            && /[!@#$%^&*(),.?":{}|<>]/.test(senhaValor) &&
-            /[0-9]/.test(senhaValor);
-
-        if (!verificacaoSenha) {
-            mensagemErroSenha.setAttribute('style', 'color: red');
-            mensagemErroSenha.innerHTML = 'Digite uma senha com 8 caracteres, 1 número e 1 caracter especial.';
-            console.log('Digite uma senha com 8 caracteres, 1 número e 1 caracter especial.')
-        }
-        else {
-            mensagemErroSenha.removeAttribute('style');
-            mensagemErroSenha.innerHTML = '';
-            senhaValida = true;
-        }
-    });
-
-</script> -->
 
 
-<script>
 
-
-    function entrar() {
-        // aguardar();
-
-        const email = document.getElementById("email");
+    function entrar(){            
         const senha = document.getElementById("password");
         var emailVar = email.value;
         var senhaVar = senha.value;
 
-        if (emailVar == "" || senhaVar == "") {
-            cardErro.style.display = "block"
-            mensagem_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)";
-            // finalizarAguardar();
-            setInterval(sumirMensagem, 5000)
-            return false;
-            
-        }
-        else {
-            setInterval(sumirMensagem, 5000)
-        }
 
+    
         console.log("FORM LOGIN: ", emailVar);
         console.log("FORM SENHA: ", senhaVar);
 
@@ -162,24 +118,73 @@
                 resposta.json().then(json => {
                     console.log(json);
                     console.log(JSON.stringify(json));
-                    sessionStorage.EMAIL_USUARIO = json.email;
-                    sessionStorage.NOME_USUARIO = json.nome;
-                    sessionStorage.ID_USUARIO = json.id;
-                    sessionStorage.AQUARIOS = JSON.stringify(json.aquarios)
-
-                    setTimeout(function () {
-                        window.location = "dashboard.html";
-                    }, 1000); // apenas para exibir o loading
-
-                });
-
+                    if(json.ativo == 0){
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: "top-end",
+                            showConfirmButton: false,
+                            timer: 3000,
+                            timerProgressBar: true,
+                            didOpen: (toast) => {
+                              toast.onmouseenter = Swal.stopTimer;
+                              toast.onmouseleave = Swal.resumeTimer;
+                            }
+                          });
+                          Toast.fire({
+                            icon: "error",
+                            title: "Esta conta foi desativada!"
+                          });
+                    }else{
+                        sessionStorage.ID_USUARIO = json.id;
+                        sessionStorage.EMAIL_USUARIO = json.email;
+                        sessionStorage.ATIVO = json.ativo;
+                        sessionStorage.ID_EMPRESA = json.id_empresa;
+                        sessionStorage.ID_TIPO = json.id_tipo_usuario;
+               
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: "top-end",
+                            showConfirmButton: false,
+                            timer: 2400,
+                            timerProgressBar: true,
+                            didOpen: (toast) => {
+                                toast.onmouseenter = Swal.stopTimer;
+                                toast.onmouseleave = Swal.resumeTimer;
+                            }
+                        });
+                        
+                        Toast.fire({
+                            icon: "success",
+                            title: "Login realizado com sucesso!"
+                        }).then(() => {
+                            if (json.id_tipo_usuario == 3) {
+                                window.location.href = "cadastro-empresa.html";
+                            } else {
+                                window.location.href = "dashboard.html";
+                            }
+                        });
+                    }
+                })
             } else {
 
                 console.log("Houve um erro ao tentar realizar o login!");
-
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: "top-end",
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                      toast.onmouseenter = Swal.stopTimer;
+                      toast.onmouseleave = Swal.resumeTimer;
+                    }
+                  });
+                  Toast.fire({
+                    icon: "warning",
+                    title: "Senha ou email incorreta!"
+                  });
                 resposta.text().then(texto => {
                     console.error(texto);
-                    finalizarAguardar(texto);
                 });
             }
 
@@ -188,10 +193,6 @@
         })
 
         return false;
-    }
+}
 
-    function sumirMensagem() {
-        cardErro.style.display = "none"
-    }
-
-</script>
+</script> 
