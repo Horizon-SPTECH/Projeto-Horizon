@@ -99,7 +99,7 @@
 <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
 <script>
     function listartMunicipios(){
-        fetch(`/empresas/listartMunicipios`).then(function (resposta) {
+        fetch(`/dashboards/listartMunicipios`).then(function (resposta) {
             if (resposta.ok) {
                 resposta.json().then(function (resposta) {
                     console.log("Dados recebidos: ", JSON.stringify(resposta));

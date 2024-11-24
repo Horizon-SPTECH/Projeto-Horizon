@@ -20,6 +20,8 @@ var usuarioRouter = require("./src/routes/usuarios");
 var medidasRouter = require("./src/routes/medidas");
 var empresasRouter = require("./src/routes/empresas");
 var parametrosRouter = require("./src/routes/parametros");
+var dashboardsRouter = require("./src/routes/empresas");
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -35,6 +37,7 @@ app.use("/usuarios", usuarioRouter);
 app.use("/medidas", medidasRouter);
 app.use("/empresas", empresasRouter);
 app.use("/parametros", parametrosRouter);
+app.use("/dashboards", dashboardsRouter);
 
 const transporter = nodemailer.createTransport({
     host:"smtp-relay.gmail.com",

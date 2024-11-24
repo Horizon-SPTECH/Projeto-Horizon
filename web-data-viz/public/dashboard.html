@@ -235,7 +235,7 @@
     }
 
     function maiorMunicipioFurtos() {
-        fetch(`/empresas/maisFurto`, { cache: 'no-store' }).then(function (response) {
+        fetch(`/dashboards/maisFurto`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (resposta) {
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
@@ -254,7 +254,7 @@
     }
 
     function maiorMunicipioFurtosNumeroPorcentagem() {
-        fetch(`/empresas/maisFurtoMunicipioPorcentagem`, { cache: 'no-store' }).then(function (response) {
+        fetch(`/dashboards/maisFurtoMunicipioPorcentagem`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (resposta) {
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
@@ -272,7 +272,7 @@
     }
 
     function menorMunicipioFurtos() {
-        fetch(`/empresas/menosFurto`, { cache: 'no-store' }).then(function (response) {
+        fetch(`/dashboards/menosFurto`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (resposta) {
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
@@ -291,7 +291,7 @@
     }
 
     function menorMunicipioFurtosNumeroPorcentagem() {
-        fetch(`/empresas/menosFurtoMunicipioPorcentagem`, { cache: 'no-store' }).then(function (response) {
+        fetch(`/dashboards/menosFurtoMunicipioPorcentagem`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (resposta) {
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
@@ -310,7 +310,7 @@
     }
 
     function furtorPor1kilometro() {
-        fetch(`/empresas/furtosPor1kilometro`, { cache: 'no-store' }).then(function (response) {
+        fetch(`/dashboards/furtosPor1kilometro`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (resposta) {
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
@@ -329,7 +329,7 @@
     }
 
     function objetosRoubados() {
-        fetch(`/empresas/objetosMaisRoubados`, { cache: 'no-store' }).then(function (response) {
+        fetch(`/dashboards/objetosMaisRoubados`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (resposta) {
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
@@ -374,8 +374,8 @@
     function fetchNumeroFurtosPorDiaSemana() {
 
         Promise.all([
-            fetch('/empresas/diaSemanaGraficos', { cache: 'no-store' }).then(response => response.json()),
-            fetch(`/empresas/furtoSemanas`, { cache: 'no-store' }).then(response => response.json())
+            fetch('/dashboards/diaSemanaGraficos', { cache: 'no-store' }).then(response => response.json()),
+            fetch(`/dashboards/furtoSemanas`, { cache: 'no-store' }).then(response => response.json())
         ])
             .then(([diaSemanaGraficos, furtoSemanas]) => {
                 console.log('Dia da Semana Gráficos:', diaSemanaGraficos);
@@ -388,8 +388,8 @@
 
     function fetchMesesComMaisFurto() {
         Promise.all([
-            fetch('/empresas/mesesGraficos', { cache: 'no-store' }).then(response => response.json()),
-            fetch(`/empresas/furtosMeses`, { cache: 'no-store' }).then(response => response.json())
+            fetch('/dashboards/mesesGraficos', { cache: 'no-store' }).then(response => response.json()),
+            fetch(`/dashboards/furtosMeses`, { cache: 'no-store' }).then(response => response.json())
         ])
             .then(([mesesGraficos, furtosMeses]) => {
                 console.log('7 Meses Gráficos:', mesesGraficos);
@@ -569,7 +569,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
 // Função para carregar os dados de furtos
 function carregarDadosFurtos() {
-    return fetch('/empresas/listartMunicipios')
+    return fetch('/dashboards/listartMunicipios')
         .then(response => response.json())
         .then(data => {
             let furtosPorMunicipio = {};
@@ -582,7 +582,7 @@ function carregarDadosFurtos() {
 }
 
 function carregarParametro() {
-    return fetch(`/empresas/parametrosEmpresa/${idEMpresa}`, { cache: 'no-store' })
+    return fetch(`/dashboards/parametrosEmpresa/${idEMpresa}`, { cache: 'no-store' })
         .then(response => response.json())
         .then(resposta => {
             if (resposta.length > 0) {
