@@ -10,10 +10,11 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.5/dist/sweetalert2.all.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.5/dist/sweetalert2.min.css" rel="stylesheet">
+    <script src="js/block-screan.js"></script>
 
 </head>
 
-<body onload="listartUser()">
+<body onload="listartUser(),cargo(),acessar()">
     <div class="background">
 
         <div class="container">
@@ -66,10 +67,16 @@
                                 <span>Novo usuário</span>
                             </div>
                         </a>
+                        <a href="parametros.html" class="bl-botao">
+                            <div class="bl-botao-filho">
+                                <img src="assets/parameter.png" alt="">
+                                <span>Parametrização</span>
+                            </div>
+                        </a>
 
                     </div>
 
-                    <a href="index.html" class="bl-botao">
+                    <a onclick="limparSession()" href="index.html" class="bl-botao">
                         <div class="bl-botao-filho">
                             <img src="assets/porta.png" alt="">
                             <span>Sair</span>
@@ -149,7 +156,7 @@
                         spanCpf.innerHTML = `CPF: <b>${objeto.cpf}</b>`;
 
                         const spanTipo = document.createElement('span');
-                        spanTipo.innerHTML = `Tipo: <b>${objeto.tipo_usuario_cargo}</b>`
+                        spanTipo.innerHTML = `Tipo: <b>${objeto.tipo_usuario_cargo}(a)</b>`
 
                         const spanTelefone = document.createElement('span');
                         spanTelefone.innerHTML = `Telefone: <b>${objeto.telefone}</b>`;

@@ -5,42 +5,56 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Parâmetros - Horizon</title>
-    <link rel="shortcut icon" href="assets/Group 11.png" type="image/x-icon">
+    <link rel="shortcut icon" href="assets/group11.png" type="image/x-icon">
     <link rel="stylesheet" href="css/parametros.css">
     <link rel="stylesheet" href="css/dashboard-indiv.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="js/block-screan.js"></script>
 </head>
 
-<body onload="mostrarParametro()">
+<body onload="mostrarParametro(),cargo()">
     <div class="background">
 
         <div class="container">
 
             <div class="container-barra-lateral">
                 <div class="cbl-logo">
-                    <img src="assets/Group 11.png" alt="">
+                    <img src="assets/group11.png" alt="">
                 </div>
 
                 <div class="cbl-botoes">
 
                     <div class="cbl-botoes-barralateral">
-                        <a href="dashboard.html" class="bl-botao" id="bl-botao">
+                        <a href="dashboard.html" class="bl-botao">
                             <div class="bl-botao-filho">
                                 <img src="assets/casa.png" alt="">
                                 <span>Dashboard</span>
                             </div>
                         </a>
-                        <a href="dashboard-indiv.html" class="bl-botao" id="bl-botao">
+                        <a href="lista-municipios.html" class="bl-botao">
                             <div class="bl-botao-filho">
                                 <img src="assets/detalhe1.png" alt="">
                                 <span>Detalhes</span>
                             </div>
                         </a>
 
-                        <a href="alterar-senha.html" class="bl-botao">
+                        <a href="perfil.html" class="bl-botao">
                             <div class="bl-botao-filho">
-                                <img src="assets/cadeado.png" alt="">
-                                <span>Alterar senha</span>
+                                <img src="assets/icon-user.png" alt="">
+                                <span>Perfil</span>
+                            </div>
+                        </a>
+
+                        <a href="empresa.html" class="bl-botao">
+                            <div class="bl-botao-filho">
+                                <img src="assets/icon-empresa.png" alt="">
+                                <span>Empresa</span>
+                            </div>
+                        </a>
+                        <a href="lista-funcionario.html" class="bl-botao">
+                            <div class="bl-botao-filho">
+                                <img src="assets/icon-search.png" alt="">
+                                <span>Funcionários</span>
                             </div>
                         </a>
 
@@ -50,7 +64,7 @@
                                 <span>Novo usuário</span>
                             </div>
                         </a>
-                        <a href="cadastro-funcionario.html" class="bl-botao" id="bl-botao-inicio">
+                        <a href="parametros.html" class="bl-botao" id="bl-botao-inicio">
                             <div class="bl-botao-filho">
                                 <img src="assets/parameter.png" alt="">
                                 <span>Parametrização</span>
@@ -58,7 +72,7 @@
                         </a>
                     </div>
 
-                    <a href="index.html" class="bl-botao">
+                    <a onclick="limparSession()" href="index.html" class="bl-botao">
                         <div class="bl-botao-filho">
                             <img src="assets/porta.png" alt="">
                             <span>Sair</span>
@@ -364,7 +378,7 @@
 <script>
 
 function atualizarParametro() {
-    const idEmpresa = 1; // Substitua pelo ID real da empresa
+    const idEmpresa = sessionStorage.getItem("ID_EMPRESA");
     const limiteBaixo = document.getElementById('limiteBaixo').value;
     const limiteOk = document.getElementById('limiteOk').value;
 
@@ -446,7 +460,7 @@ function atualizarParametro() {
 
 
     function padronizarParametro() {
-        const idEmpresa = 1;
+        const idEmpresa = sessionStorage.getItem("ID_EMPRESA");
         const empresa = `?id_empresa=${idEmpresa}`;
 
         fetch(`/parametros/padronizarParametro`, {
@@ -476,7 +490,7 @@ function atualizarParametro() {
     }
 
     function mostrarParametro() {
-        const idEmpresa = 1;
+        const idEmpresa = sessionStorage.getItem("ID_EMPRESA");
         const empresa = `?id_empresa=${idEmpresa}`;
 
         fetch(`/parametros/mostrarParametro${empresa}`, {

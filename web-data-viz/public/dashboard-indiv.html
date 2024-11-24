@@ -7,8 +7,9 @@
     <link rel="shortcut icon" href="assets/group11.png" type="image/x-icon">
     <link rel="stylesheet" href="css/dashboard-indiv.css">
     <link rel="stylesheet" href="dashboard.html">
+    <script src="js/block-screan.js"></script>
 </head>
-<body onload="inicializarPagina()">
+<body onload="inicializarPagina(),acessar()">
     <div class="background">
 
         <div class="container">
@@ -41,30 +42,37 @@
                             </div>
                         </a>
 
-                        <a href="empresa.html" class="bl-botao">
+                        <a id="btn-empresa" href="empresa.html" class="bl-botao">
                             <div class="bl-botao-filho">
                                 <img src="assets/icon-empresa.png" alt="">
                                 <span>Empresa</span>
                             </div>
                         </a>
 
-                        <a href="lista-funcionario.html" class="bl-botao">
+                        <a id="btn-funcionarios" href="lista-funcionario.html" class="bl-botao">
                             <div class="bl-botao-filho">
                                 <img src="assets/icon-search.png" alt="">
                                 <span>Funcionários</span>
                             </div>
                         </a>
 
-                        <a href="cadastro-funcionario.html" class="bl-botao">
+                        <a id="btn-novo-user" href="cadastro-funcionario.html" class="bl-botao">
                             <div class="bl-botao-filho">
                                 <img src="assets/add.png" alt="">
                                 <span>Novo usuário</span>
                             </div>
                         </a>
+
+                        <a id="btn-parametro" href="parametros.html" class="bl-botao">
+                            <div class="bl-botao-filho">
+                                <img src="assets/parameter.png" alt="">
+                                <span>Parametrização</span>
+                            </div>
+                        </a>
                         
                     </div>
 
-                    <a href="index.html" class="bl-botao">
+                    <a onclick="limparSession()" href="index.html" class="bl-botao">
                         <div class="bl-botao-filho">
                             <img src="assets/porta.png" alt="">
                             <span>Sair</span>
@@ -153,6 +161,24 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
+
+    let Idtipo = sessionStorage.getItem("ID_TIPO");
+    let btnEmpresa = document.querySelector("#btn-empresa");
+    let btnNewFunc = document.querySelector("#btn-funcionarios");
+    let btnAddUser = document.querySelector("#btn-novo-user");
+    let btnParametros = document.querySelector("#btn-parametro");
+    let divLatetalOpcoes= document.querySelector(".cbl-botoes");
+
+
+
+    if (Idtipo == 1) {
+        btnEmpresa.style.display = "none";
+        btnNewFunc.style.display = "none";
+        btnAddUser.style.display = "none";
+        btnParametros.style.display = "none";
+        divLatetalOpcoes.style.gap = "9rem";
+    }
+
 
     var municipio = sessionStorage.getItem('NOME_MUNICIPIO');
     console.log(municipio);

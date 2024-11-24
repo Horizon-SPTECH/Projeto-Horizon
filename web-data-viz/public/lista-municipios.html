@@ -8,8 +8,9 @@
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
     <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css">
+    <script src="js/block-screan.js"></script>
 </head>
-<body onload="listartMunicipios()"> 
+<body onload="listartMunicipios(),acessar()"> 
     <div class="background">
 
         <div class="container">
@@ -42,30 +43,37 @@
                             </div>
                         </a>
 
-                        <a href="empresa.html" class="bl-botao">
+                        <a id="btn-empresa" href="empresa.html" class="bl-botao">
                             <div class="bl-botao-filho">
                                 <img src="assets/icon-empresa.png" alt="">
                                 <span>Empresa</span>
                             </div>
                         </a>
 
-                        <a href="lista-funcionario.html" class="bl-botao">
+                        <a id="btn-funcionarios" href="lista-funcionario.html" class="bl-botao">
                             <div class="bl-botao-filho">
                                 <img src="assets/icon-search.png" alt="">
                                 <span>Funcionários</span>
                             </div>
                         </a>
 
-                        <a href="cadastro-funcionario.html" class="bl-botao">
+                        <a id="btn-novo-user" href="cadastro-funcionario.html" class="bl-botao">
                             <div class="bl-botao-filho">
                                 <img src="assets/add.png" alt="">
                                 <span>Novo usuário</span>
                             </div>
                         </a>
+
+                        <a id="btn-parametro" href="cadastro-funcionario.html" class="bl-botao">
+                            <div class="bl-botao-filho">
+                                <img src="assets/parameter.png" alt="">
+                                <span>Parametrização</span>
+                            </div>
+                        </a>
                         
                     </div>
 
-                    <a href="index.html" class="bl-botao">
+                    <a onclick="limparSession()" href="index.html" class="bl-botao">
                         <div class="bl-botao-filho">
                             <img src="assets/porta.png" alt="">
                             <span>Sair</span>
@@ -98,6 +106,26 @@
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
 <script>
+
+    let Idtipo = sessionStorage.getItem("ID_TIPO");
+    let btnEmpresa = document.querySelector("#btn-empresa");
+    let btnNewFunc = document.querySelector("#btn-funcionarios");
+    let btnAddUser = document.querySelector("#btn-novo-user");
+    let btnParametros = document.querySelector("#btn-parametro");
+    let divLatetalOpcoes= document.querySelector(".cbl-botoes");
+
+
+
+    if (Idtipo == 1) {
+        btnEmpresa.style.display = "none";
+        btnNewFunc.style.display = "none";
+        btnAddUser.style.display = "none";
+        btnParametros.style.display = "none";
+        divLatetalOpcoes.style.gap = "9rem";
+    }
+
+
+
     function listartMunicipios(){
         fetch(`/dashboards/listartMunicipios`).then(function (resposta) {
             if (resposta.ok) {
