@@ -1,15 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - Horizon</title>
     <link rel="shortcut icon" href="assets/group11.png" type="image/x-icon">
     <link rel="stylesheet" href="css/dashboard.css">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
-    <script src="js/block-screan.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 </head>
-<body onload="acessar()">
+
+<body onload="inicializarPagina()">
     <div class="background">
 
         <div class="container">
@@ -28,30 +29,43 @@
                                 <span>Dashboard</span>
                             </div>
                         </div>
-                        <a href="dashboard-indiv.html" class="bl-botao">
+                        <a href="lista-municipios.html" class="bl-botao">
                             <div class="bl-botao-filho">
                                 <img src="assets/detalhe1.png" alt="">
                                 <span>Detalhes</span>
                             </div>
                         </a>
 
-                        <a href="alterar-senha.html" class="bl-botao">
+                        <a href="perfil.html" class="bl-botao">
                             <div class="bl-botao-filho">
-                                <img src="assets/cadeado.png" alt="">
-                                <span>Alterar senha</span>
+                                <img src="assets/icon-user.png" alt="">
+                                <span>Perfil</span>
                             </div>
                         </a>
 
-                        <a id="btn-novo-user" href="cadastro-funcionario.html" class="bl-botao">
+                        <a href="empresa.html" class="bl-botao">
+                            <div class="bl-botao-filho">
+                                <img src="assets/icon-empresa.png" alt="">
+                                <span>Empresa</span>
+                            </div>
+                        </a>
+                        <a href="lista-funcionario.html" class="bl-botao">
+                            <div class="bl-botao-filho">
+                                <img src="assets/icon-search.png" alt="">
+                                <span>Funcionários</span>
+                            </div>
+                        </a>
+
+                        <a href="cadastro-funcionario.html" class="bl-botao">
                             <div class="bl-botao-filho">
                                 <img src="assets/add.png" alt="">
                                 <span>Novo usuário</span>
                             </div>
                         </a>
-                        
+
                     </div>
 
-                    <a onclick="limparSession()" href="index.html" class="bl-botao">
+                    <a href="index.html" class="bl-botao">
                         <div class="bl-botao-filho">
                             <img src="assets/porta.png" alt="">
                             <span>Sair</span>
@@ -72,42 +86,42 @@
 
                     <div class="cgk-mapa">
                         <div class="cgk-mapa-titulo">
-                            <span>Regiões do Espírito Santo com mais furtos</span>
+                            <span>Regiões do Espírito Santo com mais furtos em porcentagem</span>
                         </div>
 
                         <div class="cgk-mapa-infos">
                             <div class="cgk-mapa-infos-class" id="cgk-mapa-infos-grafico">
                                 <div id="map"></div>
-                                
+
                                 <div class="cgk-mapa-infos-legenda">
                                     <div class="cgk-mapa-legenda">
                                         <img src="assets/razoave.png" alt="">
-                                        <span>Razoável</span>    
-                                    </div> 
+                                        <span class="indicadorRazoavel"></span>
+                                    </div>
 
                                     <div class="cgk-mapa-legenda">
                                         <img src="assets/alerta.png" alt="">
-                                        <span>Alerta</span>
+                                        <span class="indicadorAlerta"></span>
                                     </div>
 
                                     <div class="cgk-mapa-legenda">
                                         <img src="assets/critico.png" alt="">
-                                        <span>Crítico</span>
+                                        <span class="indicadorCritico"></span>
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="cgk-mapa-infos-class" id="cgk-mapa-infos-kpi">
                                 <div class="cgk-kpi-furto">
                                     <span>Município com mais furtos</span>
-                                    <h1>Serra</h1>
-                                    <h1>400 - 24%</h1>
+                                    <h1 id="kpiMunicipioComMaisFurto"></h1>
+                                    <h1 id="kpiMunicipioComMaisFurtoDados"></h1>
                                 </div>
-                                
+
                                 <div class="cgk-kpi-furto">
                                     <span>Município com menos furtos</span>
-                                    <h1>Caraiaca</h1>
-                                    <h1>120 - 12%</h1>
+                                    <h1 id="kpiMunicipioComMenosFurto"></h1>
+                                    <h1 id="kpiMunicipioComMenosFurtoDados"></h1>
                                 </div>
                             </div>
                         </div>
@@ -121,7 +135,7 @@
 
                             <div class="cgk-kpi-furtosHab-kpi">
                                 <h3 style="font-size: 15px;">Furtos por 1k/habitante</h3>
-                                <span>300</span>
+                                <span id="kpiFurtosPor1k"></span>
                             </div>
                         </div>
 
@@ -129,25 +143,10 @@
                             <div class="cgk-kpi-obj-titulo">
                                 <span>Objetos mais furtados</span>
                             </div>
-                            
+
                             <div class="cgk-kpi-obj-imgs">
-                                <div class="cgk-kpi-obj-ordem">
-                                    <img src="assets/moto.png" alt="">
-                                    <h1>1° - 682</h1>
-                                    <span>Moto</span>
-                                </div>
+                                <!-- <h1>2° - 435</h1> -->
 
-                                <div class="cgk-kpi-obj-ordem">
-                                    <img src="assets/celular.png" alt="">
-                                    <h1>2° - 435</h1>
-                                    <span>Celular</span>
-                                </div>
-
-                                <div class="cgk-kpi-obj-ordem">
-                                    <img src="assets/carro.png" alt="">
-                                    <h1>3° - 123</h1>
-                                    <span>Carro</span>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -157,7 +156,7 @@
                 <div class="cgk-graficos-kpi">
                     <div class="cgk-grafico-periodo" id="cgk-graficos-id">
                         <div class="cgk-grafico-texto">
-                            <h1>Período do dia com mais furtos</h1>
+                            <h1>Número de Furtos por Dia da Semana</h1>
                         </div>
 
                         <div class="cgk-grafico-canvas">
@@ -176,8 +175,29 @@
                     </div>
 
                     <div class="cgk-grafico-IA">
+                        <div class="recomendacao">
+                            <div class="barra-titulo-ia">
+                                <h2 class="titulo-ia">Recomendações</h2>
+                            </div>
+                            <div class="imagem-cerebro">
+                                <img class="img-cer" src="assets/image22.png" alt="">
+                            </div>
+                            <div class="fundo-btn">
+                                <button onclick="gerarRecomendacao()" class="btn-ia">Ver recomendações</button>
+                            </div>
+                            <div class="marca">
+                                <span class="marca-spam">Powered by</span><img src="assets/image20.png" alt="">
+                            </div>
+                        </div>
                         <div class="cgk-grafico-IA-texto">
-                            <h1>Recomendação</h1>
+                            <div class="sair-IA">
+                                <h1>Recomendação</h1>
+                                <div class="exit">
+                                    <span onclick="voltarCard()">x</span>
+                                </div>
+                                
+                            </div>
+                           
                             <span>Aumente a visibilidade policial em áreas de risco identificadas. Considere o aumento do patrulhamento ostensivo em Serra, principalmente nos horários de pico</span>
                         </div>
                     </div>
@@ -189,6 +209,7 @@
 
     </div>
 </body>
+
 </html>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -196,221 +217,435 @@
 
 <script>
 
-    let Idtipo = sessionStorage.getItem("ID_TIPO");
-    let btnEmpresa = document.querySelector("#btn-empresa");
-    let btnAddUser = document.querySelector("#btn-novo-user");
+    var idEMpresa = sessionStorage.ID_EMPRESA = 3;
 
+//    var idEMpresa = sessionStorage.getItem('ID_EMPRESA');
 
-    if(Idtipo == 1){
-        btnEmpresa.style.display = "none";
-        btnAddUser.style.display = "none";
+    console.log(idEMpresa);
+
+    function inicializarPagina() {
+        maiorMunicipioFurtos();
+        maiorMunicipioFurtosNumeroPorcentagem();
+        menorMunicipioFurtos();
+        menorMunicipioFurtosNumeroPorcentagem();
+        furtorPor1kilometro(),
+        objetosRoubados(),
+        fetchNumeroFurtosPorDiaSemana(),
+        fetchMesesComMaisFurto()
     }
-    const grafico_periodo = document.getElementById('grafico_periodo');
 
-    Chart.defaults.color = '#23005B';
-    //Chart.defaults.borderColor = 'white';
+    function maiorMunicipioFurtos() {
+        fetch(`/dashboards/maisFurto`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
 
-    new Chart(grafico_periodo, {
-    type: 'bar',
-    data: {
-        labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'],
-        datasets: [{
-            label: 'Periodo',
-            data: [12, 19, 3, 5, 2, 3],
-            backgroundColor: '#5321CA',
-            borderRadius: 17
-        }]
-    },
-    options: {
-        responsive: false,
-        maintainAspectRatio: false,
-        scales: {
-        y: {
-        beginAtZero: true,
-        ticks: {
-            color: '#979699'
-        },
-        grid: {
-            display: true,
-            color: 'rgba(128, 128, 128, 0.2)'
-        }
-        },
-        x: {
-            ticks: {
-            color: '#979699'
-        },
-        grid: {
-            display: false
-        }
-        }
-    },
-    plugins: {
-        legend: {
-        display: false
-        }
-    },
-    barPercentage: 0.4
-    }});
+                    const municipioElemento = document.getElementById('kpiMunicipioComMaisFurto');
+                    municipioElemento.innerHTML = `${resposta[0].municipio}`
 
-    const grafico_meses = document.getElementById('grafico_meses');
+                });
+            } else {
+                console.error('Erro no maiorMunicipioFurtos');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ KPI: ${error.message}`);
+            });
+    }
 
-    new Chart(grafico_meses, {
-    type: 'bar',
-    data: {
-        labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'],
-        datasets: [{
-            label: 'Meses',
-            data: [12, 19, 3, 5, 2, 3],
-            backgroundColor: '#5321CA',
-            borderRadius: 17
-        }]
-    },
-    options: {
-        responsive: false,
-        maintainAspectRatio: false,
-        scales: {
-        y: {
-        beginAtZero: true,
-        ticks: {
-            color: '#979699'
-        },
-        grid: {
-            display: true,
-            color: 'rgba(128, 128, 128, 0.2)'
-        }
-        },
-        x: {
-            ticks: {
-            color: '#979699'
-        },
-        grid: {
-            display: false
-        }
-        }
-    },
-    plugins: {
-        legend: {
-        display: false
-        }
-    },
-    barPercentage: 0.4
-    }});
+    function maiorMunicipioFurtosNumeroPorcentagem() {
+        fetch(`/dashboards/maisFurtoMunicipioPorcentagem`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
 
-    // Coordenadas do sudoeste e nordeste do Espírito Santo para definir o foco apenas no estado
-    var bounds = [
-            [-21.469103, -41.684086], // Sudoeste do Espírito Santo (limite com o Rio de Janeiro)
-            [-17.826600, -39.978290]  // Nordeste do Espírito Santo (próximo ao limite com a Bahia)
-        ];
+                    const municipioMaiorDadosElemento = document.getElementById('kpiMunicipioComMaisFurtoDados');
+                    municipioMaiorDadosElemento.innerHTML += `${resposta[0].numero_furtos} - ${resposta[0].porcentagem_furtos}%`
+                });
+            } else {
+                console.error('Erro no maiorMunicipioFurtosNumeroPorcentagem');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ KPI: ${error.message}`);
+            });
+    }
 
-        // Criar o mapa Leaflet focado no Espírito Santo, restringindo os limites do estado
-        var map = L.map('map', {
-            maxBounds: bounds, // Limitar a movimentação do mapa dentro do estado
-            minZoom: 4.5, // Zoom mínimo permitido para impedir a visualização do Brasil inteiro
-            maxZoom: 8, // Zoom máximo para visualização detalhada
-            zoomSnap: 0.5 // Permitir zoom intermediário
-        }).fitBounds(bounds); // Ajusta o mapa para os limites definidos
+    function menorMunicipioFurtos() {
+        fetch(`/dashboards/menosFurto`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
 
-        // Adicionar um fundo branco para as áreas fora do Espírito Santo
-        L.rectangle([[-90, -180], [90, 180]], { color: "#ffffff", weight: 0, fillOpacity: 1 }).addTo(map);
+                    const municipioMenorElemento = document.getElementById('kpiMunicipioComMenosFurto');
+                    municipioMenorElemento.innerHTML = `${resposta[0].municipio}`
 
-        // Adicionar o mapa base do OpenStreetMap
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        }).addTo(map);
+                });
+            } else {
+                console.error('Erro no menorMunicipioFurtos');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ KPI: ${error.message}`);
+            });
+    }
 
-        // Definir a quantidade de furtos por município
-        var furtosPorMunicipio = {
-            "Afonso Claudio": 0,
-            "Água Doce do Norte": 0,
-            "Anchieta": 0,
-            "Apiacá": 0,
-            "Aracruz": 0,
-            "Atilio Vivacqua": 0,
-            "Baixo Guandu": 0,
-            "Barra de São Francisco": 0,
-            "Boa Esperança": 0,
-            "Bom Jesus do Norte": 0,
-            "Brejetuba": 0,
-            "Cachoeiro de Itapemirim": 0,
-            "Cariacica": 0,
-            "Castelo": 0,
-            "Colatina": 0,
-            "Divino de São Lourenço": 0,
-            "Domingos Martins": 0,
-            "Dores do Rio Preto": 0,
-            "Ecoporanga": 0,
-            "Fundão": 0,
-            "Governador Lindenberg": 0,
-            "Guaçuí": 0,
-            "Ibatiba": 0,
-            "Ibiporã": 500,
-            "Iconha": 0,
-            "Itaguaçu": 0,
-            "Itapemirim": 0,
-            "Itarana": 0,
-            "Jaguaré": 1000,
-            "Jerônimo Monteiro": 0,
-            "João Neiva": 0,
-            "Laranja da Terra": 0,
-            "Linhares": 2000,
-            "Mantenópolis": 0,
-            "Marataízes": 0,
-            "Marechal Floriano": 0,
-            "Monjolos": 0,
-            "Nova Venécia": 0,
-            "Pancas": 0,
-            "Pedro Canário": 0,
-            "Pinheiros": 0,
-            "Piúma": 0,
-            "Rio Bananal": 0,
-            "Santa Teresa": 0,
-            "Santa Maria de Jetibá": 0,
-            "São Domingos do Norte": 0,
-            "São Gabriel da Palha": 0,
-            "São José do Calçado": 0,
-            "São Mateus": 0,
-            "São Roque do Canaã": 10,
-            "Serra": 0,
-            "Silva Jardim": 0,
-            "Vargem Alta": 0,
-            "Vila Pavão": 0,
-            "Vila Velha": 0,
-            "Vitória": 0
-            // Adicione os furtos de cada município aqui
+    function menorMunicipioFurtosNumeroPorcentagem() {
+        fetch(`/dashboards/menosFurtoMunicipioPorcentagem`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+                    const municipioMenorDadosElemento = document.getElementById('kpiMunicipioComMenosFurtoDados');
+                    municipioMenorDadosElemento.innerHTML += `${resposta[0].numero_furtos} - ${resposta[0].porcentagem_furtos}%`
+
+                });
+            } else {
+                console.error('Erro no menorMunicipioFurtosNumeroPorcentagem');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ KPI: ${error.message}`);
+            });
+    }
+
+    function furtorPor1kilometro() {
+        fetch(`/dashboards/furtosPor1kilometro`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+                    const municipioMenorDadosElemento = document.getElementById('kpiFurtosPor1k');
+                    municipioMenorDadosElemento.innerHTML += `${resposta[0].furtos_por_km2}`
+
+                });
+            } else {
+                console.error('Erro no furtorPor1kilometro');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ KPI: ${error.message}`);
+            });
+    }
+
+    function objetosRoubados() {
+        fetch(`/dashboards/objetosMaisRoubados`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+                    const container = document.querySelector('.cgk-kpi-obj-imgs');
+                    container.innerHTML = '';
+                    var contador = 1;
+
+                    resposta.forEach((objeto, index) => {
+
+                        const divOrdem = document.createElement('div');
+                        divOrdem.classList.add('cgk-kpi-obj-ordem');
+
+                        const img = document.createElement('img');
+                        img.src = `assets/${objeto.tipo_objeto.toLowerCase()}.png`;
+                        img.alt = objeto.tipo_objeto;
+
+                        const h1 = document.createElement('h1');
+                        h1.innerHTML = `${contador++}º - ${objeto.numero_furtos}`;
+
+                        const span = document.createElement('span');
+                        span.innerHTML = objeto.tipo_objeto;
+
+                        divOrdem.appendChild(img);
+                        divOrdem.appendChild(h1);
+                        divOrdem.appendChild(span);
+
+                        container.appendChild(divOrdem);
+                    });
+
+                });
+            } else {
+                console.error('Erro no furtorPor1kilometro');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ KPI: ${error.message}`);
+            });
+    }
+
+
+    function fetchNumeroFurtosPorDiaSemana() {
+
+        Promise.all([
+            fetch('/dashboards/diaSemanaGraficos', { cache: 'no-store' }).then(response => response.json()),
+            fetch(`/dashboards/furtoSemanas`, { cache: 'no-store' }).then(response => response.json())
+        ])
+            .then(([diaSemanaGraficos, furtoSemanas]) => {
+                console.log('Dia da Semana Gráficos:', diaSemanaGraficos);
+                console.log('Furtos Semanas:', furtoSemanas);
+
+                plotar(diaSemanaGraficos, furtoSemanas);
+            })
+            .catch(error => console.error(`Erro na obtenção dos dados: ${error.message}`));
+    }
+
+    function fetchMesesComMaisFurto() {
+        Promise.all([
+            fetch('/dashboards/mesesGraficos', { cache: 'no-store' }).then(response => response.json()),
+            fetch(`/dashboards/furtosMeses`, { cache: 'no-store' }).then(response => response.json())
+        ])
+            .then(([mesesGraficos, furtosMeses]) => {
+                console.log('7 Meses Gráficos:', mesesGraficos);
+                console.log('Furtos meses:', furtosMeses);
+
+                plotar2(mesesGraficos, furtosMeses);
+            })
+            .catch(error => console.error(`Erro na obtenção dos dados: ${error.message}`));
+    }
+
+
+    function plotar(diaSemanaGraficos, furtoSemanas) {
+        const grafico_periodo = document.getElementById('grafico_periodo');
+
+        const traducaoDiaSemana = {
+            Sunday: 'Dom',
+            Monday: 'Seg',
+            Tuesday: 'Ter',
+            Wednesday: 'Qua',
+            Thursday: 'Qui',
+            Friday: 'Sex',
+            Saturday: 'Sab'
         };
 
-        // Carregar os limites dos municípios do Espírito Santo usando o GeoJSON
-        fetch('../ES_Municipios_2022.json') // Substitua pelo caminho correto do GeoJSON
-            .then(response => response.json()) // Espera a resposta do fetch e converte para JSON
-            .then(data => {
-                // Adiciona o GeoJSON ao mapa
-                L.geoJSON(data, {
-                    style: function (feature) {
-                        var municipio = feature.properties.NM_MUN; // Nome do município no GeoJSON
-                        var furtos = furtosPorMunicipio[municipio] || 0; // Número de furtos do município, ou 0 se não houver
+        const diaLabels = diaSemanaGraficos.map(dia => traducaoDiaSemana[dia.dia_semana]);
+        const furtos = furtoSemanas.map(dia => dia.numero_furtos);
 
-                        // Definir a cor com base no número de furtos
-                        if (furtos >= 2000) {
-                            return { fillColor: 'red', color: 'blue', weight: 1, fillOpacity: 0.7 }; // Alta incidência de furtos
-                        } else if (furtos >= 1000) {
-                            return { fillColor: 'orange', color: 'blue', weight: 1, fillOpacity: 0.7 }; // Média incidência de furtos
-                        } else if (furtos >= 100) {
-                            return { fillColor: 'yellow', color: 'blue', weight: 1, fillOpacity: 0.7 }; // Baixa incidência de furtos
-                        } else {
-                            return { fillColor: 'green', color: 'blue', weight: 1, fillOpacity: 0.7 }; // Poucos furtos
+        Chart.defaults.color = '#23005B';
+        //Chart.defaults.borderColor = 'white';
+
+        new Chart(grafico_periodo, {
+            type: 'bar',
+            data: {
+                labels: diaLabels,
+                datasets: [{
+                    label: 'Furtos',
+                    data: furtos,
+                    backgroundColor: '#5321CA',
+                    borderRadius: 17
+                }]
+            },
+            options: {
+                responsive: false,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            color: '#979699'
+                        },
+                        grid: {
+                            display: true,
+                            color: 'rgba(128, 128, 128, 0.2)'
                         }
                     },
-                    onEachFeature: function (feature, layer) { // Adiciona um evento para cada recurso (município)
-                        layer.on({
-                            mouseover: function (e) { // Evento de mouse sobre o município
-                                var layer = e.target; // Camada atual do evento
-                                var municipio = feature.properties.NM_MUN; // Nome do município
-                                var furtos = furtosPorMunicipio[municipio] || 0; // Número de furtos
-                                // Cria conteúdo do popup
-                                var popupContent = "<b>" + municipio + "</b><br>Furtos: " + furtos;
-                                layer.bindPopup(popupContent).openPopup(); // Cria e abre o popup
-                            }
-                        });
+                    x: {
+                        ticks: {
+                            color: '#979699'
+                        },
+                        grid: {
+                            display: false
+                        }
                     }
-                }).addTo(map); // Adiciona o GeoJSON ao mapa
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                barPercentage: 0.4
+            }
+        });
+    }
+    function plotar2(mesesGraficos, furtosMeses) {
+        const traducaoDosMeses = {
+            January: 'Jan',
+            February: 'Fev',
+            March: 'Mar',
+            April: 'Abr',
+            May: 'Mai',
+            June: 'Jun',
+            July: 'Jul',
+            August: 'Ago',
+            September: 'Set',
+            October: 'Out',
+            November: 'Nov',
+            December: 'Dez'
+        };
+        const mesesLabels = mesesGraficos.map(mes => traducaoDosMeses[mes.nome_mes]);
+        const furtosDate = furtosMeses.map(furtos => furtos.total_furtos);
+        const grafico_meses = document.getElementById('grafico_meses');
+
+        new Chart(grafico_meses, {
+            type: 'bar',
+            data: {
+                labels: mesesLabels,
+                datasets: [{
+                    label: 'Furtos',
+                    data: furtosDate,
+                    backgroundColor: '#5321CA',
+                    borderRadius: 17
+                }]
+            },
+            options: {
+                responsive: false,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            color: '#979699'
+                        },
+                        grid: {
+                            display: true,
+                            color: 'rgba(128, 128, 128, 0.2)'
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            color: '#979699'
+                        },
+                        grid: {
+                            display: false
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                barPercentage: 0.4
+            }
+        });
+    }
+
+    function gerarRecomendacao(){
+        const recomendacaoDiv = document.querySelector('.recomendacao');
+        let cgk_grafico_IA_textoDIv = document.querySelector('.cgk-grafico-IA-texto');
+        let cgk_grafico_IA = document.querySelector('.cgk-grafico-IA');
+ 
+        recomendacaoDiv.style.display = 'none';  
+        cgk_grafico_IA_textoDIv.style.display = 'flex';
+        cgk_grafico_IA.style.justifyContent = 'center'; 
+    }
+
+    function voltarCard(){
+    const recomendacaoDiv = document.querySelector('.recomendacao');
+    let cgk_grafico_IA_textoDIv = document.querySelector('.cgk-grafico-IA-texto');
+    let cgk_grafico_IA = document.querySelector('.cgk-grafico-IA');
+
+    cgk_grafico_IA_textoDIv.style.display = 'none';  
+    recomendacaoDiv.style.display = 'flex'; 
+    cgk_grafico_IA.style.justifyContent = '';
+    }
+
+
+
+    var bounds = [
+    [-21.469103, -41.684086], // Sudoeste do Espírito Santo (limite com o Rio de Janeiro)
+    [-17.826600, -39.978290]  // Nordeste do Espírito Santo (próximo ao limite com a Bahia)
+];
+
+// Criar o mapa Leaflet focado no Espírito Santo
+var map = L.map('map', {
+    maxBounds: bounds,
+    minZoom: 4.5,
+    maxZoom: 8,
+    zoomSnap: 0.5
+}).fitBounds(bounds);
+
+// Adicionar o fundo branco para as áreas fora do Espírito Santo
+L.rectangle([[-90, -180], [90, 180]], { color: "#ffffff", weight: 0, fillOpacity: 1 }).addTo(map);
+
+// Adicionar o mapa base do OpenStreetMap
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+
+// Função para carregar os dados de furtos
+function carregarDadosFurtos() {
+    return fetch('/dashboards/listartMunicipios')
+        .then(response => response.json())
+        .then(data => {
+            let furtosPorMunicipio = {};
+            data.forEach(municipio => {
+                furtosPorMunicipio[municipio.municipio] = municipio.porcentagem_furtos;
             });
+            //console.log(furtosPorMunicipio);
+            return furtosPorMunicipio;
+        });
+}
+
+function carregarParametro() {
+    return fetch(`/dashboards/parametrosEmpresa/${idEMpresa}`, { cache: 'no-store' })
+        .then(response => response.json())
+        .then(resposta => {
+            if (resposta.length > 0) {
+
+                const parametro1 = document.querySelector('.indicadorRazoavel');
+                parametro1.innerHTML = `Razoável - até ${resposta[0].limite_baixo}%`
+
+                const parametro2 = document.querySelector('.indicadorAlerta');
+                parametro2.innerHTML = `Alerta - até ${resposta[0].limite_ok}%`
+
+                const parametro3 = document.querySelector('.indicadorCritico');
+                parametro3.innerHTML = `Crítico - maior que ${resposta[0].limite_ok}%`
+
+                return resposta[0];
+            }
+            throw new Error('Parâmetros não encontrados');
+        });
+}
+
+// Carregar o GeoJSON e os dados de furtos
+Promise.all([
+    carregarDadosFurtos(),
+    carregarParametro(),
+    fetch('../ES_Municipios_2022.json').then(response => response.json())
+])
+    
+    .then(([furtosPorMunicipio, parametros, geoJsonData]) => {
+        console.log(parametros.limite_alto);
+        console.log(parametros.limite_ok);
+        console.log(parametros.limite_baixo);
+        // Adicionar o GeoJSON ao mapa com base nos parâmetros
+        L.geoJSON(geoJsonData, {
+            style: function (feature) {
+                var municipioGeoJson = feature.properties.NM_MUN.toUpperCase().trim(); // Nome no GeoJSON
+                var porcentagemFurtos = furtosPorMunicipio[municipioGeoJson] || 0; // Porcentagem de furtos do município ou 0
+                
+
+
+                // Definir as cores com base nos parâmetros
+                if (porcentagemFurtos >= parametros.limite_alto) {
+                    return { fillColor: 'red', color: 'blue', weight: 1, fillOpacity: 0.7 };
+                } else if (porcentagemFurtos > parametros.limite_baixo && porcentagemFurtos <= parametros.limite_ok) {
+                    return { fillColor: 'orange', color: 'blue', weight: 1, fillOpacity: 0.7 };
+                } else {
+                    return { fillColor: 'green', color: 'blue', weight: 1, fillOpacity: 0.7 };
+                }
+            },
+            onEachFeature: function (feature, layer) {
+                layer.on({
+                    mouseover: function (e) {
+                        var layer = e.target;
+                        var municipioGeoJson = feature.properties.NM_MUN.toUpperCase().trim();
+                        var porcentagemFurtos = furtosPorMunicipio[municipioGeoJson] || 0;
+
+                        // Mostrar a porcentagem de furtos no popup
+                        var popupContent = `<b>${feature.properties.NM_MUN}</b><br>Porcentagem de furto: ${porcentagemFurtos}`;
+                        layer.bindPopup(popupContent).openPopup();
+                    }
+                });
+            }
+        }).addTo(map);
+    })
+    .catch(error => {
+        console.error(`Erro na configuração do mapa: ${error.message}`);
+    });
 </script>
