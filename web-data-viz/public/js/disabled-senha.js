@@ -5,3 +5,4 @@ function verSenha(inputId, imgElement) {
     imgElement.src = isPasswordVisible ? "assets/olho.png" : "assets/olho-fechado.png";
     imgElement.alt = isPasswordVisible ? "Mostrar senha" : "Ocultar senha";
 }
+
