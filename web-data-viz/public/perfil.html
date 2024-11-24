@@ -248,6 +248,25 @@
         let telefoneVar = document.getElementById("telefone").value;
         let idUser = sessionStorage.getItem("ID_USUARIO");
 
+
+        if (!emailVar || !senhaVar || !confirmarSenhaVar || !telefoneVar || !senhaAntigaVar) {
+            Swal.fire("Atenção", "Preencha todos os campos obrigatórios!", "warning");
+            return false;
+        }
+
+        const emailRegex = /^[^\s@]+@gmail\.com$/;
+        if (!emailRegex.test(emailVar)) {
+            Swal.fire("Atenção", "E-mail inválido! Use um e-mail com domínio @gmail.com.", "warning");
+            return false;
+        }
+
+        const telefoneRegex = /^\d+$/;
+        if (!telefoneRegex.test(telefoneVar) || telefoneVar.length <  10) {
+            Swal.fire("Atenção", "Telefone inválido! Deve conter no mínimo 11 números.", "warning");
+            return false;
+        }
+
+ 
         if (senhaVar !== confirmarSenhaVar) {
             Swal.fire("Atenção", "As senhas não correspondem!", "warning");
             return false;
@@ -261,8 +280,6 @@
 
 
                    if(resposta[0].senha == senhaAntigaVar){
-
-                    alert(senhaAntigaVar)
 
                     fetch(`/usuarios/atualizarUsuario/${idUser}`, {
                         method: "PUT",
@@ -285,26 +302,25 @@
                                         window.location.href = "login.html";
                                     });
                             }
-
                         })
                         .catch(function (error) {
                             console.error(`Erro na exclusão da conta: ${error.message}`);
                         });
 
-
                    }else{
-                    alert('SENHA ERRADA')
-                    alert(senhaAntigaVar)
+                    Swal.fire("Atenção", "Erro ao editar perfil", "error");
                    }
 
 
                 });
             } else {
                 console.error('Erro ao verificar senha');
+                Swal.fire("Atenção", "Erro ao verificar senha!", "warning");
             }
         })
             .catch(function (error) {
                 console.error(`Erro na obtenção dos dados p/ KPI: ${error.message}`);
+                Swal.fire("Atenção", "Erro na obtenção dos dados!", "warning");
             });
 
     }
