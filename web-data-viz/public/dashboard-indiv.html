@@ -169,7 +169,7 @@
     }
 
     function furtorNoMunicipio() {
-        fetch(`/empresas/furtosIndi/${municipio}`, { cache: 'no-store' }).then(function (response) {
+        fetch(`/dashboards/furtosIndi/${municipio}`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (resposta) {
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
@@ -187,7 +187,7 @@
     }
 
     function objetosRoubados() {
-        fetch(`/empresas/objetosMaisRoubadosIndi/${municipio}`, { cache: 'no-store' }).then(function (response) {
+        fetch(`/dashboards/objetosMaisRoubadosIndi/${municipio}`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (resposta) {
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
@@ -230,7 +230,7 @@
 
 
     function porcentagemFurto() {
-        fetch(`/empresas/porcentualFurtos/${municipio}`, { cache: 'no-store' }).then(function (response) {
+        fetch(`/dashboards/porcentualFurtos/${municipio}`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (resposta) {
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
@@ -277,8 +277,8 @@
     function fetchNumeroFurtosPorDiaSemana() {
 
         Promise.all([
-            fetch('/empresas/diaSemanaGraficos', { cache: 'no-store' }).then(response => response.json()),
-            fetch(`/empresas/furtosSemanasUnica/${municipio}`, { cache: 'no-store' }).then(response => response.json()),
+            fetch('/dashboards/diaSemanaGraficos', { cache: 'no-store' }).then(response => response.json()),
+            fetch(`/dashboards/furtosSemanasUnica/${municipio}`, { cache: 'no-store' }).then(response => response.json()),
 
         ])
             .then(([diaSemanaGraficos, furtosSemanasUnica]) => {
@@ -294,8 +294,8 @@
     function fetchMesesComMaisFurto() {
 
         Promise.all([
-        fetch('/empresas/mesesGraficos', { cache: 'no-store' }).then(response => response.json()),
-        fetch(`/empresas/furtosMesesUnica/${municipio}`, { cache: 'no-store' }).then(response => response.json()),
+        fetch('/dashboards/mesesGraficos', { cache: 'no-store' }).then(response => response.json()),
+        fetch(`/dashboards/furtosMesesUnica/${municipio}`, { cache: 'no-store' }).then(response => response.json()),
 
         ])
             .then(([mesesGraficos, furtosMesesUnica]) => {
