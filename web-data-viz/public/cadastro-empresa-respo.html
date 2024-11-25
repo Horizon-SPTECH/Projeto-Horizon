@@ -7,6 +7,8 @@
     <title>Cadastro - Funcionário</title>
     <link rel="icon" href="assets/group11.png" />
     <link rel="stylesheet" href="css/cadastros.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </head>
 
 <body>
@@ -142,35 +144,71 @@
     let listaEmpresasCadastradas = [];
 
     function cadastrar() {
-        var nomeVar      = input_nome.value;
-        var cpfVar       = input_cpf.value;
-        var telefoneVar  = input_telefone.value;
-        var emailVar     = input_email.value;
-        var senhaVar     = input_senha.value;
-        var confSenhaVar = input_conf_senha.value;
-        let regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        let regexSenha = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-zA-Z]).{6,}$/;
+    var nomeVar      = input_nome.value;
+    var cpfVar       = input_cpf.value;
+    var telefoneVar  = input_telefone.value;
+    var emailVar     = input_email.value;
+    var senhaVar     = input_senha.value;
+    var confSenhaVar = input_conf_senha.value;
 
-        var nomeEmpresaVar     = input_nome_empresa.value;
-        var cnpjEmpresaVar     = input_cnpj.value;
-        var cepEmpresaVar      = input_cep.value;
-        var enderecoEmpresaVar = input_endereco.value;
-        var numeroEmpresaVar   = input_numero.value;
+    let regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    let regexSenha = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-zA-Z]).{6,}$/;
 
-        if(nomeVar == "") {
-            console.log("Nome invalido")
-        } else if(cpfVar == "" || cpfVar.length != 11 || isNaN(cpfVar)) {
-            console.log("CPF invalido")
-        } else if(telefoneVar == "" || telefoneVar.length != 11  || isNaN(telefoneVar)) {
-            console.log("Telefone invalido")
-        } else if(!regexEmail.test(emailVar)) {
-            console.log("Email invalido")
-        } else if(!regexSenha.test(senhaVar)) {
-            console.log("Senha invalido")
-        } else if(confSenhaVar != senhaVar) {
-            console.log("A confirmacao de senha nao e igual a senha")
-        } else {
-            fetch("/usuarios/cadastrar", {
+    var nomeEmpresaVar     = input_nome_empresa.value;
+    var cnpjEmpresaVar     = input_cnpj.value;
+    var cepEmpresaVar      = input_cep.value;
+    var enderecoEmpresaVar = input_endereco.value;
+    var numeroEmpresaVar   = input_numero.value;
+
+    let mensagensErro = []; // Array para armazenar as mensagens de erro
+
+    // Validações
+    if (nomeVar == "") {
+        mensagensErro.push("Nome do responsável é obrigatório.");
+    }
+    if (cpfVar == "" || cpfVar.length != 11 || isNaN(cpfVar)) {
+        mensagensErro.push("CPF inválido.");
+    }
+    if (telefoneVar == "" || telefoneVar.length != 11 || isNaN(telefoneVar)) {
+        mensagensErro.push("Telefone inválido.");
+    }
+    if (!regexEmail.test(emailVar)) {
+        mensagensErro.push("Email inválido.");
+    }
+    if (!regexSenha.test(senhaVar)) {
+        mensagensErro.push("Senha inválida. A senha deve ter ao menos 6 caracteres, um número e um caractere especial.");
+    }
+    if (confSenhaVar != senhaVar) {
+        mensagensErro.push("A confirmação de senha não é igual à senha.");
+    }
+
+    if (nomeEmpresaVar == "") {
+        mensagensErro.push("Nome da empresa é obrigatório.");
+    }
+    if (cnpjEmpresaVar == "" || cnpjEmpresaVar.length != 14 || isNaN(cnpjEmpresaVar)) {
+        mensagensErro.push("CNPJ inválido.");
+    }
+    if (cepEmpresaVar == "" || cepEmpresaVar.length != 8 || isNaN(cepEmpresaVar)) {
+        mensagensErro.push("CEP inválido.");
+    }
+    if (enderecoEmpresaVar == "") {
+        mensagensErro.push("Endereço da empresa é obrigatório.");
+    }
+    if (numeroEmpresaVar == "" || isNaN(numeroEmpresaVar)) {
+        mensagensErro.push("Número do endereço inválido.");
+    }
+
+    // Se houver mensagens de erro, exibe um modal com todas elas
+    if (mensagensErro.length > 0) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Validações não atendidas',
+            html: mensagensErro.join('<br>'), // Exibe todas as mensagens em uma lista
+            confirmButtonText: 'OK'
+        });
+    } else {
+        // Caso não haja erro, envia os dados ao servidor
+        fetch("/usuarios/cadastrar", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -188,21 +226,43 @@
                 senhaServer:           senhaVar,
                 confSenhaServer:       confSenhaVar
             }),
-            })
-            .then(function (resposta) {
-                console.log("resposta: ", resposta);
+        })
+        .then(async function (resposta) {
+            console.log("resposta: ", resposta);
 
-                if (resposta.ok) {
-                    setTimeout(() => {
-                        window.location = "dashboard.html";
-                    }, "2000");
-                } else {
-                    throw "Houve um erro ao tentar realizar o cadastro!";
-                }
-            })
-            .catch(function (resposta) {
-                console.log(`#ERRO: ${resposta}`);
+            if (resposta.ok) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Cadastro realizado com sucesso!',
+                    confirmButtonText: 'OK'
+                }).then(() => {
+                    window.location = "dashboard.html"; // Redireciona após sucesso
+                });
+            } else if (resposta.status === 409) {
+                // Erro de duplicidade
+                const mensagemErro = await resposta.text();
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erro de duplicidade',
+                    text: mensagemErro,
+                    confirmButtonText: 'OK'
+                });
+                window.location = "cadastro-empresa-respo.html";
+            } else {
+                throw new Error("Houve um erro ao tentar realizar o cadastro.");
+            }
+        })
+        .catch(function (erro) {
+            console.error(`#ERRO: ${erro.message}`);
+            Swal.fire({
+                icon: 'error',
+                title: 'Erro inesperado',
+                text: "Ocorreu um erro inesperado. Por favor, tente novamente mais tarde.",
+                confirmButtonText: 'OK'
             });
-        }
+        });
     }
+}
+
+
 </script>

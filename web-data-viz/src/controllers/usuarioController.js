@@ -1,4 +1,5 @@
 var usuarioModel = require("../models/usuarioModel");
+var database = require("../database/config")
 
 function autenticar(req, res) {
     var email = req.body.emailServer;
@@ -51,6 +52,7 @@ function autenticar(req, res) {
 }
 
 function cadastrar(req, res) {
+    
     var nomeEmpresa     = req.body.nomeEmpresaServer;
     var cnpjEmpresa     = req.body.cnpjEmpresaServer;
     var cepEmpresa      = req.body.cepEmpresaServer;
@@ -91,22 +93,51 @@ function cadastrar(req, res) {
 
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
         usuarioModel.cadastrar(nomeEmpresa, cnpjEmpresa, cepEmpresa, enderecoEmpresa, numeroEmpresa, nome, cpf, telefone, email, senha, confSenha)
-            .then(
-                function (resultado) {
-                    res.json(resultado);
-                }
-            ).catch(
-                function (erro) {
-                    console.log(erro);
-                    console.log(
-                        "\nHouve um erro ao realizar o cadastro! Erro: ",
-                        erro.sqlMessage
-                    );
+            .then(function (resultado) {
+                res.json(resultado);
+            }).catch(async function (erro) {
+                if (erro.code === "ER_DUP_ENTRY") {
+                    // Identificar qual campo causou o erro (baseado na mensagem SQL)
+                    const campoDuplicado = erro.sqlMessage.match(/for key '(.+?)'/)[1];
+                    let mensagemErro = "Erro: ";
+                    if (campoDuplicado.includes("cpf")) {
+                        // Verificar também o CNPJ
+                        const resultadoCnpj = await database.executar(`
+                            SELECT COUNT(*) AS duplicado 
+                            FROM empresa 
+                            WHERE cnpj = '${req.body.cnpjEmpresaServer}'
+                        `);
+
+                        if (resultadoCnpj[0].duplicado > 0) {
+                            mensagemErro += "CNPJ e CPF já cadastrados.";
+                        } else {
+                            mensagemErro += "CPF já cadastrado.";
+                        }
+                    } else if (campoDuplicado.includes("cnpj")) {
+                        // Verificar também o CPF
+                        const resultadoCpf = await database.executar(`
+                            SELECT COUNT(*) AS duplicado 
+                            FROM usuario 
+                            WHERE cpf = '${req.body.cpfServer}'
+                        `);
+
+                        if (resultadoCpf[0].duplicado > 0) {
+                            mensagemErro += "CNPJ e CPF já cadastrados.";
+                        } else {
+                            mensagemErro += "CNPJ já cadastrado.";
+                        }
+                    } else {
+                        mensagemErro += "Email já cadastrado";
+                    }
+                    res.status(409).send(mensagemErro); // 409 -> Conflito
+                } else {
+                    console.error("\nHouve um erro ao realizar o cadastro! Erro: ", erro.sqlMessage);
                     res.status(500).json(erro.sqlMessage);
                 }
-            );
+            });
     }
 }
+
 
 module.exports = {
     autenticar,
