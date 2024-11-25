@@ -151,6 +151,12 @@
         let regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         let regexSenha = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-zA-Z]).{6,}$/;
 
+        var nomeEmpresaVar     = input_nome_empresa.value;
+        var cnpjEmpresaVar     = input_cnpj.value;
+        var cepEmpresaVar      = input_cep.value;
+        var enderecoEmpresaVar = input_endereco.value;
+        var numeroEmpresaVar   = input_numero.value;
+
         if(nomeVar == "") {
             console.log("Nome invalido")
         } else if(cpfVar == "" || cpfVar.length != 11 || isNaN(cpfVar)) {
