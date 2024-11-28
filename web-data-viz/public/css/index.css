@@ -142,9 +142,13 @@
         height: 50px;
         flex-direction: row;
     }
+    .navbar-botoes img {
+        width: 8.8vw;
+        height: auto;
+    }
 
     #navbar-id a {
-        font-size: 16px;
+        font-size: 15px;
     }
 
     .navbar-cadastro button {
@@ -156,7 +160,7 @@
     .textoInicial {
         width: 90%;
         top: 40%; 
-        left: 5%;
+        left: 10%;
     }
 
     .texto {
@@ -169,21 +173,32 @@
         top: 78%;
         right: 30%;
         font-size: 20px;
+        margin-left: 20%;
     }
 
     .horizon {
-        left: 5%;
+        left: 10%;
     }
+    #navbar-id {
+    display: flex;
+    align-items: center;
+    gap: 1vh;
+}
+.navbar-ul {
+    display: flex;
+    gap: 2vh;
+}
+
+
 }
 
 @media (max-width: 480px) {
     .texto {
-        font-size: 36px;
+        font-size: 33px;
     }
 
     .navbar-cadastro button, .btnContato {
-        width: 80%;
-        font-size: 18px;
+        font-size: 16px;
     }
 }
 

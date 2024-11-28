@@ -50,4 +50,8 @@ router.get("/verificarSenha/:idUsuario", function (req, res) {
     usuarioController.verificarSenha(req, res);
 });
 
+router.post("/cadastrarRespo", function (req, res) {
+    usuarioController.cadastrarRespo(req, res);
+})
+
 module.exports = router;

@@ -95,10 +95,12 @@
         let nomeVar = document.getElementById("nome").value.trim();
         let senhaVar = document.getElementById("senha").value;
         let confirmarSenhaVar = document.getElementById("confirmar-senha").value;
-        let telefoneVar = document.getElementById("telefone").value;
+        let telefoneLimpo = document.getElementById("telefone").value.replaceAll("-", "").replaceAll(" ","");
+        let telefoneVar = telefoneLimpo;
         let idEmpresa = sessionStorage.getItem("ID_EMPRESA");
         let tipoUsuarioVar = document.getElementById("select-funcionario").value.trim();
-        let cpfVar = document.getElementById("cpf").value.trim();
+        let cpfLimpo = document.getElementById("cpf").value.trim().replaceAll(".","").replaceAll("-","");
+        let cpfVar = cpfLimpo
 
 
         if (!nomeVar || !emailVar || !senhaVar || !confirmarSenhaVar || !telefoneVar || !cpfVar || !tipoUsuarioVar) {

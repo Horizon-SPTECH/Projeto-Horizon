@@ -187,6 +187,62 @@ function verificarSenha(idUsuario) {
     return database.executar(instrucaoSql);
 }
 
+function cadastrarRespo(nomeEmpresa, cnpj, cep, enderecoEmpresa,complementoEmpresa,bairroEmpresa,cidadeEmpresa,estadoEmpresa, numeroEmpresa, nome, cpf, telefone, email, senha) {
+    var instrucaoEndereco = `
+        INSERT INTO endereco (logradouro, numero, complemento, bairro, cidade, estado, cep) 
+        VALUES ('${enderecoEmpresa}', '${numeroEmpresa}', '${complementoEmpresa}', '${bairroEmpresa}', '${cidadeEmpresa}', '${estadoEmpresa}', '${cep}');
+    `;
+
+        var instrucaoEmpresa = `
+        INSERT INTO empresa (nome, cnpj, ativo, id_tipo_empresa, id_endereco) 
+        SELECT '${nomeEmpresa}' AS nome, 
+               '${cnpj}' AS cnpj, 
+               1 AS ativo, 
+               MAX(tipo_empresa.id) AS id_tipo_empresa,
+               MAX(endereco.id) AS id_endereco
+        FROM tipo_empresa, endereco;
+    `;
+
+    var instrucaoUsuario = `
+        INSERT INTO usuario (nome, cpf, email, senha, ativo, id_tipo_usuario, id_empresa) 
+        SELECT '${nome}' AS nome, 
+               '${cpf}' AS cpf, 
+               '${email}' AS email, 
+               '${senha}' AS senha, 
+               1 AS ativo, 
+               2 AS id_tipo_usuario,
+               MAX(empresa.id) AS id_empresa
+        FROM empresa;
+    `;
+
+    var instrucaoTelefone = `
+        INSERT INTO telefone (numero, id_tipo_telefone, id_usuario) 
+        SELECT '${telefone}' AS numero,
+               1 AS id_tipo_telefone,
+               MAX(usuario.id) AS id_usuario
+        FROM usuario;
+    `;
+
+    console.log("Executando a instrução SQL para endereço: \n" + instrucaoEndereco);
+    return database.executar(instrucaoEndereco)
+        .then(() => {
+            console.log("Executando a instrução SQL para empresa: \n" + instrucaoEmpresa);
+            return database.executar(instrucaoEmpresa);
+        })
+        .then(() => {
+            console.log("Executando a instrução SQL para usuário: \n" + instrucaoUsuario);
+            return database.executar(instrucaoUsuario);
+        })
+        .then(() => {
+            console.log("Executando a instrução SQL para telefone: \n" + instrucaoTelefone);
+            return database.executar(instrucaoTelefone);
+        })
+        .catch((erro) => {
+            console.error("Erro ao executar as instruções SQL:", erro);
+            throw erro;
+        });
+}
+
 module.exports = {
     autenticar,
     cadastrar,
@@ -199,5 +255,6 @@ module.exports = {
     perfilUsuario,
     desativarFuncionario,
     atualizarUsuario,
-    verificarSenha
+    verificarSenha,
+    cadastrarRespo
 };
