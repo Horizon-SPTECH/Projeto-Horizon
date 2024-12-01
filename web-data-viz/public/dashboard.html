@@ -86,14 +86,14 @@
             <div class="container-graficos-kpis">
 
                 <div class="cgk-navbar">
-                    <span>Boas vindas Lucas Moura!</span>
+                    <span id="nomeApresentacao"></span>
                 </div>
 
                 <div class="cgk-mapa-kpi">
 
                     <div class="cgk-mapa">
                         <div class="cgk-mapa-titulo">
-                            <span>Regiões do Espírito Santo com mais furtos em porcentagem</span>
+                            <span>Regiões do Espírito Santo com base no percentual de furtos</span>
                         </div>
 
                         <div class="cgk-mapa-infos">
@@ -223,6 +223,11 @@
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
 <script>
+
+    let nome = sessionStorage.getItem("NOME");
+
+    let spamNome = document.querySelector("#nomeApresentacao");
+    spamNome.innerHTML = `Boas vindas ${nome}!`
 
 
     let Idtipo = sessionStorage.getItem("ID_TIPO");
@@ -644,7 +649,7 @@ Promise.all([
 
 
                 // Definir as cores com base nos parâmetros
-                if (porcentagemFurtos >= parametros.limite_alto) {
+                if (porcentagemFurtos >= parametros.limite_ok) {
                     return { fillColor: 'red', color: 'blue', weight: 1, fillOpacity: 0.7 };
                 } else if (porcentagemFurtos > parametros.limite_baixo && porcentagemFurtos <= parametros.limite_ok) {
                     return { fillColor: 'orange', color: 'blue', weight: 1, fillOpacity: 0.7 };

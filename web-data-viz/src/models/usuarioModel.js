@@ -203,6 +203,12 @@ function cadastrarRespo(nomeEmpresa, cnpj, cep, enderecoEmpresa,complementoEmpre
         FROM tipo_empresa, endereco;
     `;
 
+    var instrucaoParametro = `
+    INSERT INTO parametro (limite_baixo, limite_ok, limite_alto, data_atualizacao, id_empresa)
+    VALUES (2, 6, 100, CURDATE(), (SELECT MAX(id) FROM empresa));
+
+`;
+
     var instrucaoUsuario = `
         INSERT INTO usuario (nome, cpf, email, senha, ativo, id_tipo_usuario, id_empresa) 
         SELECT '${nome}' AS nome, 
@@ -228,6 +234,10 @@ function cadastrarRespo(nomeEmpresa, cnpj, cep, enderecoEmpresa,complementoEmpre
         .then(() => {
             console.log("Executando a instrução SQL para empresa: \n" + instrucaoEmpresa);
             return database.executar(instrucaoEmpresa);
+        })
+        .then(() => {
+            console.log("Executando a instrução SQL para parametros: \n" + instrucaoParametro);
+            return database.executar(instrucaoParametro);
         })
         .then(() => {
             console.log("Executando a instrução SQL para usuário: \n" + instrucaoUsuario);
