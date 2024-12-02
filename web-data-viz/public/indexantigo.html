@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horizon</title>
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="shortcut icon" href="assets/group11.png" type="image/x-icon">
+</head>
+<body>
+    <header>
+            <div class="container">
+                <div class="navbar">
+                    <div class="navbar-botoes" id="navbar-id">
+                        <img src="assets/group11.png" alt="">
+                        <ul class="navbar-ul">
+                            <a href="sobre.html">Sobre</a>
+                            <a href="solucoes.html">Soluções</a>
+                        </ul>
+                    </div>
+    
+                    <div class="navbar-cadastro" id="navbar-id">
+                        <ul>
+                            <a href="login.html">Login</a>
+                        </ul>
+    
+                        <button onclick="entrarContato()">
+                            Contato
+                        </button>
+                    </div>
+                </div>
+    
+
+                <span class="horizon">HORIZON</span>
+
+                <div class="textoInicial">
+                    <span class="texto">Uma plataforma de <span class="palavra">análise</span> de <span class="palavra"><span class="palavra">segurança</span> </span> inteligente</span>
+                    
+                </div>
+
+                <button onclick="clicar()" id="solucoes" class="btnSolucao">Ver soluções</button>
+            </div>
+
+            
+    </header>
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section about">
+                <h2>HORIZON</h2>
+                <p>Uma plataforma de análise de segurança inteligente. Otimizamos recursos policiais e fornecemos insights estratégicos para ajudar na segurança pública.</p>
+            </div>
+            
+            <div class="footer-section links">
+                <h2>Links</h2>
+                <ul>
+                    <li><a href="sobre.html">Sobre</a></li>
+                    <li><a href="solucoes.html">Soluções</a></li>
+                    <li><a href="contato.html">Contato</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section contact">
+                <h2>Contato</h2>
+                <p>Email: contato@horizon.com</p>
+                <p>Telefone: (11) 1234-5678</p>
+                <p>Endereço: Rua Exemplo, 123 - São Paulo, SP</p>
+            </div>
+        </div>
+    
+        <div class="footer-bottom">
+            &copy; 2024 Horizon | Todos os direitos reservados
+        </div>
+    </footer>
+    
+</body>
+</html>
+<script src="script.js"></script>
+<script>
+    function clicar() {
+        window.location.href = "solucoes.html"
+    }
+    function entrarContato(){
+        window.location.href = "contato.html";
+    }
+</script>
