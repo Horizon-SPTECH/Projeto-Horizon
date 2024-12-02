@@ -9,14 +9,27 @@
     <link rel="shortcut icon" href="assets/group11.png" type="image/x-icon">
 </head>
 <body>
-    <header>
+
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horizon</title>
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="shortcut icon" href="assets/group11.png" type="image/x-icon">
+</head>
+<body>
+    
             <div class="container">
                 <div class="navbar">
                     <div class="navbar-botoes" id="navbar-id">
                         <img src="assets/group11.png" alt="">
                         <ul class="navbar-ul">
-                            <a href="sobre.html">Sobre</a>
-                            <a href="solucoes.html">Soluções</a>
+                            <a href="#sobre">Sobre</a>
+                            <a href="#valores">Valores</a>
+                            <a href="#solucoes">Soluções</a>
                         </ul>
                     </div>
     
@@ -35,15 +48,175 @@
                 <span class="horizon">HORIZON</span>
 
                 <div class="textoInicial">
-                    <span class="texto">Uma plataforma de <span class="palavra">análise</span> de <span class="palavra"><span class="palavra">segurança</span> </span> inteligente</span>
+                    <span class="texto-inicio">Uma plataforma de <span class="palavra">análise</span> de <span class="palavra"><span class="palavra">segurança</span> </span> inteligente</span>
                     
                 </div>
 
-                <button onclick="clicar()" id="solucoes" class="btnSolucao">Ver soluções</button>
+                <!-- <button onclick="clicar()" id="solucoes" class="btnSolucao">Ver soluções</button> -->
+
+                
             </div>
 
             
-    </header>
+    
+
+    <div class="container-sobre">
+    <div class="sobreNos" id="sobre">
+            <div class="imagens" >
+                <img src="assets/espiritosanto.png">
+            </div>
+            <div class="texto">
+                <h1  class="titulo">O QUE SOMOS</h1>
+                <p>
+                    Somos uma plataforma de <span style="color:#07A30D">coleta</span> e <span
+                        style="color:#07A30D">análise</span> de dados de furtos no Espírito Santo, otimizando <span
+                        style="color:#07A30D">recursos</span> policiais e fornecendo insights estratégicos.
+                </p>
+            </div>
+        </div>
+
+
+        <div class="valores" id="valores">
+            <div class="header-valores">
+                <div class="texto-valores">
+                    NOSSOS VALORES
+                </div>
+                <img src="assets/linha nossos valores.png" class="imgLinha1">
+            </div>
+            <div class="cards-valores">
+                <div class="card">
+                    <img src="assets/praticidade-removebg-preview.png" alt="Ícone Praticidade" class="praticidade">
+                    <h3>Praticidade</h3>
+                    <p>Acreditamos que a eficiência e a facilidade de uso são cruciais. Nossa dashboard permite que
+                        qualquer usuário navegue facilmente pelas informações.</p>
+                </div>
+                <div class="card">
+                    <img src="assets/precisao-removebg-preview.png" alt="Ícone Precisão">
+                    <h3>Precisão</h3>
+                    <p>Nosso compromisso com a precisão começa com a coleta rigorosa dos dados. Utilizamos metodologias
+                        avançadas para garantir dados exatos.</p>
+                </div>
+                <div class="card">
+                    <img src="assets/transparencia-removebg-preview.png" alt="Ícone Transparência">
+                    <h3>Transparência</h3>
+                    <p>A transparência é essencial para nosso projeto, que usa dados públicos de roubo e furto,
+                        respeitando a privacidade e a segurança.</p>
+                </div>
+            </div>
+        </div>
+
+
+       
+
+        <div class="container-solucoes" id="solucoes">
+            <div class="titulo">
+                <div class="titulo_info">
+                    <span>UMA SOLUÇÃO IDEAL PARA</span>
+                    <spaN>PROBLEMAS DE FURTO</span>
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="content_info">
+                    <div class="content_info_text">
+                        <h1>Estruturação de dados</h1>
+                        <span>Problema: Falta de informações otimizadas</span>
+                    </div>
+                </div>
+
+                <div class="content_img">
+                    <img src="assets/Group 81.png" alt="">
+                    <div class="content_img_text">
+                        <span>TRATAMENTO E ANALISE</span>
+                        <span>DOS DADOS DE FURTO</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="content_info">
+                    <div class="content_info_text">
+                        <h1>Dashboard</h1>
+                        <span>Problema: Falta de segurança publica</span>
+                    </div>
+                </div>
+
+                <div class="content_img">
+                    <img src="assets/Group 82.png" alt="">
+                    <div class="content_img_text">
+                        <span>CRIAÇÃO DE UMA</span>
+                        <span>DASHBOARD PERSONALIZADA</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="content_info">
+                    <div class="content_info_text">
+                        <h1>Insights</h1>
+                        <span>Problema: Dificuldade na coordenação de tropas policiais</span>
+                    </div>
+                </div>
+
+                <div class="content_img">
+                    <img src="assets/Group 83.png" alt="">
+                    <div class="content_img_text">
+                        <span>RECOMENDAÇÕES A PARTIR</span>
+                        <span>DOS DADOS DE FURTO</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="equipe">
+            <div class="header-equipe">
+                <div class="texto-equipe">
+                    NOSSA EQUIPE
+                </div>
+                <img src="assets/linha nossos valores.png" class="imgLinha2">
+            </div>
+            <div class="cards-equipe">
+                <div class="card-equipe">
+                    <img src="assets/Integrantes/matheus.jpeg" class="icon-dev" />
+                    <h3>Matheus Oliveira</h3>
+                    <p>Front - End</p>
+                    <a href="https://www.linkedin.com/in/matheus-oliveira-tavora-8620b623b/">
+                        <img src="assets/linkedin-logo.png" class="linkedin" />
+                    </a>
+                </div>
+                <div class="card-equipe">
+                    <img src="assets/Integrantes/isabela.jpeg" class="icon-dev" />
+                    <h3>Isabela <br> Rosa</h3>
+                    <p>Front - End</p>
+                    <a href="https://www.linkedin.com/in/isabela-rosa-de-lima-4323b1323/">
+                        <img src="assets/linkedin-logo.png" class="linkedin" />
+                    </a>
+                </div>
+                <div class="card-equipe">
+                    <img src="assets/Integrantes/kauan.jpg" class="icon-dev" />
+                    <h3>Kauan Paschoal</h3>
+                    <p>Full - Stack</p>
+                    <a href="https://www.linkedin.com/in/kauan-paschoal/">
+                        <img src="assets/linkedin-logo.png" class="linkedin" />
+                    </a>
+                </div>
+                <div class="card-equipe">
+                    <img src="assets/Integrantes/igor.jpeg" class="icon-dev" />
+                    <h3>Igor <br> Daniel</h3>
+                    <p>Back - End</p>
+                    <a href="https://www.linkedin.com/in/igor-daniel-160a23187/">
+                        <img src="assets/linkedin-logo.png" class="linkedin" />
+                    </a>
+                </div>
+                <div class="card-equipe">
+                    <img src="assets/Integrantes/nogueira.jpeg" class="icon-dev" />
+                    <h3>Gabriel Nogueira</h3>
+                    <p>Back - End</p>
+                    <a href="https://www.linkedin.com/in/gabriel-nogueira-carvalho-427563264/">
+                        <img src="assets/linkedin-logo.png" class="linkedin" />
+                    </a>
+                </div>
+            </div>
+        </div>
     <footer>
         <div class="footer-content">
             <div class="footer-section about">
@@ -54,8 +227,8 @@
             <div class="footer-section links">
                 <h2>Links</h2>
                 <ul>
-                    <li><a href="sobre.html">Sobre</a></li>
-                    <li><a href="solucoes.html">Soluções</a></li>
+                    <li><a href="#sobre">Sobre</a></li>
+                    <li><a href="#solucoes">Soluções</a></li>
                     <li><a href="contato.html">Contato</a></li>
                 </ul>
             </div>
@@ -64,7 +237,7 @@
                 <h2>Contato</h2>
                 <p>Email: contato@horizon.com</p>
                 <p>Telefone: (11) 1234-5678</p>
-                <p>Endereço: Rua Exemplo, 123 - São Paulo, SP</p>
+                <p>Endereço: Rua Haddock Lobo, 595 - São Paulo, SP</p>
             </div>
         </div>
     
@@ -78,9 +251,11 @@
 <script src="script.js"></script>
 <script>
     function clicar() {
-        window.location.href = "solucoes.html"
+        window.location.href = "#solucoes"
     }
     function entrarContato(){
         window.location.href = "contato.html";
     }
 </script>
+
+</body>
