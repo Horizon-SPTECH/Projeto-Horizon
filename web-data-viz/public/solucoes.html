@@ -6,13 +6,13 @@
         <title>Horizon - Soluções</title>
         <link rel="stylesheet" href="css/solucoes.css">
         <link rel="stylesheet" href="css/footer.css">
-        <link rel="shortcut icon" href="assets/Group 11.png" type="image/x-icon">
+        <link rel="shortcut icon" href="assets/group11.png" type="image/x-icon">
     </head>
     
     <header>
         <div class="navbar">
             <div class="navbar-botoes" id="navbar-id">
-                <img src="assets/Group 11.png" alt="">
+                <img src="assets/group11.png" alt="">
                 <ul class="navbar-ul">
                     <a href="index.html">Inicio</a>
                     <a href="sobre.html">Sobre</a>
@@ -24,7 +24,7 @@
                     <a href="login.html">Login</a>
                 </ul>
 
-                <button>
+                <button onclick="entrarContato()">
                     Contato
                 </button>
             </div>
@@ -90,12 +90,6 @@
                     </div>
                 </div>
             </div>
-
-            <div class="content_footer">
-                <div class="content_info_footer">
-                    
-                </div>
-            </div>
         </div>
         <footer>
     <div class="footer-content">
@@ -121,9 +115,15 @@
         </div>
     </div>
 
-    <div class="footer-bottom">
+    <div class="footer-bottom2">
         &copy; 2024 Horizon | Todos os direitos reservados
     </div>
 </footer>
     </body>
+
+    <script>
+        function entrarContato(){
+            window.location.href = "contato.html";
+        }
+    </script>
 </html>

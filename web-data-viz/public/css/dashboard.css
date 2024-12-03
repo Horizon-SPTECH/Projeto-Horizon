@@ -56,7 +56,6 @@
     display: flex;
     justify-content: space-around;
     flex-direction: column;
-    gap: 9rem;
 }
 
 .cbl-botoes-barralateral {
@@ -334,6 +333,11 @@
     gap: 2rem;
 }
 
+#kpiFurtosPor1k{
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
 #cgk-graficos-id {
     width: 24vw;
     height: 100%;
@@ -348,11 +352,12 @@
     border-radius: 10px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
+    flex-direction: column;
 }
 
 .cgk-grafico-IA-texto {
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
     flex-direction: column;
@@ -388,4 +393,123 @@
     height: 80%;
     display: flex;
     margin-left: 1rem;
+}
+
+/* .dataTables_filter input {
+    width: 3000px; 
+    height: 35px; 
+    padding: 5px;
+    font-size: 16px;
+} */
+
+div.dt-container .dt-search input {
+    width: 68vw;
+    outline: none;
+    color: white !important;
+}
+
+
+label{
+    color: white;
+    font-weight: 500;
+}
+
+table{
+    color: white;
+}
+
+td{
+    padding: 20px;
+}
+
+table.dataTable > tbody > tr > td{
+    padding:20px
+}
+
+.barra-titulo-ia{
+    width:100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 0.6rem;
+}
+.titulo-ia{
+    color: #23005B;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.imagem-cerebro{
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    margin: 8px;
+}
+.img-cer{
+    width: 100px;
+}
+
+.fundo-btn{
+    width:100%;
+    display: flex;
+    justify-content: center;
+}
+
+.btn-ia{
+    background-color: #23005B;
+    color: #D0BEEB;
+    border-radius: 50px;
+    width: 50%;
+    height: 46px;
+    border: none;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+}
+.marca{
+    width: 100%;
+    display: flex;
+    height: 3px;
+    justify-content: center;
+    flex-direction: row;
+    align-items: flex-start;
+    margin-top: 0.5rem;
+}
+.marca img{
+    width: 53px;
+}
+.marca-spam{
+    font-size: 16px;
+    margin-right: 0.5rem;
+}
+
+.recomendacao{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.sair-IA{
+    width: 100%;
+    height: 66px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+.exit{
+    width: 37%;
+    height: 65px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+}
+.sair-IA span{
+    color: red;
+    font-size: 30px;
+    cursor: pointer;
 }

@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Horizon</title>
+    <link rel="shortcut icon" href="assets/group11.png" type="image/x-icon">
+    <link rel="stylesheet" href="css/perfil.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.5/dist/sweetalert2.all.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.5/dist/sweetalert2.min.css" rel="stylesheet">
+    <script src="js/block-screan.js"></script>
+    <script src="js/disabled-senha.js"></script>
+</head>
+
+<body onload="trazendoDadosUsuario(), acessar()">
+    <div class="background">
+
+        <div class="container">
+
+            <div class="container-barra-lateral">
+                <div class="cbl-logo">
+                    <img src="assets/group11.png" alt="">
+                </div>
+
+                <div class="cbl-botoes">
+
+                    <div class="cbl-botoes-barralateral">
+                        <a href="dashboard.html" class="bl-botao">
+                            <div class="bl-botao-filho">
+                                <img src="assets/casa.png" alt="">
+                                <span>Dashboard</span>
+                            </div>
+                        </a>
+                        <a href="dashboard-indiv.html" class="bl-botao">
+                            <div class="bl-botao-filho">
+                                <img src="assets/detalhe1.png" alt="">
+                                <span>Detalhes</span>
+                            </div>
+                        </a>
+
+                        <a href="perfil.html" class="bl-botao">
+                            <div class="bl-botao" id="bl-botao-inicio">
+                                <div class="bl-botao-filho">
+                                    <img src="assets/icon-user.png" alt="">
+                                    <span>Perfil</span>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a id="btn-empresa" href="empresa.html" class="bl-botao">
+                            <div class="bl-botao-filho">
+                                <img src="assets/icon-empresa.png" alt="">
+                                <span>Empresa</span>
+                            </div>
+                        </a>
+
+                        <a id="btn-funcionarios" href="lista-funcionario.html" class="bl-botao">
+                            <div class="bl-botao-filho">
+                                <img src="assets/icon-search.png" alt="">
+                                <span>Funcionários</span>
+                            </div>
+                        </a>
+                        <a id="btn-novo-user" href="cadastro-funcionario.html" class="bl-botao">
+                            <div class="bl-botao-filho">
+                                <img src="assets/add.png" alt="">
+                                <span>Novo usuário</span>
+                            </div>
+                        </a>
+                        <a id="btn-parametro" href="parametros.html" class="bl-botao">
+                            <div class="bl-botao-filho">
+                                <img src="assets/parameter.png" alt="">
+                                <span>Parametrização</span>
+                            </div>
+                        </a>
+
+                    </div>
+
+                    <a onclick="limparSession()" onclick="limparSession()" href="index.html" class="bl-botao">
+                        <div class="bl-botao-filho">
+                            <img src="assets/porta.png" alt="">
+                            <span>Sair</span>
+                        </div>
+                    </a>
+                </div>
+
+            </div>
+
+            <div class="container-graficos-kpis">
+
+                <div class="cgk-navbar">
+                    <span>Perfil do Usuário</span>
+                </div>
+
+                <div class="box-perfil">
+                    <div class="box-info">
+                        <div class="titulo-info">
+                            <span class="span-info">Informações</span>
+                        </div>
+                        <div class="box-input">
+                            <div class="label-input">
+                                <label class="label-info" for="nome">Nome:</label>
+                                <div class="input-wrapper">
+                                    <input class="input-info" id="nome" type="text" placeholder="" disabled>
+                                </div>
+                            </div>
+                            <div class="label-input">
+                                <label class="label-info" for="email">Email:</label>
+                                <div class="input-wrapper">
+                                    <input class="input-info" id="email" type="email" placeholder="usuario@gmal.com"
+                                        value="">
+                                </div>
+                            </div>
+                            <div class="label-input">
+                                <label class="label-info" for="cpf">CPF:</label>
+                                <div class="input-wrapper">
+                                    <input class="input-info" id="cpf" type="text" placeholder="000.000.000-00"
+                                        disabled>
+                                </div>
+                            </div>
+                            <div class="label-input">
+                                <label class="label-info" for="telefone">Telefone:</label>
+                                <div class="input-wrapper">
+                                    <input class="input-info" id="telefone" type="tel" value="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="btns-alterar">
+                            <div class="fundo-btn">
+                                <button class="button-alterar" onclick="desativarUsuario()">Excluir conta</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-info">
+                        <div class="titulo-info">
+                            <span class="span-info">Alterar senha</span>
+                        </div>
+                        <div class="box-input">
+                            <div class="label-input">
+                                <label class="label-info" for="tipo">Tipo de usuario:</label>
+                                <div class="input-wrapper">
+                                    <input class="input-info" id="tipo" type="text" placeholder="Funcionário" disabled>
+                                </div>
+                            </div>
+                            <div class="label-input">
+                                <label class="label-info" for="senha-antiga">Senha antiga:</label>
+                                <div class="input-wrapper">
+                                    <input class="input-info" id="senha-antiga" type="password">
+                                    <img class="olho" src="assets/olho.png" alt=""
+                                        onclick="verSenha('senha-antiga', this)">
+                                </div>
+                            </div>
+                            <div class="label-input">
+                                <label class="label-info" for="senha-nova">Senha nova:</label>
+                                <div class="input-wrapper">
+                                    <input class="input-info" id="senha-nova" type="password">
+                                    <img class="olho" src="assets/olho.png" alt=""
+                                        onclick="verSenha('senha-nova', this)">
+                                </div>
+                            </div>
+                            <div class="label-input">
+                                <label class="label-info" for="confirmar-senha">Confirme a senha nova:</label>
+                                <div class="input-wrapper">
+                                    <input class="input-info" id="confirmar-senha" type="password">
+                                    <img class="olho" src="assets/olho.png" alt=""
+                                        onclick="verSenha('confirmar-senha', this)">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="btns-alterar">
+                            <div class="fundo-btn">
+                                <button class="button-alterar" onclick="atualizarUsuario()">Salvar alterações</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+</body>
+
+</html>
+
+<script>
+
+    let Idtipo = sessionStorage.getItem("ID_TIPO");
+    let btnEmpresa = document.querySelector("#btn-empresa");
+    let btnNewFunc = document.querySelector("#btn-funcionarios");
+    let btnAddUser = document.querySelector("#btn-novo-user");
+    let btnParametros = document.querySelector("#btn-parametro");
+    let divLatetalOpcoes= document.querySelector(".cbl-botoes");
+
+
+
+    if (Idtipo == 1) {
+        btnEmpresa.style.display = "none";
+        btnNewFunc.style.display = "none";
+        btnAddUser.style.display = "none";
+        btnParametros.style.display = "none";
+        divLatetalOpcoes.style.gap = "9rem";
+    }
+
+
+    function trazendoDadosUsuario() {
+        let idUser = sessionStorage.getItem("ID_USUARIO");
+        fetch(`/usuarios/perfilUsuario/${idUser}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    let emailVar = document.getElementById("email");
+                    let nomeVar = document.getElementById("nome");
+                    let cpfVar = document.getElementById("cpf");
+                    let telefoneVar = document.getElementById("telefone");
+                    let tipoUsuarioVar = document.getElementById("tipo");
+
+                    emailVar.value = resposta[0].email_usuario
+                    nomeVar.placeholder = resposta[0].nome_usuario
+                    cpfVar.placeholder = resposta[0].cpf_usuario
+                    telefoneVar.value = resposta[0].telefone_usuario
+                    tipoUsuarioVar.placeholder = resposta[0].cargo_usuario
+
+                });
+            } else {
+                console.error('Erro no maiorMunicipioFurtos');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados: ${error.message}`);
+            });
+    }
+
+    function desativarUsuario() {
+        let idUser = sessionStorage.getItem("ID_USUARIO");
+        fetch(`/usuarios/desativarFuncionario/${idUser}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(response => response.json())
+            .then(data => {
+
+                if (data.affectedRows > 0) {
+                    Swal.fire("Sucesso", `Sua Conta foi excluida com sucesso!`, "success")
+                        .then(() => {
+                            sessionStorage.clear();
+                            window.location.href = "login.html";
+                        });
+                }
+
+            })
+            .catch(function (error) {
+                console.error(`Erro na exclusão da conta: ${error.message}`);
+            });
+    }
+
+
+    function atualizarUsuario() {
+        let emailVar = document.getElementById("email").value.trim();
+        let senhaVar = document.getElementById("senha-nova").value;
+        let senhaAntigaVar = document.getElementById("senha-antiga").value;
+        let confirmarSenhaVar = document.getElementById("confirmar-senha").value;
+        let telefoneVar = document.getElementById("telefone").value;
+        let idUser = sessionStorage.getItem("ID_USUARIO");
+
+
+        if (!emailVar || !senhaVar || !confirmarSenhaVar || !telefoneVar || !senhaAntigaVar) {
+            Swal.fire("Atenção", "Preencha todos os campos obrigatórios!", "warning");
+            return false;
+        }
+
+        const emailRegex = /^[^\s@]+@gmail\.com$/;
+        if (!emailRegex.test(emailVar)) {
+            Swal.fire("Atenção", "E-mail inválido! Use um e-mail com domínio @gmail.com.", "warning");
+            return false;
+        }
+
+        const telefoneRegex = /^\d+$/;
+        if (!telefoneRegex.test(telefoneVar) || telefoneVar.length <  10) {
+            Swal.fire("Atenção", "Telefone inválido! Deve conter no mínimo 11 números.", "warning");
+            return false;
+        }
+
+ 
+        if (senhaVar !== confirmarSenhaVar) {
+            Swal.fire("Atenção", "As senhas não correspondem!", "warning");
+            return false;
+        }
+
+        fetch(`/usuarios/verificarSenha/${idUser}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+
+                   if(resposta[0].senha == senhaAntigaVar){
+
+                    fetch(`/usuarios/atualizarUsuario/${idUser}`, {
+                        method: "PUT",
+                        headers: {
+                            "Content-Type": "application/json"
+                        }
+                        , body: JSON.stringify({
+                            emailServer: emailVar,
+                            senhaServer: senhaVar,
+                            idUsuarioServer: idUser,
+                            telefoneServer: telefoneVar
+                        }),
+                    }).then(response => response.json())
+                        .then(data => {
+
+                            if (data.affectedRows > 0) {
+                                Swal.fire("Sucesso", `Sua Conta foi atualizada com sucesso, faça login novamente!`, "success")
+                                    .then(() => {
+                                        sessionStorage.clear();
+                                        window.location.href = "login.html";
+                                    });
+                            }
+                        })
+                        .catch(function (error) {
+                            console.error(`Erro na exclusão da conta: ${error.message}`);
+                        });
+
+                   }else{
+                    Swal.fire("Atenção", "Erro ao editar perfil", "error");
+                   }
+
+
+                });
+            } else {
+                console.error('Erro ao verificar senha');
+                Swal.fire("Atenção", "Erro ao verificar senha!", "warning");
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ KPI: ${error.message}`);
+                Swal.fire("Atenção", "Erro na obtenção dos dados!", "warning");
+            });
+
+    }
+
+</script>

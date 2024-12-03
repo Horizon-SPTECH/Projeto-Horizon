@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Horizon</title>
+    <link rel="shortcut icon" href="assets/group11.png" type="image/x-icon">
+    <link rel="stylesheet" href="css/empresa.css">
+    <script src="js/block-screan.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.5/dist/sweetalert2.all.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.5/dist/sweetalert2.min.css" rel="stylesheet">
+
+</head>
+
+<body onload="mostrarDadosEmpresa(),acessar(),cargo()">
+    <div class="background">
+
+        <div class="container">
+
+            <div class="container-barra-lateral">
+                <div class="cbl-logo">
+                    <img src="assets/group11.png" alt="">
+                </div>
+
+                <div class="cbl-botoes">
+
+                    <div class="cbl-botoes-barralateral">
+                        <a href="dashboard.html" class="bl-botao">
+                            <div class="bl-botao-filho">
+                                <img src="assets/casa.png" alt="">
+                                <span>Dashboard</span>
+                            </div>
+                        </a>
+                        <a href="lista-municipios.html" class="bl-botao">
+                            <div class="bl-botao-filho">
+                                <img src="assets/detalhe1.png" alt="">
+                                <span>Detalhes</span>
+                            </div>
+                        </a>
+
+                        <a href="perfil.html" class="bl-botao">
+                            <div class="bl-botao-filho">
+                                <img src="assets/icon-user.png" alt="">
+                                <span>Perfil</span>
+                            </div>
+                        </a>
+
+                        <a href="empresa.html" class="bl-botao">
+                            <div class="bl-botao" id="bl-botao-inicio">
+                                <div class="bl-botao-filho">
+                                    <img src="assets/icon-empresa.png" alt="">
+                                    <span>Empresa</span>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a id="btn-funcionarios" href="lista-funcionario.html" class="bl-botao">
+                            <div class="bl-botao-filho">
+                                <img src="assets/icon-search.png" alt="">
+                                <span>Funcionários</span>
+                            </div>
+                        </a>
+                        <a id="btn-novo-user" href="cadastro-funcionario.html" class="bl-botao">
+                            <div class="bl-botao-filho">
+                                <img src="assets/add.png" alt="">
+                                <span>Novo usuário</span>
+                            </div>
+                        </a>
+                        <a id="btn-parametro" href="parametros.html" class="bl-botao">
+                            <div class="bl-botao-filho">
+                                <img src="assets/parameter.png" alt="">
+                                <span>Parametrização</span>
+                            </div>
+                        </a>
+
+                    </div>
+
+                    <a href="index.html" class="bl-botao">
+                        <div class="bl-botao-filho">
+                            <img src="assets/porta.png" alt="">
+                            <span>Sair</span>
+                        </div>
+                    </a>
+                </div>
+
+            </div>
+
+            <div class="container-graficos-kpis">
+
+                <div class="cgk-navbar">
+                    <span>Alterar dados empresariais</span>
+                </div>
+
+                <div class="box-empresa">
+                    <div class="box-info">
+                        <div class="box-input">
+                            <div class="label-input">
+                                <label class="label-info" for="nome">Nome:</label>
+                                <div class="input-wrapper">
+                                    <input class="input-info" id="nome" type="text" value="Horizon">
+                                </div>
+                            </div>
+                            <div class="label-input">
+                                <label class="label-info" for="cep">CEP:</label>
+                                <div class="input-wrapper">
+                                    <input class="input-info" id="cep" type="text" value="08343-410 ">
+                                </div>
+                            </div>
+                            <div class="label-input">
+                                <label class="label-info" for="logradouro">Logradouro:</label>
+                                <div class="input-wrapper">
+                                    <input class="input-info" id="logradouro" type="text" value="Rua Haddock Lobo">
+                                </div>
+                            </div>
+                            <div class="label-input">
+                                <label class="label-info" for="complemento">Complemento:</label>
+                                <div class="input-wrapper">
+                                    <input class="input-info" id="complemento" type="text"
+                                        value="Em frente do starbucks">
+                                </div>
+                            </div>
+                            <div class="label-input">
+                                <label class="label-info" for="numero">Número:</label>
+                                <div class="input-wrapper">
+                                    <input class="input-info" id="numero" type="text" value="191">
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="btns-alterar">
+                            <div class="fundo-btn">
+                                <button onclick="desativarEmpresa()" class="button-alterar">Excluir Empresa
+
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-info">
+                        <div class="box-input">
+                            <div class="label-input">
+                                <label class="label-info" for="bairro">Bairro:</label>
+                                <div class="input-wrapper">
+                                    <input class="input-info" id="bairro" type="text" value="Cerqueira César">
+                                </div>
+                            </div>
+                            <div class="label-input">
+                                <label class="label-info" for="estado">Estado:</label>
+                                <div class="input-wrapper">
+                                    <input class="input-info" id="estado" type="text" value="São Paulo">
+                                </div>
+                            </div>
+                            <div class="label-input">
+                                <label class="label-info" for="cidade">Cidade:</label>
+                                <div class="input-wrapper">
+                                    <input class="input-info" id="cidade" type="text" value="São Paulo">
+                                </div>
+                            </div>
+                            <div class="label-input">
+                                <label class="label-info" for="cnpj">CNPJ:</label>
+                                <div class="input-wrapper">
+                                    <input class="input-info" id="cnpj" type="text" placeholder="87.989.255/0001-07" disabled>
+                                </div>
+                            </div>
+                            <div class="label-input">
+                                <label class="label-info" for="tippo_empresa">Tipo de empresa:</label>
+                                <div class="input-wrapper">
+                                    <input class="input-info" id="tippo_empresa" type="text" placeholder="Privada" disabled>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="btns-alterar">
+                            <div class="fundo-btn">
+                                <button onclick="atualizarDadosEmpresa()" class="button-alterar">Salvar alterações</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</body>
+
+</html>
+
+<script>
+    function mostrarDadosEmpresa() {
+        const idEmpresa = sessionStorage.getItem("ID_EMPRESA");
+        const empresa = `?id_empresa=${idEmpresa}`;
+
+        fetch(`/empresa/mostrarDadosEmpresa${empresa}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Erro ao obter dados da empresa: ' + response.statusText);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('DadosEmpresa:', data);
+
+                if (Array.isArray(data) && data.length > 0) {
+                    const dadosEmpresa = data[0];
+                    console.log(dadosEmpresa['Tipo de empresa']);
+
+                    console.log('Propriedades disponíveis:', Object.keys(dadosEmpresa));
+
+                    if (
+                        dadosEmpresa.Nome &&
+                        dadosEmpresa.CEP &&
+                        dadosEmpresa.Logradouro &&
+                        dadosEmpresa['Número'] &&
+                        dadosEmpresa.Bairro && 
+                        dadosEmpresa.Estado &&
+                        dadosEmpresa.Cidade &&
+                        dadosEmpresa.CNPJ &&
+                        dadosEmpresa['Tipo de empresa']
+                    ) {
+                        const inputNome = document.querySelector("#nome");
+                        inputNome.value = `${dadosEmpresa.Nome}`
+
+                        const inputCep = document.querySelector("#cep");
+                        inputCep.value = dadosEmpresa.CEP;
+
+                        const inputLogradouro = document.querySelector("#logradouro");
+                        inputLogradouro.value = dadosEmpresa.Logradouro;
+
+                        const inputComplemento = document.querySelector("#complemento");
+                        inputComplemento.value = dadosEmpresa.Complemento;
+
+                        const inputNumero = document.querySelector("#numero");
+                        inputNumero.value = dadosEmpresa['Número'];
+
+                        const inputBairro = document.querySelector("#bairro");
+                        inputBairro.value = dadosEmpresa.Bairro;
+
+                        const inputEstado = document.querySelector("#estado");
+                        inputEstado.value = dadosEmpresa.Estado;
+
+                        const inputCidade = document.querySelector("#cidade");
+                        inputCidade.value = dadosEmpresa.Cidade;
+
+                        const inputCNPJ = document.querySelector("#cnpj");
+                        inputCNPJ.placeholder = dadosEmpresa.CNPJ;
+
+                        const inputTipoEmpresa = document.querySelector("#tippo_empresa");
+                        inputTipoEmpresa.placeholder = dadosEmpresa['Tipo de empresa'];
+
+                        sessionStorage.setItem('nome', dadosEmpresa.Nome);
+                        sessionStorage.setItem('cep', dadosEmpresa.CEP);
+                        sessionStorage.setItem('logradouro', dadosEmpresa.Logradouro);
+                        sessionStorage.setItem('complemento', dadosEmpresa.Complemento);
+                        sessionStorage.setItem('numero', dadosEmpresa['Número']);
+                        sessionStorage.setItem('bairro', dadosEmpresa.Bairro);
+                        sessionStorage.setItem('estado', dadosEmpresa.Estado);
+                        sessionStorage.setItem('cidade', dadosEmpresa.Cidade);
+                        sessionStorage.setItem('cnpj', dadosEmpresa.CNPJ);
+                        sessionStorage.setItem('tipoEmpresa', dadosEmpresa['Tipo de empresa']);
+                        console.log('Limites salvos no sessionStorage.');
+                    } else {
+                        console.warn('Os campos esperados não estão presentes:', dadosEmpresa);
+                    }
+                } else {
+                    console.warn('Os dados retornados não são válidos:', data);
+                }
+            })
+            .catch(error => {
+                console.error('Erro ao buscar empresa:', error);
+                Swal.fire("Atenção", "Erro ao buscar empresa", "error");
+            });
+    }
+
+    const nome = sessionStorage.getItem('nome');
+    const cep = sessionStorage.getItem('cep');
+    const logradouro = sessionStorage.getItem('logradouro');
+    const complemento = sessionStorage.getItem('complemento');
+    const numero = sessionStorage.getItem('numero');
+    const bairro = sessionStorage.getItem('bairro');
+    const estado = sessionStorage.getItem('estado');
+    const cidade = sessionStorage.getItem('cidade');
+    const cnpj = sessionStorage.getItem('cnpj');
+    const tipoEmpresa = sessionStorage.getItem('tipoEmpresa');
+
+    document.getElementById('nome').value         = nome;
+    document.getElementById('cep').value          = cep;
+    document.getElementById('logradouro').value   = logradouro;
+    document.getElementById('complemento').value  = complemento;
+    document.getElementById('numero').value       = numero;
+    document.getElementById('bairro').value       = bairro;
+    document.getElementById('estado').value       = estado;
+    document.getElementById('cidade').value       = cidade;
+    document.getElementById('cnpj').placeholder   = cnpj;
+    document.getElementById('tippo_empresa').placeholder = tipoEmpresa;
+
+    function atualizarDadosEmpresa() {
+        const idEmpresa = sessionStorage.getItem("ID_EMPRESA");
+        const empresa = `?id_empresa=${idEmpresa}`;
+
+        const nome = document.getElementById('nome').value
+        const cep = document.getElementById('cep').value
+        const logradouro = document.getElementById('Logradouro').value
+        const complemento = document.getElementById('complemento').value
+        const numero = document.getElementById('numero').value
+        const bairro = document.getElementById('bairro').value
+        const estado = document.getElementById('estado').value
+        const cidade = document.getElementById('cidade').value
+        const cnpj = document.getElementById('cnpj').placeholder
+        const tipoEmpresa = document.getElementById('tippo_empresa').placeholder
+
+        fetch(`/empresa/atualizarDadosEmpresa${empresa}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                empresaServer: idEmpresa,
+                nomeServer: nome,
+                cepServer: cep,
+                logradouroServer: logradouro,
+                complementoServer: complemento,
+                numeroServer: numero,
+                bairroServer: bairro,
+                estadoServer: estado,
+                cidadeServer: cidade,
+                cnpjServer: cnpj,
+                descricaoServer: tipoEmpresa,
+            }),
+        })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Erro ao atualizar Empresa');
+                }
+            })
+            .then(data => {
+                console.log('Empresa atualizada com sucesso:', data);
+
+                Swal.fire("Sucesso", "Empresa atualizada com sucesso!", "success");
+                setTimeout(() => {
+                window.location.href = "empresa.html";
+                mostrarDadosEmpresa(); 
+                }, 2000);
+        
+            })
+            .catch(error => {
+                console.error('Erro ao atualizar Empresa:', error);
+            });
+        }
+
+    function atualizarPagina() {
+        setTimeout(function () {
+            window.location = "empresa.html";
+        }, 2000);
+    }
+
+    function desativarEmpresa() {
+        const idEmpresa = sessionStorage.getItem("ID_EMPRESA");
+
+        fetch(`/empresa/desativarEmpresa`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                empresaServer: idEmpresa,
+            }),
+        })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Erro ao desativar empresa');
+                }
+            })
+            .then(data => {
+
+                console.log('Empresa desativada com sucesso com sucesso:', data);
+                Swal.fire("Sucesso", "Empresa desativada com sucesso com sucesso!", "success");
+                setTimeout(() => {
+                sessionStorage.clear();
+                window.location.href = "login.html";
+                }, 2000);
+            })
+            .catch(error => {
+                console.error('Erro ao desativar empresa:', error);
+            });
+    }
+
+    function telaInicial() {
+        setTimeout(function () {
+            window.location = "index.html";
+        }, 2000);
+    }
+</script>

@@ -1,110 +1,135 @@
--- -----------------------------------------------------
--- Schema mydb
--- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
-USE `mydb` ;
+-- Criação do banco de dados
+CREATE SCHEMA IF NOT EXISTS projetoHorizon DEFAULT CHARACTER SET utf8;
+USE projetoHorizon;
 
--- -----------------------------------------------------
--- Table `mydb`.`Empresa`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Empresa` (
-  `idEmpresa` INT NOT NULL,
-  `NomeEmpresa` VARCHAR(45) NULL,
-  `Email` VARCHAR(45) NULL,
-  `CEP` VARCHAR(9) NULL,
-  `CNPJ` VARCHAR(14) NULL,
-  `Endereço` VARCHAR(45) NULL,
-  `Numero` VARCHAR(45) NULL,
-  `TipoEmpresa` VARCHAR(45) NULL,
-  PRIMARY KEY (`idEmpresa`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `mydb`.`Usuario`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Usuario` (
-  `idUsuario` INT NOT NULL,
-  `idEmpresa` INT NOT NULL,
-  `idGerente` INT NOT NULL,
-  `Nome` VARCHAR(45) NULL,
-  `Email` VARCHAR(60) NULL,
-  `Telefone` VARCHAR(11) NULL,
-  `Permissão` VARCHAR(45) NULL,
-  `CPF` VARCHAR(11) NULL,
-  `Senha` VARCHAR(45) NULL,
-  PRIMARY KEY (`idUsuario`),
-  INDEX `fk_Usuario_Empresa_idx` (`idEmpresa` ASC) VISIBLE,
-  INDEX `fk_Usuario_Usuario1_idx` (`idGerente` ASC) VISIBLE,
-  CONSTRAINT `fk_Usuario_Empresa`
-    FOREIGN KEY (`idEmpresa`)
-    REFERENCES `mydb`.`Empresa` (`idEmpresa`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Usuario_Usuario1`
-    FOREIGN KEY (`idGerente`)
-    REFERENCES `mydb`.`Usuario` (`idUsuario`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+-- Criação da tabela tipo empresa
+CREATE TABLE IF NOT EXISTS tipo_empresa(
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  descricao VARCHAR(45) NULL
+  );
+  
+-- Criação da tabela endereco
+CREATE TABLE IF NOT EXISTS endereco(
+  id INT AUTO_INCREMENT PRIMARY KEY ,
+  logradouro VARCHAR(150) NOT NULL,
+  numero INT NULL,
+  complemento VARCHAR(45) NULL,
+  bairro VARCHAR(50) NOT NULL,
+  cidade VARCHAR(50) NOT NULL,
+  estado VARCHAR(45) NOT NULL,
+  cep INT NOT NULL);
 
 
--- -----------------------------------------------------
--- Table `mydb`.`dados`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`dados` (
-  `idDados` INT NOT NULL AUTO_INCREMENT,
-  `DataFurto` VARCHAR(45) NOT NULL,
-  `horario` TIME NOT NULL,
-  `tipoObjeto` VARCHAR(255) NOT NULL,
-  `municipio` VARCHAR(45) NOT NULL,
-  `PeriodoDia` VARCHAR(45) NULL,
-  PRIMARY KEY (`idDados`))
-ENGINE = InnoDB;
+-- Criação da tabela empresa
+CREATE TABLE IF NOT EXISTS empresa(
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nome VARCHAR(45) NULL,
+  cnpj VARCHAR(14) NULL UNIQUE KEY,
+  ativo INT NULL,
+  id_tipo_empresa INT NOT NULL,
+  id_endereco INT NOT NULL,
+  CONSTRAINT fk_empresa_tipo_empresa FOREIGN KEY (id_tipo_empresa) REFERENCES tipo_empresa(id),
+  CONSTRAINT fk_empresa_endereco FOREIGN KEY (id_endereco) REFERENCES endereco(id)
+  );
+
+-- Criação da tabela de parâmetros
+CREATE TABLE IF NOT EXISTS parametro(
+ id INT AUTO_INCREMENT PRIMARY KEY,
+ limite_baixo INT NOT NULL,
+ limite_ok INT NOT NULL,
+ limite_alto INT NOT NULL,
+ data_atualizacao DATE,
+ id_empresa INT,
+ CONSTRAINT fk_parametro_empresa FOREIGN KEY (id_empresa) REFERENCES empresa(id)
+);
+
+-- Criação da tabela cargo
+CREATE TABLE IF NOT EXISTS tipo_usuario(
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  cargo VARCHAR(50) NOT NULL
+);
+
+-- Criação da tabela usuario
+CREATE TABLE IF NOT EXISTS usuario(
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nome VARCHAR(100) NOT NULL,
+  email VARCHAR(60) NOT NULL UNIQUE KEY,
+  ativo INT NOT NULL,
+  cpf CHAR(11) NOT NULL UNIQUE KEY,
+  senha VARCHAR(50) NOT NULL,
+  token VARCHAR(150) NULL,
+  id_empresa INT NOT NULL,
+  id_tipo_usuario INT NOT NULL,
+  CONSTRAINT fk_usuario_empresa FOREIGN KEY (id_empresa) REFERENCES empresa(id),
+  CONSTRAINT fk_usuario_tipo_usuario FOREIGN KEY (id_tipo_usuario) REFERENCES tipo_usuario (id)
+);
 
 
--- -----------------------------------------------------
--- Table `mydb`.`Avisos`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Avisos` (
-  `IdUsuario` INT NOT NULL,
-  `idMensagem` INT NOT NULL,
-  `Descrição` VARCHAR(45) NULL,
-  INDEX `fk_Avisos_Usuario1_idx` (`IdUsuario` ASC) VISIBLE,
-  PRIMARY KEY (`idMensagem`),
-  CONSTRAINT `fk_Avisos_Usuario1`
-    FOREIGN KEY (`IdUsuario`)
-    REFERENCES `mydb`.`Usuario` (`idUsuario`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+-- Criação da tabela tipo telefone
+CREATE TABLE IF NOT EXISTS tipo_telefone(
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nome VARCHAR(45) NOT NULL
+   );
+
+-- Criação da tabela Telefone
+CREATE TABLE IF NOT EXISTS telefone(
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  numero VARCHAR(16) NULL UNIQUE KEY,
+  id_tipo_telefone INT NOT NULL,
+  id_usuario INT NOT NULL,
+  CONSTRAINT fk_telefone_tipo_telefone FOREIGN KEY (id_tipo_telefone) REFERENCES tipo_telefone(id),
+  CONSTRAINT fk_telefone_usuario FOREIGN KEY (id_usuario) REFERENCES usuario(id)
+   );
+
+-- Criação da tabela município do Espírito Santo
+CREATE TABLE IF NOT EXISTS municipio_es (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nome VARCHAR(50) NOT NULL,
+  habitante INT NOT NULL
+   );
+
+-- Criação da tabela furto
+CREATE TABLE IF NOT EXISTS furto (
+  id INT AUTO_INCREMENT PRIMARY KEY ,
+  data DATE NOT NULL,
+  horario TIME NOT NULL,
+  objeto_roubado VARCHAR(45) NOT NULL,
+  id_municipio_es INT NOT NULL,
+  CONSTRAINT fk_furtos_populacao FOREIGN KEY (id_municipio_es) REFERENCES municipio_es (id)
+);
 
 
--- -----------------------------------------------------
--- Table `mydb`.`populacao`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`populacao` (
-  `idMunicipio` INT NOT NULL AUTO_INCREMENT,
-  `Municipio` VARCHAR(255) NOT NULL,
-  `Populacao` VARCHAR(255) NOT NULL,
-  PRIMARY KEY (`idMunicipio`))
-ENGINE = InnoDB;
+-- Criação da tabela de prompt
+CREATE TABLE IF NOT EXISTS prompt(
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  pergunta VARCHAR(45) NOT NULL,
+  data_horario DATETIME NOT NULL
+   );
 
 
--- -----------------------------------------------------
--- Table `mydb`.`Mensagens`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Mensagens` (
-  `idMensagens` INT NOT NULL,
-  `Data` DATE NULL,
-  `Horario` VARCHAR(45) NULL,
-  `Mensagem` VARCHAR(100) NULL,
-  `IdUsuario` INT NOT NULL,
-  PRIMARY KEY (`idMensagens`),
-  INDEX `fk_Mensagens_Usuario1_idx` (`IdUsuario` ASC) VISIBLE,
-  CONSTRAINT `fk_Mensagens_Usuario1`
-    FOREIGN KEY (`IdUsuario`)
-    REFERENCES `mydb`.`Usuario` (`idUsuario`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+-- Criação da tabela de recomendacao
+CREATE TABLE IF NOT EXISTS recomendacao(
+  id INT AUTO_INCREMENT PRIMARY KEY ,
+  data_hora DATETIME NOT NULL,
+  mensagem VARCHAR(300) NOT NULL,
+  id_prompt INT NOT NULL,
+  id_empresa INT NOT NULL,
+  CONSTRAINT fk_recomendacao_prompt1 FOREIGN KEY (id_prompt) REFERENCES prompt(id),
+  CONSTRAINT fk_recomendacao_empresa1 FOREIGN KEY (id_empresa) REFERENCES empresa(id)
+    );
+
+
+INSERT INTO tipo_usuario (cargo)
+VALUES 
+('Funcionário'),
+('Gestor'),
+('Administrador');
+
+
+INSERT INTO tipo_empresa (descricao) 
+VALUES ('PRIVADA'),('PÚBLICO');
+
+
+
+INSERT INTO tipo_telefone (nome) VALUES ('PESSOAL'),('COMERCIAL'), ('RESIDENCIAL');
+

@@ -276,9 +276,6 @@ body {
 }
 
 @media only screen and (max-width : 1366px) {
-    body{
-        height:350vh;
-    }
     .cards-valores{
         gap: 30px;
     }
@@ -289,10 +286,6 @@ body {
 }
 
 @media only screen and (max-width : 1200px){
-    body{
-        height:450vh;
-    }
-
     .container {
     padding:10px;
     }

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista - Horizon</title>
+    <link rel="shortcut icon" href="assets/group11.png" type="image/x-icon">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css">
+    <script src="js/block-screan.js"></script>
+</head>
+<body onload="listartMunicipios(),acessar()"> 
+    <div class="background">
+
+        <div class="container">
+
+            <div class="container-barra-lateral">
+                <div class="cbl-logo">
+                    <img src="assets/group11.png" alt="">
+                </div>
+
+                <div class="cbl-botoes">
+
+                    <div class="cbl-botoes-barralateral">
+                        <a href="dashboard.html" class="bl-botao" id="bl-botao">
+                            <div class="bl-botao-filho">
+                                <img src="assets/casa.png" alt="">
+                                <span>Dashboard</span>
+                            </div>
+                        </a>
+                        <a href="lista-municipios.html" class="bl-botao" id="bl-botao-inicio">
+                            <div class="bl-botao-filho">
+                                <img src="assets/detalhe1.png" alt="">
+                                <span>Detalhes</span>
+                            </div>
+                        </a>
+
+                        <a href="perfil.html" class="bl-botao">
+                            <div class="bl-botao-filho">
+                                <img src="assets/icon-user.png" alt="">
+                                <span>Perfil</span>
+                            </div>
+                        </a>
+
+                        <a id="btn-empresa" href="empresa.html" class="bl-botao">
+                            <div class="bl-botao-filho">
+                                <img src="assets/icon-empresa.png" alt="">
+                                <span>Empresa</span>
+                            </div>
+                        </a>
+
+                        <a id="btn-funcionarios" href="lista-funcionario.html" class="bl-botao">
+                            <div class="bl-botao-filho">
+                                <img src="assets/icon-search.png" alt="">
+                                <span>Funcionários</span>
+                            </div>
+                        </a>
+
+                        <a id="btn-novo-user" href="cadastro-funcionario.html" class="bl-botao">
+                            <div class="bl-botao-filho">
+                                <img src="assets/add.png" alt="">
+                                <span>Novo usuário</span>
+                            </div>
+                        </a>
+
+                        <a id="btn-parametro" href="cadastro-funcionario.html" class="bl-botao">
+                            <div class="bl-botao-filho">
+                                <img src="assets/parameter.png" alt="">
+                                <span>Parametrização</span>
+                            </div>
+                        </a>
+                        
+                    </div>
+
+                    <a onclick="limparSession()" href="index.html" class="bl-botao">
+                        <div class="bl-botao-filho">
+                            <img src="assets/porta.png" alt="">
+                            <span>Sair</span>
+                        </div>
+                    </a>
+
+                </div>
+
+            </div>
+
+            <div class="container-graficos-kpis">
+                <table  id="example" class="table table-striped" style="width: 100%;height: 100%;">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Nº de habitantes</th>
+                            <th>Furtos</th>
+                            <th> Furtos por município (% do total no Espírito Santo)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bodyTabela">
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+    </div>
+</body>
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+<script>
+
+    let Idtipo = sessionStorage.getItem("ID_TIPO");
+    let btnEmpresa = document.querySelector("#btn-empresa");
+    let btnNewFunc = document.querySelector("#btn-funcionarios");
+    let btnAddUser = document.querySelector("#btn-novo-user");
+    let btnParametros = document.querySelector("#btn-parametro");
+    let divLatetalOpcoes= document.querySelector(".cbl-botoes");
+
+
+
+    if (Idtipo == 1) {
+        btnEmpresa.style.display = "none";
+        btnNewFunc.style.display = "none";
+        btnAddUser.style.display = "none";
+        btnParametros.style.display = "none";
+        divLatetalOpcoes.style.gap = "9rem";
+    }
+
+
+
+    function listartMunicipios(){
+        fetch(`/dashboards/listartMunicipios`).then(function (resposta) {
+            if (resposta.ok) {
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+                    var table = document.getElementById("bodyTabela");
+                    table.innerHTML="";
+
+                    for(let i = 0; i < resposta.length; i++){
+                        var listaLinha = resposta[i];
+
+                        let nomeMunicipio =  listaLinha.municipio;
+
+                        var trTable = document.createElement("tr");
+                        trTable.style.cursor = "pointer"; 
+
+                        trTable.onclick = function() {
+                            guardarMunicipio(nomeMunicipio);
+                            window.location.href = `dashboard-indiv.html`;
+                        };
+                        var thNome = document.createElement("th");
+                        var thHabitantes = document.createElement("th");
+                        var thFurtos = document.createElement("th");
+                        var threpresentacao = document.createElement("th")
+
+                        var link = document.createElement("a");
+
+
+                        thNome.innerHTML = `${listaLinha.municipio}`;
+                        thHabitantes.innerHTML = `${listaLinha.numero_habitantes}`;
+                        thFurtos.innerHTML= `${listaLinha.numero_furtos}`
+                        threpresentacao.innerHTML= `${listaLinha.porcentagem_furtos}%`
+
+                        thNome.style.borderBottom = "1px solid black";
+                        thNome.style.textAlign = "left";
+                        thHabitantes.style.borderBottom = "1px solid black";
+                        thHabitantes.style.textAlign = "center";
+                        thFurtos.style.borderBottom = "1px solid black";
+                        thFurtos.style.textAlign = "center";
+                        threpresentacao.style.borderBottom = "1px solid black";
+                        threpresentacao.style.textAlign = "center";
+
+                        
+                        trTable.appendChild(thNome);
+                        trTable.appendChild(thHabitantes);
+                        trTable.appendChild(thFurtos);
+                        trTable.appendChild(threpresentacao);
+                        table.appendChild(trTable);
+                       
+                    }
+
+                  
+                    $('#example').DataTable({
+                        paging: false,
+                        scrollCollapse: true,
+                        scrollY: '68vh',
+                        info: false,
+                        language: {
+                            emptyTable: "Nenhum dado disponível na tabela",
+                            zeroRecords: "Município não encontrado",
+                            search: "Buscar Município:"
+                        }
+                    });
+
+
+                });
+            } else {
+                throw ('Houve um erro na API!');
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
+        });
+    }
+
+    function guardarMunicipio(nomeMunicipio){
+        sessionStorage.NOME_MUNICIPIO = nomeMunicipio;
+    }
+
+    
+</script>
+</html>
+
+
+

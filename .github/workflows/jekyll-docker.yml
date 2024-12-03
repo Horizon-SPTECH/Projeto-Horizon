@@ -3,7 +3,7 @@ name: Build and Push Docker Image Horizon # Nome do workflow
 on:
   push:
     branches:
-      - develop # Branch que ativará o workflow
+      - main # Branch que ativará o workflow
 
 jobs:
   build-and-push:

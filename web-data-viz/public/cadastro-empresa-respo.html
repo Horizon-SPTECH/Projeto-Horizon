@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro - Funcionário</title>
+    <link rel="icon" href="assets/group11.png" />
+    <link rel="stylesheet" href="css/cadastros.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.5/dist/sweetalert2.all.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.5/dist/sweetalert2.min.css" rel="stylesheet">
+    <script src="js/block-screan.js"></script>
+
+</head>
+
+<body onload="sessaoEmail()">
+    <!-- Tela de Cadastro de Empresa -->
+    <div class="background" id="cadastroEmpresa">
+        <div class="nav-bar">
+            <div class="fundo-botao">
+                <div class="botão-dashboard">
+                    <button>
+                        <a href="index.html">
+                            <h1>Início</h1>
+                        </a>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="titulo">Cadastre uma nova empresa</div>
+        <div class="container">
+            <div class="input-container">
+                <div class="msg-input">Nome da empresa</div>
+                <input class="custom-input" type="text" id="input_nome_empresa" name="nome">
+            </div>
+
+            <div class="input-container">
+                <div class="msg-input">CNPJ</div>
+                <input class="custom-input" type="text" id="input_cnpj" placeholder="00.000.000/0000-00">
+            </div>
+
+            <div class="input-container">
+                <div class="msg-input">CEP</div>
+                <input class="custom-input" type="text" placeholder="00000-000" id="input_cep" name="cep">
+            </div>
+            <div class="input-container">
+                <div class="input-wrapper2">
+                    <div class="msg-input">Endereço</div>
+                    <input class="custom-input custom-input-endereço" type="text" id="input_endereco" name="endereco" placeholder="Digite o endereço">
+                </div>
+                <div class="input-wrapper2">
+                    <div class="msg-input msg-input-numero">Número</div>
+                    <input class="custom-input custom-input-numero" type="text" id="input_numero" name="numero" placeholder="Digite o número">
+                </div>
+            </div>
+        </div>
+
+        <div class="text-bottom">
+            <span>Precisa de ajuda? <a href="index.html"><b> entre em contato</b></a></span>
+        </div>
+
+        <div class="buttom-cadastrar">
+            <button class="custom-button" onclick="mostrarCadastroResponsavel()">Próximo</button>
+        </div>
+    </div>
+
+    <!-- Tela de Cadastro de Responsável -->
+    <div class="background-color" id="cadastroResponsavel" style="display: none;">
+        <div class="nav-bar nav-bar-cadastro">
+            <div class="fundo-botao">
+                <div class="botão-dashboard">
+                    <button>
+                        <a href="index.html">
+                            <h1>Início</h1>
+                        </a>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="titulo">Cadastre um responsável</div>
+        <div class="tela-cadastro">
+            <div class="forms-left">
+                <div class="input-container">
+                    <div class="msg-input">Nome</div>
+                    <input class="custom-input" type="text" id="input_nome" name="nome">
+                </div>
+                <div class="input-container">
+                    <div class="msg-input">CPF</div>
+                    <input class="custom-input" type="text" id="input_cpf" name="CPF" placeholder="000.000.000.00">
+                </div>
+                <div class="input-container">
+                    <div class="msg-input">Telefone</div>
+                    <input class="custom-input" type="tel" id="input_telefone" name="telefone">
+                </div>
+            </div>
+            <div class="forms-right">
+                <div class="input-container">
+                    <div class="msg-input">Email</div>
+                    <input class="custom-input" type="email" id="input_email" name="email" placeholder="usuario@empresa.com">
+                </div>
+                <div class="input-container">
+                    <div class="msg-input">Senha</div>
+                    <input class="custom-input" type="password" id="input_senha" name="senha">
+                </div>
+                <div class="input-container">
+                    <div class="msg-input">Confirmar senha</div>
+                    <input class="custom-input" type="password" id="input_conf_senha" name="confsenha">
+                </div>
+            </div>
+        </div>
+
+        <div class="text-bottom">
+            <span>Precisa de ajuda? <a href="index.html"><b> entre em contato</b></a></span>
+        </div>
+        <div class="buttom-cadastrar">
+            <button onclick="cadastrar()" class="custom-button">Cadastrar</button>
+        </div>
+    </div>
+</body>
+</html>
+
+<script>
+    async function mostrarCadastroResponsavel() {
+        var nomeEmpresaVar     = input_nome_empresa.value;
+        var cnpjEmpresaLimpo     = input_cnpj.value.replaceAll("-","").replaceAll("/","").replaceAll(".","");
+        var cnpjEmpresaVar     = cnpjEmpresaLimpo;
+        let cepSemIfen = input_cep.value.replaceAll("-", "");
+        var cepEmpresaVar      = cepSemIfen;
+        const numerosValidos = /^[0-9]+$/;
+        const qtdNumeros = /^[0-9]{8}$/;
+    
+        if(!numerosValidos.test(cepEmpresaVar) || !qtdNumeros.test(cepEmpresaVar)){
+            console.log("CEP inválido.");
+            Swal.fire("Atenção", "CEP inválido!", "warning");
+        }
+    
+        var enderecoEmpresaVar = input_endereco.value;
+        var numeroEmpresaVar   = input_numero.value;
+
+        if(nomeEmpresaVar == "") {
+            console.log("Nome da empresa invalido")
+            Swal.fire("Atenção", "Nome da empresa invalido!", "warning");
+        } else if(cnpjEmpresaVar == "" || cnpjEmpresaVar.length != 14 || isNaN(cnpjEmpresaVar)) {
+            console.log("CNPJ da empresa invalido")
+            Swal.fire("CNPJ da empresa invalido", "warning");
+        } else if(enderecoEmpresaVar == "") {
+            Swal.fire("Atenção", "Endereco da empresa invalido!", "warning");
+            console.log("Endereco da empresa invalido")
+        } else if(numeroEmpresaVar == "" || isNaN(numeroEmpresaVar)) {
+            Swal.fire("Atenção", "Numero do endereco invalido!", "warning");
+            console.log("Numero do endereco invalido")
+        } else {
+            document.getElementById('cadastroEmpresa').style.display = 'none';
+            document.getElementById('cadastroResponsavel').style.display = 'block';
+        }
+    }
+
+    let listaEmpresasCadastradas = [];
+
+    async function cadastrar() {
+    var nomeVar      = input_nome.value;
+    var cpfVarLimpo     = input_cpf.value.replaceAll("-","").replaceAll(".","");
+    var cpfVar     = cpfVarLimpo;    
+    var telefoneLimpo  = input_telefone.value.replaceAll("-","").replaceAll(" ","");
+    var telefoneVar  = telefoneLimpo;
+    var emailVar     = input_email.value;
+    var senhaVar     = input_senha.value;
+    var confSenhaVar = input_conf_senha.value;
+
+    let regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    let regexSenha = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-zA-Z]).{6,}$/;
+
+    var nomeEmpresaVar     = input_nome_empresa.value;
+    var cnpjEmpresaLimpo     = input_cnpj.value.replaceAll("-","").replaceAll("/","").replaceAll(".","");
+    var cnpjEmpresaVar     = cnpjEmpresaLimpo;
+    let cepSemIfen = input_cep.value.replaceAll("-", "");
+    var cepEmpresaVar      = cepSemIfen;
+    var enderecoEmpresaVar = input_endereco.value;
+    var numeroEmpresaVar   = input_numero.value;
+
+    let mensagensErro = []; // Array para armazenar as mensagens de erro
+
+    // Validações
+    if (nomeVar == "") {
+        mensagensErro.push("Nome do responsável é obrigatório.");
+    }
+    if (cpfVar == "" || cpfVar.length != 11 || isNaN(cpfVar)) {
+        mensagensErro.push("CPF inválido.");
+        console.log(cpfVar);
+        console.log(cpfVarLimpo);
+    }
+    if (telefoneVar == "" || telefoneVar.length != 11 || isNaN(telefoneVar)) {
+        mensagensErro.push("Telefone inválido.");
+    }
+    if (!regexEmail.test(emailVar)) {
+        mensagensErro.push("Email inválido.");
+    }
+    if (!regexSenha.test(senhaVar)) {
+        mensagensErro.push("Senha inválida. A senha deve ter ao menos 6 caracteres, um número e um caractere especial.");
+    }
+    if (confSenhaVar != senhaVar) {
+        mensagensErro.push("A confirmação de senha não é igual à senha.");
+    }
+
+    if (nomeEmpresaVar == "") {
+        mensagensErro.push("Nome da empresa é obrigatório.");
+    }
+    if (cnpjEmpresaVar == "" || cnpjEmpresaVar.length != 14 || isNaN(cnpjEmpresaVar)) {
+        mensagensErro.push("CNPJ inválido.");
+    }
+
+    const numerosValidos = /^[0-9]+$/;
+    const qtdNumeros = /^[0-9]{8}$/;
+
+    if(!numerosValidos.test(cepEmpresaVar) || !qtdNumeros.test(cepEmpresaVar)){
+        mensagensErro.push("CEP inválido.");
+    }
+
+    const responseCEP  = await fetch(`https://viacep.com.br/ws/${cepEmpresaVar}/json/`);
+    if(!responseCEP.ok){
+        console.log("Erro ao consultar o CEP");
+        mensagensErro.push("Erro ao consultar o CEP");
+
+    }
+
+    const respostaCepValido = await responseCEP.json();
+
+    if (respostaCepValido.erro) {
+        mensagensErro.push("CEP não encontrado");
+    }
+
+    var complementoVar = respostaCepValido.complemento;
+    var bairroVar = respostaCepValido.bairro;
+    var cidadeVar = respostaCepValido.localidade;
+    var estadoVar = respostaCepValido.estado;
+
+
+    if (enderecoEmpresaVar == "") {
+        mensagensErro.push("Endereço da empresa é obrigatório.");
+    }
+    if (numeroEmpresaVar == "" || isNaN(numeroEmpresaVar)) {
+        mensagensErro.push("Número do endereço inválido.");
+    }
+
+    // Se houver mensagens de erro, exibe um modal com todas elas
+    if (mensagensErro.length > 0) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Validações não atendidas',
+            html: mensagensErro.join('<br>'), // Exibe todas as mensagens em uma lista
+            confirmButtonText: 'OK'
+        });
+    } else {
+        // Caso não haja erro, envia os dados ao servidor
+        fetch("/usuarios/cadastrarRespo", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                nomeEmpresaServer:     nomeEmpresaVar,
+                cnpjEmpresaServer:     cnpjEmpresaVar,
+                cepEmpresaServer:      cepEmpresaVar,
+                enderecoEmpresaServer: enderecoEmpresaVar,
+                complementoServer :complementoVar,
+                bairroServer : bairroVar,
+                cidadeServer : cidadeVar,
+                estadoServer : estadoVar,
+                numeroEmpresaServer:   numeroEmpresaVar,
+                nomeServer:            nomeVar,
+                cpfServer:             cpfVar,
+                telefoneServer:        telefoneVar,
+                emailServer:           emailVar,
+                senhaServer:           senhaVar,
+                confSenhaServer:       confSenhaVar
+            }),
+        })
+        .then(async function (resposta) {
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Cadastro realizado com sucesso!',
+                    confirmButtonText: 'OK'
+                }).then(() => {
+                    window.location = "login.html"; 
+                });
+            } else if (resposta.status === 409) {
+                // Erro de duplicidade
+                const mensagemErro = await resposta.text();
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erro de duplicidade',
+                    text: mensagemErro,
+                    confirmButtonText: 'OK'
+                });
+                window.location = "cadastro-empresa-respo.html";
+            } else {
+                throw new Error("Houve um erro ao tentar realizar o cadastro.");
+                Swal.fire("Atenção", "Houve um erro ao tentar realizar o cadastro", "error");
+            }
+        })
+        .catch(function (erro) {
+            console.error(`#ERRO: ${erro.message}`);
+            Swal.fire({
+                icon: 'error',
+                title: 'Erro inesperado',
+                text: "Ocorreu um erro inesperado. Por favor, tente novamente mais tarde.",
+                confirmButtonText: 'OK'
+            });
+        });
+    }
+}
+
+
+</script>
