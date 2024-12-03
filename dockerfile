@@ -17,7 +17,7 @@ COPY . .
 WORKDIR /app/web-data-viz
 
 # Exponha a porta que o aplicativo utiliza
-EXPOSE 3333
+EXPOSE 8080
 
 # Comando de inicialização
 CMD ["npm", "start"]
