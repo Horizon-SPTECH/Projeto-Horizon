@@ -11,7 +11,7 @@
     <script src="js/block-screan.js"></script>
 </head>
 
-<body onload="inicializarPagina(),acessar()">
+<body>
     <div class="background">
 
         <div class="container">
@@ -198,10 +198,12 @@
                         </div>
                         <div class="cgk-grafico-IA-texto">
                             <div class="sair-IA">
-                                <div style="font-size: 30px; margin-right: 12%;" class="arrow" id="arrow-left" onclick="mudarTexto(-1)">&lt;</div>
+                                <div style="font-size: 30px; margin-right: 12%;" class="arrow" id="arrow-left"
+                                    onclick="mudarTexto(-1)">&lt;</div>
 
                                 <h1>Recomendação</h1>
-                                <div style="font-size: 30px;  margin-left: 8%;" class="arrow" id="arrow-right" onclick="mudarTexto(1)">&gt;</div>
+                                <div style="font-size: 30px;  margin-left: 8%;" class="arrow" id="arrow-right"
+                                    onclick="mudarTexto(1)">&gt;</div>
                                 <div class="exit">
                                     <span onclick="voltarCard()">x</span>
                                 </div>
@@ -261,10 +263,10 @@
         menorMunicipioFurtos();
         menorMunicipioFurtosNumeroPorcentagem();
         furtorPor1kilometro(),
-        objetosRoubados(),
-        fetchNumeroFurtosPorDiaSemana(),
-        fetchMesesComMaisFurto(),
-        fetchRecomendacoes()
+            objetosRoubados(),
+            fetchNumeroFurtosPorDiaSemana(),
+            fetchMesesComMaisFurto(),
+            fetchRecomendacoes()
     }
 
     let textosRecomendacao = [];
@@ -275,10 +277,10 @@
             if (response.ok) {
                 response.json().then(function (resposta) {
                     console.log(`Dados recebidos das resposta: ${JSON.stringify(resposta)}`);
-                    
+
                     recomendacoes = resposta;  // Armazena as recomendações em um array
                     const textIA = document.querySelector(".text-IA");
-    
+
                     if (recomendacoes.length > 0) {
                         textIA.innerHTML = recomendacoes[indiceAtual].mensagem;
                     } else {
@@ -296,18 +298,18 @@
 
     function mudarTexto(direcao) {
         const textIA = document.querySelector(".text-IA");
-    
+
         indiceAtual += direcao;
-    
+
         if (indiceAtual < 0) {
             indiceAtual = 0;  // Impede que o índice seja negativo
         } else if (indiceAtual >= recomendacoes.length) {
             indiceAtual = recomendacoes.length - 1;  // Impede que o índice ultrapasse o último item
         }
-    
+
         textIA.innerHTML = recomendacoes[indiceAtual].mensagem;
     }
-    
+
     fetchRecomendacoes();
 
     function maiorMunicipioFurtos() {
@@ -631,17 +633,20 @@
 
     // Criar o mapa Leaflet focado no Espírito Santo
     var map = L.map('map', {
-        maxBounds: bounds,
+        maxBounds: bounds,       // Define os limites máximos
         minZoom: 4.5,
         maxZoom: 8,
-        zoomSnap: 0.5
+        zoomSnap: 0.5,
+        maxBoundsViscosity: 1.0  // Evita que o mapa saia dos limites
     }).fitBounds(bounds);
 
     // Adicionar o fundo branco para as áreas fora do Espírito Santo
     L.rectangle([[-90, -180], [90, 180]], { color: "#ffffff", weight: 0, fillOpacity: 1 }).addTo(map);
 
-    // Adicionar o mapa base do OpenStreetMap
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+    // Adicionar o mapa base do OpenStreetMap com `noWrap: true`
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        noWrap: true // Impede que o mapa seja repetido fora dos limites definidos
+    }).addTo(map);
 
     // Função para carregar os dados de furtos
     function carregarDadosFurtos() {
@@ -652,7 +657,6 @@
                 data.forEach(municipio => {
                     furtosPorMunicipio[municipio.municipio] = municipio.porcentagem_furtos;
                 });
-                //console.log(furtosPorMunicipio);
                 return furtosPorMunicipio;
             });
     }
@@ -662,16 +666,9 @@
             .then(response => response.json())
             .then(resposta => {
                 if (resposta.length > 0) {
-
-                    const parametro1 = document.querySelector('.indicadorRazoavel');
-                    parametro1.innerHTML = `Razoável - até ${resposta[0].limite_baixo}%`
-
-                    const parametro2 = document.querySelector('.indicadorAlerta');
-                    parametro2.innerHTML = `Alerta - até ${resposta[0].limite_ok}%`
-
-                    const parametro3 = document.querySelector('.indicadorCritico');
-                    parametro3.innerHTML = `Crítico - maior que ${resposta[0].limite_ok}%`
-
+                    document.querySelector('.indicadorRazoavel').innerHTML = `Razoável - até ${resposta[0].limite_baixo}%`;
+                    document.querySelector('.indicadorAlerta').innerHTML = `Alerta - até ${resposta[0].limite_ok}%`;
+                    document.querySelector('.indicadorCritico').innerHTML = `Crítico - maior que ${resposta[0].limite_ok}%`;
                     return resposta[0];
                 }
                 throw new Error('Parâmetros não encontrados');
@@ -684,20 +681,12 @@
         carregarParametro(),
         fetch('../ES_Municipios_2022.json').then(response => response.json())
     ])
-
         .then(([furtosPorMunicipio, parametros, geoJsonData]) => {
-            console.log(parametros.limite_alto);
-            console.log(parametros.limite_ok);
-            console.log(parametros.limite_baixo);
-            // Adicionar o GeoJSON ao mapa com base nos parâmetros
             L.geoJSON(geoJsonData, {
                 style: function (feature) {
-                    var municipioGeoJson = feature.properties.NM_MUN.toUpperCase().trim(); // Nome no GeoJSON
-                    var porcentagemFurtos = furtosPorMunicipio[municipioGeoJson] || 0; // Porcentagem de furtos do município ou 0
+                    var municipioGeoJson = feature.properties.NM_MUN.toUpperCase().trim();
+                    var porcentagemFurtos = furtosPorMunicipio[municipioGeoJson] || 0;
 
-
-
-                    // Definir as cores com base nos parâmetros
                     if (porcentagemFurtos >= parametros.limite_ok) {
                         return { fillColor: 'red', color: 'blue', weight: 1, fillOpacity: 0.7 };
                     } else if (porcentagemFurtos > parametros.limite_baixo && porcentagemFurtos <= parametros.limite_ok) {
@@ -713,7 +702,6 @@
                             var municipioGeoJson = feature.properties.NM_MUN.toUpperCase().trim();
                             var porcentagemFurtos = furtosPorMunicipio[municipioGeoJson] || 0;
 
-                            // Mostrar a porcentagem de furtos no popup
                             var popupContent = `<b>${feature.properties.NM_MUN}</b><br>Porcentagem de furto: ${porcentagemFurtos}`;
                             layer.bindPopup(popupContent).openPopup();
                         }
@@ -724,4 +712,5 @@
         .catch(error => {
             console.error(`Erro na configuração do mapa: ${error.message}`);
         });
+
 </script>

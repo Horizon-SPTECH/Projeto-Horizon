@@ -344,118 +344,118 @@
         });
     });
 
-    function alertCriarParametro(){
+    function alertCriarParametro() {
         document.addEventListener("DOMContentLoaded", () => {
-        const toggleCriarParametro = document.getElementById("toggle-criar-parametro");
+            const toggleCriarParametro = document.getElementById("toggle-criar-parametro");
 
-        if (toggleCriarParametro) {
-            const Toast = Swal.mixin({
-                toast: true,
-                position: "top-end",
-                showConfirmButton: false,
-                timer: 3000,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                    toast.onmouseenter = Swal.stopTimer;
-                    toast.onmouseleave = Swal.resumeTimer;
-                }
-            });
-
-            toggleCriarParametro.addEventListener("click", () => {
-                Toast.fire({
-                    icon: "success",
-                    title: "Cadastrado com sucesso"
+            if (toggleCriarParametro) {
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: "top-end",
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.onmouseenter = Swal.stopTimer;
+                        toast.onmouseleave = Swal.resumeTimer;
+                    }
                 });
-            });
-        }
-    });
+
+                toggleCriarParametro.addEventListener("click", () => {
+                    Toast.fire({
+                        icon: "success",
+                        title: "Cadastrado com sucesso"
+                    });
+                });
+            }
+        });
     }
-    
+
 
 </script>
 
 
 <script>
 
-function atualizarParametro() {
-    const idEmpresa = sessionStorage.getItem("ID_EMPRESA");
-    const limiteBaixo = document.getElementById('limiteBaixo').value;
-    const limiteOk = document.getElementById('limiteOk').value;
+    function atualizarParametro() {
+        const idEmpresa = sessionStorage.getItem("ID_EMPRESA");
+        const limiteBaixo = document.getElementById('limiteBaixo').value;
+        const limiteOk = document.getElementById('limiteOk').value;
 
-    // Função de validação para garantir números de 1 a 2 dígitos
-    function validarEntrada(valor) {
-        const regex = /^[0-9]{1,2}$/; // Apenas números de 1 ou 2 dígitos
-        return regex.test(valor);
-    }
+        // Função de validação para garantir números de 1 a 2 dígitos
+        function validarEntrada(valor) {
+            const regex = /^[0-9]{1,2}$/; // Apenas números de 1 ou 2 dígitos
+            return regex.test(valor);
+        }
 
-    // Verificar se os campos são válidos
-    if (!validarEntrada(limiteBaixo) || !validarEntrada(limiteOk)) {
-        Swal.fire({
-            icon: 'error',
-            title: 'Entrada Inválida!',
-            text: 'Certifique-se de que os campos contenham apenas números de até 2 dígitos e não estejam vazios.',
-            confirmButtonText: 'Ok'
-        });
-        return;
-    }
+        // Verificar se os campos são válidos
+        if (!validarEntrada(limiteBaixo) || !validarEntrada(limiteOk)) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Entrada Inválida!',
+                text: 'Certifique-se de que os campos contenham apenas números de até 2 dígitos e não estejam vazios.',
+                confirmButtonText: 'Ok'
+            });
+            return;
+        }
 
-    // Verificar se limiteBaixo é menor que limiteOk e que os dois não sejam iguais
-    if (parseInt(limiteBaixo) >= parseInt(limiteOk)) {
-        Swal.fire({
-            icon: 'error',
-            title: 'Configuração Inválida!',
-            text: 'O valor do Limite Baixo deve ser menor que o Limite Ok, e os dois valores não podem ser iguais.',
-            confirmButtonText: 'Ok'
-        });
-        return;
-    }
+        // Verificar se limiteBaixo é menor que limiteOk e que os dois não sejam iguais
+        if (parseInt(limiteBaixo) >= parseInt(limiteOk)) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Configuração Inválida!',
+                text: 'O valor do Limite Baixo deve ser menor que o Limite Ok, e os dois valores não podem ser iguais.',
+                confirmButtonText: 'Ok'
+            });
+            return;
+        }
 
-    fetch('/parametros/atualizarParametro', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            id_empresa: idEmpresa,
-            limite_baixo: limiteBaixo,
-            limite_ok: limiteOk,
-        }),
-    })
-        .then(response => {
-            if (response.ok) {
-                return response.json();
-            } else {
-                throw new Error('Erro ao atualizar parâmetro');
-            }
+        fetch('/parametros/atualizarParametro', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                id_empresa: idEmpresa,
+                limite_baixo: limiteBaixo,
+                limite_ok: limiteOk,
+            }),
         })
-        .then(data => {
-            console.log('Parâmetros atualizados com sucesso:', data);
-
-            // Exibir alerta de sucesso ao criar parâmetro
-            const Toast = Swal.mixin({
-                toast: true,
-                position: "top-end",
-                showConfirmButton: false,
-                timer: 3000,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                    toast.onmouseenter = Swal.stopTimer;
-                    toast.onmouseleave = Swal.resumeTimer;
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Erro ao atualizar parâmetro');
                 }
-            });
+            })
+            .then(data => {
+                console.log('Parâmetros atualizados com sucesso:', data);
 
-            Toast.fire({
-                icon: "success",
-                title: "Cadastrado com sucesso"
-            });
+                // Exibir alerta de sucesso ao criar parâmetro
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: "top-end",
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.onmouseenter = Swal.stopTimer;
+                        toast.onmouseleave = Swal.resumeTimer;
+                    }
+                });
 
-            atualizarPagina(); // Atualizar a página
-            mostrarParametro(); // Recarregar os parâmetros
-        })
-        .catch(error => {
-            console.error('Erro ao atualizar parâmetros:', error);
-        });
-}
+                Toast.fire({
+                    icon: "success",
+                    title: "Cadastrado com sucesso"
+                });
+
+                atualizarPagina(); // Atualizar a página
+                mostrarParametro(); // Recarregar os parâmetros
+            })
+            .catch(error => {
+                console.error('Erro ao atualizar parâmetros:', error);
+            });
+    }
 
 
 
