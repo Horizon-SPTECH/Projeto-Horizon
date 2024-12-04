@@ -233,6 +233,260 @@ label{
     font-size: 1.3rem;
  }
 
+ @media (max-width: 992px) {
+    .container {
+        padding: 15px;
+    }
+
+    .fundo-btn {
+        height: 120px;
+    }
+
+    .fundo-roxo {
+        width: 30%;
+        height: 70px;
+    }
+
+    .btn-contatar {
+        font-size: 22px;
+        height: 45px;
+    }
+
+    .box-contatar {
+        flex-direction: column;
+        min-height: auto;
+    }
+
+    .contato-logo, .contatar {
+        width: 100%;
+        min-height: auto;
+    }
+
+    .contato-logo img {
+        width: 170px;
+        height: 170px;
+    }
+
+    .p-horizon {
+        font-size: 2.7rem;
+        text-align: center;
+    }
+
+    .titulos {
+        height: auto;
+        gap: 7px;
+    }
+
+    .titulo1 {
+        font-size: 2rem;
+    }
+
+    .titulo2 {
+        font-size: 1.7rem;
+    }
+
+    .label-input, .label-input-msg {
+        width: 85%;
+    }
+
+    input, textarea {
+        font-size: 1.3rem;
+        padding: 18px;
+    }
+
+    label {
+        font-size: 1.3rem;
+    }
+
+    .label-input-msg textarea {
+        width: 100%;
+    }
+
+    .btn-enviar {
+        width: 70%;
+        height: 65px;
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+    }
+
+    .fundo-btn {
+        height: 100px;
+    }
+
+    .fundo-roxo {
+        width: 40%;
+        height: 60px;
+    }
+
+    .btn-contatar {
+        font-size: 20px;
+        height: 40px;
+    }
+
+    .box-contatar {
+        flex-direction: column;
+        min-height: auto;
+    }
+
+    .contato-logo, .contatar {
+        width: 100%;
+        min-height: auto;
+    }
+
+    .contato-logo img {
+        width: 150px;
+        height: 150px;
+    }
+
+    .p-horizon {
+        font-size: 2.5rem;
+        text-align: center;
+    }
+
+    .titulos {
+        height: auto;
+        gap: 5px;
+    }
+
+    .titulo1 {
+        font-size: 1.8rem;
+    }
+
+    .titulo2 {
+        font-size: 1.5rem;
+    }
+
+    .label-input, .label-input-msg {
+        width: 90%;
+    }
+
+    input, textarea {
+        font-size: 1.2rem;
+        padding: 15px;
+    }
+
+    label {
+        font-size: 1.2rem;
+    }
+
+    .label-input-msg textarea {
+        width: 100%;
+    }
+
+    .btn-enviar {
+        width: 80%;
+        height: 60px;
+        font-size: 1.8rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .fundo-roxo {
+        width: 50%;
+    }
+
+    .btn-contatar {
+        font-size: 18px;
+    }
+
+    .contato-logo img {
+        width: 120px;
+        height: 120px;
+    }
+
+    .p-horizon {
+        font-size: 2rem;
+    }
+
+    .titulo1 {
+        font-size: 1.5rem;
+    }
+
+    .titulo2 {
+        font-size: 1.2rem;
+    }
+
+    .label-input, .label-input-msg {
+        width: 95%;
+    }
+
+    input, textarea {
+        font-size: 1rem;
+        padding: 12px;
+    }
+
+    label {
+        font-size: 1rem;
+    }
+
+    .btn-enviar {
+        width: 90%;
+        height: 50px;
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 375px) {
+    .fundo-btn {
+        height: 80px;
+    }
+
+    .fundo-roxo {
+        width: 60%;
+    }
+
+    .btn-contatar {
+        font-size: 16px;
+        height: 35px;
+    }
+
+    .contato-logo img {
+        width: 100px;
+        height: 100px;
+    }
+
+    .p-horizon {
+        font-size: 1.8rem;
+    }
+
+    .titulos {
+        gap: 3px;
+    }
+
+    .titulo1 {
+        font-size: 1.3rem;
+    }
+
+    .titulo2 {
+        font-size: 1rem;
+    }
+
+    .label-input, .label-input-msg {
+        width: 100%;
+    }
+
+    input, textarea {
+        font-size: 0.9rem;
+        padding: 10px;
+    }
+
+    label {
+        font-size: 0.9rem;
+        padding-left: 2%;
+    }
+
+    .btn-enviar {
+        width: 100%;
+        height: 45px;
+        font-size: 1.2rem;
+    }
+}
+
 
 /* *{
     margin: 0;
@@ -446,3 +700,4 @@ a:hover{
     }
 
 } */
+
