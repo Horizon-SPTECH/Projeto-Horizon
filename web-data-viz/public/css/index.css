@@ -357,9 +357,7 @@ body {
 }
 
 .cards-equipe {
-
     display: flex;
-    flex-direction: row;
     gap: 29px;
 }
 
@@ -545,8 +543,14 @@ footer{
         text-align: center;
     }
 
+    .navbar-ul {
+        display: flex;
+        gap: 1.5vh;
+    }
+
     .navbar-botoes img {
-        width: 5vw;
+        width: 4.5vw;
+        margin-left: -10px;
     }
 
     .imagens {
@@ -599,8 +603,8 @@ footer{
         gap: 20px;
     }
 
-    .navbar-botoes img {
-        width: 5.5vw;
+    .navbar-botoes img{
+        width: 4vw;
     }
 
     .container {
@@ -659,13 +663,38 @@ footer{
 
 @media only screen and (max-width : 768px) {
 
+    .horizon{
+        margin-top: -80px;
+    }
+
     .content {
         width: 101%;
     }
 
+    .navbar-botoes img{
+        width: 5vw;
+    }
+
+    .imagens {
+    display: flex;
+    max-width: 300px;
+  }
+
+  .texto-inicio{
+    padding: 50px;
+  }
+
 }
 
 @media only screen and (max-width : 600px) {
+
+    .horizon{
+        margin-top: -80px;
+    }
+
+    .navbar-botoes img {
+        margin-left: 2px;
+    }
 
     .navbar img {
         width: 30px;
@@ -701,10 +730,10 @@ footer{
     }
 
     .sobreNos img {
-        margin-left: -25px;
+        margin-left: 31px;
         height: fit-content;
         width: 200px;
-        margin-top: 140px;
+        margin-top: 346px;
   
 
     }
@@ -762,6 +791,13 @@ footer{
 
 @media only screen and (max-width : 480px) {
 
+    .navbar-botoes img {
+        margin-left: 10px;
+    }
+
+    .horizon{
+        margin-top: -80px;
+    }
     .sobreNos {
         display: flex;
         flex-direction: column;
@@ -771,6 +807,10 @@ footer{
     .texto {
         margin-left: -200px;
         font-size: 25px;
+    }
+
+    .cards-valores{
+        margin-left: -60px;
     }
 
     .content_info_text span {
@@ -792,8 +832,42 @@ footer{
 
 }
 
+@media only screen and (max-width : 428px){
 
-@media only screen and (max-width : 480px) {
+    .cards-valores{
+        margin-left: -140px;
+    }
+
+    .cards-equipe{
+        margin-left: -95px;
+    }
+
+    .content_img_text span{
+        font-size: 12px;
+    }
+
+}
+
+@media only screen and (max-width : 375px) {
+
+    .navbar{
+        width: 98vw;
+        font-size: 2px;
+       
+    }
+
+    .navbar-ul{
+        gap: 1vh;
+    }
+
+    .navbar img{ 
+        margin-left: 5px;
+    }
+
+    .horizon{
+        margin-top: -80px;
+    }
+
     .card {
         margin-left: -170px;
     }
@@ -826,8 +900,18 @@ footer{
     }
 
     .navbar-cadastro button{
-        font-size: 15px;
+        font-size: 12px;
         padding: 2px;
         font-weight: bold;
     }
+
+    .content_img_text span {
+        font-size: 12px;
+    }
+
+    .cards-valores{
+        margin-left: 0px;
+    }
+
+    
 }

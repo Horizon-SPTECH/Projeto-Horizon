@@ -72,5 +72,9 @@ router.get("/parametrosEmpresa/:idEMpresa", function(req, res){
   dashboardController.parametrosEmpresa(req, res);
 });
 
+router.get("/recomendacaoGerada", function(req, res){
+  dashboardController.recomendacaoGerada(req, res);
+});
+
 
 module.exports = router;

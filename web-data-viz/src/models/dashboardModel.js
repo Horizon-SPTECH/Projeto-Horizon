@@ -1,5 +1,16 @@
 var database = require("../database/config");
 
+function recomendacaoGerada() {
+    var instrucaoSql = `
+                       SELECT mensagem
+                        FROM recomendacao
+                        ORDER BY data_hora DESC 
+                        LIMIT 3;
+  `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+  }
+
 function listartMunicipios() {
   var instrucaoSql = `
                       SELECT 
@@ -397,5 +408,6 @@ module.exports = {
   furtosIndi,
   objetosMaisRoubadosIndi,
   porcentualFurtos,
-  parametrosEmpresa
+  parametrosEmpresa,
+  recomendacaoGerada
   };

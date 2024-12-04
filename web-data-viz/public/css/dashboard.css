@@ -345,6 +345,7 @@
     border-radius: 10px;
 }
 
+
 .cgk-grafico-IA {
     width: 25vw;
     height: 100%;
@@ -359,9 +360,11 @@
 .cgk-grafico-IA-texto {
     display: none;
     align-items: center;
-    justify-content: center;
+    justify-content: start;
     flex-direction: column;
     width: 85%;
+    height: 100%;
+  
 }
 
 .cgk-grafico-IA-texto h1 {
@@ -498,18 +501,42 @@ table.dataTable > tbody > tr > td{
     justify-content: flex-end;
     align-items: center;
     flex-wrap: nowrap;
+    position: sticky; /* Fixa o elemento dentro do scroll */
+    top: 0; /* Fixa no topo do contêiner */
+    z-index: 10; /* Garante que fique acima do conteúdo com scroll */
+    border-bottom: 1px solid #ddd; /* Linha divisória para separação visual */
 }
 .exit{
     width: 37%;
     height: 65px;
     display: flex;
     flex-direction: row;
-    justify-content: flex-end;
+    justify-content: center;
     flex-wrap: nowrap;
-    align-items: flex-start;
+    align-items: center;
 }
 .sair-IA span{
-    color: red;
-    font-size: 30px;
+    color: #23005B;
+    font-size: 25px;
+    cursor: pointer;
+    border: 2px solid #23005B;
+    border-radius: 11px;
+    width: 25%;
+    text-align: center;
+    height: 48%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.text-IA{
+    height: 69%;
+    overflow-y: auto; 
+    position: relative;
+    scrollbar-width: thin;
+    scrollbar-color: #23005B transparent;
+}
+
+.arrow{
     cursor: pointer;
 }
