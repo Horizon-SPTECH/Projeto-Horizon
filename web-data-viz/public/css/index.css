@@ -153,6 +153,7 @@ body {
         height: 50px;
         flex-direction: row;
     }
+   
 
 
 
@@ -791,6 +792,11 @@ footer{
 
 @media only screen and (max-width : 480px) {
 
+    .content_img img{
+        height: 100px;
+        width: 100px;
+    }
+
     .navbar-botoes img {
         margin-left: 10px;
     }
@@ -819,15 +825,17 @@ footer{
     }
 
     .container-solucoes {
-        margin-left: -100px;
+        margin-left: -140px;
     }
 
     .content_info_text h1 {
         font-size: 18px;
+        padding-left: 128px;
     }
 
     .content_img_text span {
         font-size: 14px;
+        padding-right: 113px;
     }
 
 }
