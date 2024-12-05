@@ -163,7 +163,7 @@ body {
     }
 
     #navbar-id a {
-        font-size: 15px;
+        font-size: 12px;
     }
 
     .navbar-cadastro button {
@@ -722,6 +722,7 @@ footer{
 
     .navbar-cadastro button {
         width: 15vw;
+        font-size: 12px;
     }
 
     .container {
